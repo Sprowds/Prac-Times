@@ -1,0 +1,16 @@
+:root {
+  --main-text-color: #333333;
+  --main-background-color: #fff;
+  --link-active-color: #ef3124;
+}
+
+body {
+  color: var(--main-text-color);
+  background-color: var(--main-background-color);
+}
+
+.container {
+  max-width: 1460px;
+  padding: 0 10px;
+  margin: 0 auto;
+}

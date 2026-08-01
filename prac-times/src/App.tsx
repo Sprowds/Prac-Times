@@ -1,0 +1,22 @@
+import { BrowserRouter, Route, Routes } from "react-router";
+import "./styles/App.css";
+import "./styles/reset.css";
+import "./styles/fonts/fonts.css";
+import Layout from "./components/Layout/Layout";
+import MainPage from "./pages/MainPage/MainPage";
+import NotFoundPage from "./pages/NotFoundPage/NotFoundPage";
+
+function App() {
+  return (
+    <BrowserRouter>
+      <Routes>
+        <Route element={<Layout />}>
+          <Route index element={<MainPage />} />
+          <Route path="*" element={<NotFoundPage />} />
+        </Route>
+      </Routes>
+    </BrowserRouter>
+  );
+}
+
+export default App;

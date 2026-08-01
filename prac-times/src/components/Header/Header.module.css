@@ -1,0 +1,28 @@
+.header {
+  padding-top: 8px;
+}
+
+.header__inner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo_img {
+}
+
+.header__nav {
+}
+
+.list {
+  display: flex;
+  gap: 32px;
+}
+
+.item__link {
+  font-size: 20px;
+}
+
+.active {
+  color: var(--link-active-color);
+}
