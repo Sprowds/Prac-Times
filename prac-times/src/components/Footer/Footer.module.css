@@ -5,9 +5,21 @@
 }
 
 .footer__inner {
+  position: relative;
   display: flex;
   justify-content: space-between;
   align-items: center;
+}
+
+.footer__inner::before {
+  content: "";
+  position: absolute;
+  top: -16px;
+
+  width: 100%;
+  height: 1px;
+
+  background-color: var(--secondary-text-color);
 }
 
 .nav__list {
