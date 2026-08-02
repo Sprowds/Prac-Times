@@ -1,8 +1,6 @@
-:root {
-  --main-text-color: #333333;
-  --main-background-color: #fff;
-  --link-active-color: #ef3124;
-}
+@import "./reset.css";
+@import "./fonts/fonts.css";
+@import "./colors.css";
 
 body {
   color: var(--main-text-color);
@@ -10,7 +8,7 @@ body {
 }
 
 .container {
-  max-width: 1460px;
+  max-width: 1238px;
   padding: 0 10px;
   margin: 0 auto;
 }

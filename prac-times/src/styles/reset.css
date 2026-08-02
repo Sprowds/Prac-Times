@@ -8,6 +8,10 @@ html {
   box-sizing: inherit;
 }
 
+* {
+  transition: 0.2s;
+}
+
 body,
 h1,
 h2,
@@ -46,7 +50,6 @@ select {
 }
 
 @media (favors-reduced-motion: reduce) {
-
   *,
   * ::before,
   * ::after {

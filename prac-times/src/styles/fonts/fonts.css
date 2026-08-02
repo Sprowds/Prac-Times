@@ -39,3 +39,7 @@
   font-weight: 100 900;
   font-style: normal;
 }
+
+:root {
+  --gilroy-font: "Gilroy", sans-serif;
+}
