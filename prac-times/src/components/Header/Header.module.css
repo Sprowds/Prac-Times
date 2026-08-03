@@ -13,13 +13,28 @@
 }
 
 .logo {
+  display: flex;
+  align-items: end;
+  gap: 4px;
 }
 
-.logo_img {
-}
-
-.logo_img:hover {
+.logo:hover {
   transform: scale(1.05);
+}
+
+.logo__rectangle {
+  display: inline-block;
+  width: 35px;
+  height: 56px;
+  border: 5px solid var(--activity-main-color);
+}
+
+.logo__title {
+  font-family: var(--inter-font);
+  font-size: 20px;
+  text-transform: uppercase;
+  font-weight: 900;
+  line-height: 1;
 }
 
 .header__nav {

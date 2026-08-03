@@ -1,5 +1,4 @@
 import { NavLink } from "react-router";
-import logo from "../../assets/img/logo.svg";
 import styles from "./Header.module.css";
 import searchIcon from "../../assets/img/search-icon.svg";
 import Navigation from "../Navigation/Navigation";
@@ -10,7 +9,12 @@ const Header = () => {
       <div className="container">
         <div className={styles.header__inner}>
           <NavLink to="/" className={styles.logo}>
-            <img src={logo} alt="Logo image" className={styles.logo_img} />
+            <span className={styles.logo__rectangle}></span>
+            <h2 className={styles.logo__title}>
+              Prac
+              <br />
+              Times
+            </h2>
           </NavLink>
           <div className={styles.header__nav}>
             <Navigation listClass={styles.nav__list} />
