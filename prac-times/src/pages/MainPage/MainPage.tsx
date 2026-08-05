@@ -1,21 +1,13 @@
-import cl from "./MainPage.module.css";
-import getNewsList from "../../utils/getNewsList";
+import styles from "./MainPage.module.css";
 
 const MainPage = () => {
-  interface INewsItem {
-    id: string;
-    title: string;
-    text: string;
-    time: Date;
-    image: string;
-  }
-  const newsList: Promise<INewsItem[]> = getNewsList();
-
   return (
-    <main className={cl.main}>
-      {newsList.then((data) => {
-        data.map((item) => <div></div>);
-      })}
+    <main className={styles.main}>
+      <div className="container">
+        <div className={styles.main__inner}>
+          <div className={styles.content}></div>
+        </div>
+      </div>
     </main>
   );
 };
