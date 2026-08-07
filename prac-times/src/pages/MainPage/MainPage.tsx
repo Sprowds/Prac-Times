@@ -1,3 +1,4 @@
+import News from "../../components/News/News";
 import styles from "./MainPage.module.css";
 
 const MainPage = () => {
@@ -5,7 +6,9 @@ const MainPage = () => {
     <main className={styles.main}>
       <div className="container">
         <div className={styles.main__inner}>
-          <div className={styles.content}></div>
+          <div className={styles.top__content}>
+            <News />
+          </div>
         </div>
       </div>
     </main>
