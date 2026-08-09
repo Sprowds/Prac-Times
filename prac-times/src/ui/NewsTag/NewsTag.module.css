@@ -1,0 +1,9 @@
+.tag {
+  font-family: var(--inter-font);
+  color: var(--activity-main-color);
+  font-weight: 400;
+}
+
+.tag:hover {
+  color: var(--activity-hover-color);
+}

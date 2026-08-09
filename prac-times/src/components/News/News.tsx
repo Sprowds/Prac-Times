@@ -6,6 +6,9 @@ import { fetchNews } from "../../store/newsSlice";
 import { useAppDispatch } from "../../hooks/useAppDispatch";
 import type INewsItem from "../../types/newsItem";
 import { NavLink } from "react-router";
+import NewsTitle from "../../ui/NewsTitle/NewsTitle";
+import NewsTag from "../../ui/NewsTag/NewsTag";
+import NewsTime from "../../ui/NewsTime/NewsTime";
 
 const News = () => {
   const dispatch = useAppDispatch();
@@ -46,19 +49,19 @@ const News = () => {
             <ul className={styles.main__news__tags}>
               {mainNewsItem.tags.map((tag) => (
                 <li className={styles.main__news__tags__item} key={tag}>
-                  #{tag}
+                  <NavLink to="/" className={styles.main__news__tags__link}>
+                    <NewsTag tagText={tag} tagFontSize="14px" />
+                  </NavLink>
                 </li>
               ))}
             </ul>
             <NavLink to="/" className={styles.main__news__link}>
-              <h3 className={styles.main__news__title}>{mainNewsItem.title}</h3>
+              <NewsTitle
+                titleText={mainNewsItem.title}
+                titleFontSize="clamp(22px, 3vw, 48px)"
+              />
             </NavLink>
-            <time
-              className={styles.main__news__time}
-              dateTime={mainNewsItem.time}
-            >
-              {new Date(mainNewsItem.time).toLocaleDateString()}
-            </time>
+            <NewsTime dateTime={mainNewsItem.time} />
           </article>
         ) : (
           ""
@@ -72,12 +75,7 @@ const News = () => {
               <NavLink to="/" className={styles.another__item__link}>
                 <p className={styles.another__item__tag}>{item.tags[0]}</p>
                 <p className={styles.another__item__title}>{item.title}</p>
-                <time
-                  dateTime={item.time}
-                  className={styles.another__item__time}
-                >
-                  {new Date(item.time).toLocaleDateString()}
-                </time>
+                <NewsTime dateTime={item.time} />
               </NavLink>
             </li>
           ))}

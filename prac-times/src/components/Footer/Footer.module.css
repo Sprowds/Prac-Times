@@ -88,3 +88,25 @@
 .social__img {
   width: 70%;
 }
+
+@media (max-width: 880px) {
+  .footer__inner {
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .nav__list {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  .social__wrapper {
+    align-items: center;
+  }
+}
+
+@media (max-width: 600px) {
+  .nav__list {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}

@@ -1,0 +1,5 @@
+.time {
+  font-family: var(--font-roboto);
+  color: var(--main-text-color);
+  font-size: 14px;
+}
