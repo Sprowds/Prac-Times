@@ -7,7 +7,8 @@ import { useState } from "react";
 const Header = () => {
   const [isMenuActive, setIsMenuActive] = useState(false);
   function toggleMenuActive() {
-    isMenuActive ? setIsMenuActive(false) : setIsMenuActive(true);
+    if (isMenuActive) setIsMenuActive(false);
+    else setIsMenuActive(true);
   }
 
   return (

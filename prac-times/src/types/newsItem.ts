@@ -1,10 +1,29 @@
+export interface INewsCategory {
+  world: boolean;
+  business: boolean;
+  politic: boolean;
+}
+
+export interface INewsType {
+  main: boolean;
+  exclusive: boolean;
+  interview: boolean;
+  story: boolean;
+  podcast: boolean;
+}
+
 export default interface INewsItem {
   id: string;
   title: string;
   text: string;
-  tags: string[];
-  exclusive: boolean;
-  main: boolean;
+  //-----------------
+  // tags: string[];
+  category: INewsCategory;
+  //-----------------
+  // exclusive: boolean;
+  // main: boolean;
+  type: INewsType;
+  //-----------------
   time: string;
   image: string;
 }
