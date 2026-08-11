@@ -70,6 +70,10 @@
   font-weight: 700;
 }
 
+.another__item__tag::first-letter {
+  text-transform: uppercase;
+}
+
 .another__item__title {
   color: var(--secondary-text-color);
   font-size: 16px;

@@ -4,6 +4,14 @@
   font-weight: 400;
 }
 
+.tag span {
+  display: inline-block;
+}
+
+.tag span::first-letter {
+  text-transform: uppercase;
+}
+
 .tag:hover {
   color: var(--activity-hover-color);
 }

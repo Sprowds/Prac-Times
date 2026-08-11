@@ -5,15 +5,28 @@ import { NavLink } from "react-router";
 import NewsTitle from "../../ui/NewsTitle/NewsTitle";
 import NewsTag from "../../ui/NewsTag/NewsTag";
 import NewsTime from "../../ui/NewsTime/NewsTime";
+import { useAppDispatch } from "../../hooks/useAppDispatch";
+import { useEffect } from "react";
+import { fetchNews } from "../../store/newsSlice";
 
 const Exclusives = () => {
-  const newsList = useSelector((state: RootState) => state.newsReducer);
-  const exclusivesList = newsList.data.slice(0, 4);
+  const dispatch = useAppDispatch();
+  useEffect(() => {
+    dispatch(fetchNews("exclusive"));
+  }, [dispatch]);
+  const newsFetchStatus = useSelector(
+    (state: RootState) => state.newsReducer.status,
+  );
+
+  const exclusivesList = useSelector(
+    (state: RootState) => state.newsReducer.data.exclusive,
+  );
+
   return (
     <section className={styles.exclusives}>
       <h2 className={styles.exclusives__title}>Эксклюзив</h2>
       <ul className={styles.exclusives__grid}>
-        {newsList.status === "succeeded"
+        {newsFetchStatus === "succeeded"
           ? exclusivesList.map((item) => (
               <li className={styles.exclusives__item} key={item.title}>
                 <img
@@ -23,13 +36,17 @@ const Exclusives = () => {
                 />
                 <div className={styles.item__text__content}>
                   <ul className={styles.item__tags}>
-                    {item.tags.map((tag) => (
-                      <li className={styles.item__tags__item} key={tag}>
-                        <NavLink to="/" className={styles.tags__item__link}>
-                          <NewsTag tagText={tag} tagFontSize="16px" />
-                        </NavLink>
-                      </li>
-                    ))}
+                    {Object.entries(item.category).map(([key, value]) =>
+                      value === true ? (
+                        <li className={styles.item__tags__item} key={key}>
+                          <NavLink to="/" className={styles.tags__item__link}>
+                            <NewsTag tagText={key} tagFontSize="16px" />
+                          </NavLink>
+                        </li>
+                      ) : (
+                        ""
+                      ),
+                    )}
                   </ul>
                   <NavLink to="/" className={styles.item__title__link}>
                     <NewsTitle
