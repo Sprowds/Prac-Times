@@ -2,39 +2,34 @@ import styles from "./News.module.css";
 import type { RootState } from "../../store/store";
 import { useSelector } from "react-redux";
 import { useEffect } from "react";
-import { fetchNews } from "../../store/newsSlice";
+import { fetchMainNewsItem } from "../../store/newsSlice";
 import { useAppDispatch } from "../../hooks/useAppDispatch";
 import type INewsItem from "../../types/newsItem";
 import { NavLink } from "react-router";
 import NewsTitle from "../../ui/NewsTitle/NewsTitle";
 import NewsTag from "../../ui/NewsTag/NewsTag";
 import NewsTime from "../../ui/NewsTime/NewsTime";
-import type { INewsCategory } from "../../types/newsItem";
+import AnotherNews from "../AnotherNews/AnotherNews";
 
 const News = () => {
   const dispatch = useAppDispatch();
   useEffect(() => {
-    dispatch(fetchNews("main"));
-    dispatch(fetchNews("another"));
+    dispatch(fetchMainNewsItem());
   }, [dispatch]);
 
-  const newsFetchStatus = useSelector(
-    (state: RootState) => state.newsReducer.status,
+  const mainNewsItemFetchStatus = useSelector(
+    (state: RootState) => state.newsReducer.status.main,
   );
 
   const mainNewsItem: INewsItem = useSelector(
     (state: RootState) => state.newsReducer.data.main[0],
   );
 
-  const anotherNews: INewsItem[] = useSelector(
-    (state: RootState) => state.newsReducer.data.another,
-  );
-
   return (
     <section className={styles.news}>
       <div className={styles.news__main}>
         <h2 className={styles.title}>Главные новости</h2>
-        {newsFetchStatus === "succeeded" ? (
+        {mainNewsItemFetchStatus === "succeeded" ? (
           <article className={styles.main__news}>
             <img
               src={mainNewsItem.image}
@@ -66,30 +61,7 @@ const News = () => {
           ""
         )}
       </div>
-
-      <aside className={styles.news__another}>
-        <h2 className={styles.title}>Другие новости</h2>
-        {newsFetchStatus === "succeeded" ? (
-          <ul className={styles.another__content}>
-            {anotherNews.map((item) => (
-              <li className={styles.another__item} key={item.id}>
-                <NavLink to="/" className={styles.another__item__link}>
-                  <p className={styles.another__item__tag}>
-                    {Object.keys(item.category).find(
-                      (key) =>
-                        item.category[key as keyof INewsCategory] === true,
-                    )}
-                  </p>
-                  <p className={styles.another__item__title}>{item.title}</p>
-                  <NewsTime dateTime={item.time} />
-                </NavLink>
-              </li>
-            ))}
-          </ul>
-        ) : (
-          <></>
-        )}
-      </aside>
+      <AnotherNews />
     </section>
   );
 };

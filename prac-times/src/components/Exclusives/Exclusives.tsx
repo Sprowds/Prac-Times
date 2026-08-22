@@ -7,15 +7,16 @@ import NewsTag from "../../ui/NewsTag/NewsTag";
 import NewsTime from "../../ui/NewsTime/NewsTime";
 import { useAppDispatch } from "../../hooks/useAppDispatch";
 import { useEffect } from "react";
-import { fetchNews } from "../../store/newsSlice";
+import { fetchExclusiveNews } from "../../store/newsSlice";
 
 const Exclusives = () => {
   const dispatch = useAppDispatch();
   useEffect(() => {
-    dispatch(fetchNews("exclusive"));
+    dispatch(fetchExclusiveNews());
   }, [dispatch]);
-  const newsFetchStatus = useSelector(
-    (state: RootState) => state.newsReducer.status,
+
+  const exclusiveNewsFetchStatus = useSelector(
+    (state: RootState) => state.newsReducer.status.exclusive,
   );
 
   const exclusivesList = useSelector(
@@ -26,7 +27,7 @@ const Exclusives = () => {
     <section className={styles.exclusives}>
       <h2 className={styles.exclusives__title}>Эксклюзив</h2>
       <ul className={styles.exclusives__grid}>
-        {newsFetchStatus === "succeeded"
+        {exclusiveNewsFetchStatus === "succeeded"
           ? exclusivesList.map((item) => (
               <li className={styles.exclusives__item} key={item.title}>
                 <img

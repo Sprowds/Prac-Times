@@ -16,14 +16,13 @@ export default interface INewsItem {
   id: string;
   title: string;
   text: string;
-  //-----------------
-  // tags: string[];
   category: INewsCategory;
-  //-----------------
-  // exclusive: boolean;
-  // main: boolean;
   type: INewsType;
-  //-----------------
   time: string;
   image: string;
+}
+
+export interface IAllNews {
+  news: INewsItem[];
+  pageCount: number;
 }

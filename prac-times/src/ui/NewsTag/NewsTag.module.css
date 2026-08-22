@@ -11,7 +11,3 @@
 .tag span::first-letter {
   text-transform: uppercase;
 }
-
-.tag:hover {
-  color: var(--activity-hover-color);
-}

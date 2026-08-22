@@ -11,3 +11,9 @@ export interface INewsTagProps {
 export interface INewsTime {
   dateTime: string;
 }
+
+export interface IPagination {
+  countOfPages: number;
+  currentPage: number;
+  editCurrentPage: (pageNumber: number) => void;
+}

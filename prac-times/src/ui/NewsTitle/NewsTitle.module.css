@@ -3,7 +3,3 @@
   font-weight: 600;
   color: var(--secondary-text-color);
 }
-
-.title:hover {
-  color: var(--activity-main-color);
-}

@@ -1,0 +1,33 @@
+.filter {
+  width: 25%;
+
+  font-family: var(--inter-font);
+}
+
+.search__name {
+  display: flex;
+  width: 100%;
+}
+
+.search__name__input {
+  width: 70%;
+
+  font-size: 16px;
+  font-weight: 500;
+}
+
+.search__name__btn {
+  width: 30%;
+  padding: 10px 0;
+  background-color: var(--activity-main-color);
+  border: 1px solid var(--activity-main-color);
+  cursor: pointer;
+
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--activity-text-color);
+}
+
+.search__name__btn:hover {
+  background-color: var(--activity-hover-color);
+}
