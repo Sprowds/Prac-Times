@@ -1,7 +1,11 @@
-import type { INewsTitleProps } from "../../types/componentProps";
 import styles from "./NewsTitle.module.css";
 
-const NewsTitle = ({ titleText, titleFontSize }: INewsTitleProps) => {
+interface IProps {
+  titleText: string;
+  titleFontSize: string;
+}
+
+const NewsTitle = ({ titleText, titleFontSize }: IProps) => {
   return (
     <h3 className={styles.title} style={{ fontSize: titleFontSize }}>
       {titleText}

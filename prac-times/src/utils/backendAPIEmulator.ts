@@ -897,8 +897,6 @@ const newsList: INewsItem[] = [
   },
 ];
 
-const countOfPage: number = Math.ceil(newsList.length / 10);
-
 export function getNewsList(param: string): Promise<INewsItem[]> {
   const result: INewsItem[] = [];
   let timeOut: number = 0;
@@ -946,13 +944,23 @@ export function getNewsList(param: string): Promise<INewsItem[]> {
   });
 }
 
-export function getAllNewsList(page: number): Promise<IAllNews> {
+export function getAllNewsList(params: string): Promise<IAllNews> {
+  const paramsObj = Object.fromEntries(
+    params.split("&").map((item) => {
+      return item.split("=");
+    }),
+  );
+
+  const page = "page" in paramsObj ? Number(paramsObj.page) : 1;
   const result: INewsItem[] = [];
+
+  const countOfPage: number = Math.ceil(newsList.length / 10);
 
   if (page === countOfPage) {
     for (let i = -9 + page * 10; i < newsList.length; i++) {
       result.push(newsList[i]);
     }
+  } else if (page > countOfPage) {
   } else {
     for (let i = -9 + page * 10; i < -9 + page * 10 + 10; i++) {
       result.push(newsList[i]);

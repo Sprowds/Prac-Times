@@ -32,8 +32,8 @@ interface NewsState {
 
 export const fetchAllNews = createAsyncThunk(
   "news/fetchAllNews",
-  async (page: number) => {
-    const result = getAllNewsList(page).then((data) => data);
+  async (params: string) => {
+    const result = getAllNewsList(params).then((data) => data);
     return result;
   },
 );

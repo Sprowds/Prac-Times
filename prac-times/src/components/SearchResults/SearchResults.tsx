@@ -5,23 +5,14 @@ import NewsTag from "../../ui/NewsTag/NewsTag";
 import NewsTime from "../../ui/NewsTime/NewsTime";
 import NewsTitle from "../../ui/NewsTitle/NewsTitle";
 import { NavLink } from "react-router";
-import { useAppDispatch } from "../../hooks/useAppDispatch";
-import { useEffect, useState } from "react";
-import { fetchAllNews } from "../../store/newsSlice";
 import Pagination from "../Pagination/Pagination";
 
-const SearchResults = () => {
-  const dispatch = useAppDispatch();
+interface IProps {
+  searchParams: URLSearchParams;
+  addSearchParams: (key: string, value: string) => void;
+}
 
-  const [currentPage, setCurrentPage] = useState(1);
-  function editCurrentPage(pageNumber: number): void {
-    setCurrentPage(pageNumber);
-  }
-
-  useEffect(() => {
-    dispatch(fetchAllNews(currentPage));
-  }, [currentPage]);
-
+const SearchResults = ({ searchParams, addSearchParams }: IProps) => {
   const allNewsFetchStatus = useSelector(
     (state: RootState) => state.newsReducer.status.all,
   );
@@ -33,7 +24,13 @@ const SearchResults = () => {
   return (
     <div className={styles.result}>
       <h2 className={styles.result__title}>Новости</h2>
-      {allNewsFetchStatus === "succeeded" ? (
+      {allNewsFetchStatus !== "succeeded" ? (
+        ""
+      ) : newsList.news.length === 0 ? (
+        <p className={styles.result__nothing}>
+          По вашему запросу ничего не найдено
+        </p>
+      ) : (
         <>
           <p>Всего страниц: {newsList.pageCount}</p>
           <ul className={styles.result__list}>
@@ -76,15 +73,13 @@ const SearchResults = () => {
           {newsList.pageCount > 1 ? (
             <Pagination
               countOfPages={newsList.pageCount}
-              currentPage={currentPage}
-              editCurrentPage={editCurrentPage}
+              currentPage={Number(searchParams.get("page"))}
+              addSearchParams={addSearchParams}
             />
           ) : (
             ""
           )}
         </>
-      ) : (
-        ""
       )}
     </div>
   );

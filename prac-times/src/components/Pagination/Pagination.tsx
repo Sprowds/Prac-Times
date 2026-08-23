@@ -1,12 +1,13 @@
 import { useState } from "react";
 import styles from "./Pagination.module.css";
-import type { IPagination } from "../../types/componentProps";
 
-const Pagination = ({
-  countOfPages,
-  currentPage,
-  editCurrentPage,
-}: IPagination) => {
+interface IProps {
+  countOfPages: number;
+  currentPage: number;
+  addSearchParams: (key: string, value: string) => void;
+}
+
+const Pagination = ({ countOfPages, currentPage, addSearchParams }: IProps) => {
   const [pageInput, setPageInput] = useState<number>(currentPage);
 
   return (
@@ -19,7 +20,7 @@ const Pagination = ({
           <button
             disabled={currentPage < 2 ? true : false}
             className={styles.pagination__button}
-            onClick={() => editCurrentPage(currentPage - 1)}
+            onClick={() => addSearchParams("page", String(currentPage - 1))}
           >
             Предыдущая страница
           </button>
@@ -29,7 +30,7 @@ const Pagination = ({
             className={styles.jump__form}
             onSubmit={(event) => {
               event.preventDefault();
-              editCurrentPage(pageInput);
+              addSearchParams("page", String(pageInput));
             }}
           >
             <input
@@ -57,7 +58,7 @@ const Pagination = ({
           <button
             disabled={currentPage < countOfPages ? false : true}
             className={styles.pagination__button}
-            onClick={() => editCurrentPage(currentPage + 1)}
+            onClick={() => addSearchParams("page", String(currentPage + 1))}
           >
             Следующая страница
           </button>

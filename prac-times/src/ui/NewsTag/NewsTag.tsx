@@ -1,7 +1,11 @@
-import type { INewsTagProps } from "../../types/componentProps";
 import styles from "./NewsTag.module.css";
 
-const NewsTag = ({ tagText, tagFontSize }: INewsTagProps) => {
+interface IProps {
+  tagText: string;
+  tagFontSize: string;
+}
+
+const NewsTag = ({ tagText, tagFontSize }: IProps) => {
   return (
     <p className={styles.tag} style={{ fontSize: tagFontSize }}>
       #<span>{tagText}</span>

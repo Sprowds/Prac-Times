@@ -1,7 +1,10 @@
-import type { INewsTime } from "../../types/componentProps";
 import styles from "./NewsTime.module.css";
 
-const NewsTime = ({ dateTime }: INewsTime) => {
+interface IProps {
+  dateTime: string;
+}
+
+const NewsTime = ({ dateTime }: IProps) => {
   return (
     <time dateTime={dateTime} className={styles.time}>
       {new Date(dateTime).toLocaleString().slice(0, 17)}

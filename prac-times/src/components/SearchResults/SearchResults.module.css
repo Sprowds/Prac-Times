@@ -65,3 +65,8 @@
   display: flex;
   gap: 10px;
 }
+
+.result__nothing {
+  font-family: var(--inter-font);
+  font-size: 20px;
+}
