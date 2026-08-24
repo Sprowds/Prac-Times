@@ -73,7 +73,12 @@ const SearchResults = ({ searchParams, addSearchParams }: IProps) => {
           {newsList.pageCount > 1 ? (
             <Pagination
               countOfPages={newsList.pageCount}
-              currentPage={Number(searchParams.get("page"))}
+              currentPage={
+                Number(searchParams.get("page")) < 1 ||
+                Number(searchParams.get("page")) > newsList.pageCount
+                  ? 1
+                  : Number(searchParams.get("page"))
+              }
               addSearchParams={addSearchParams}
             />
           ) : (

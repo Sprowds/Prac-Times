@@ -10,8 +10,19 @@ const SearchPage = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const addSearchParams = (key: string, value: string) => {
     setSearchParams((prev) => {
-      prev.set(key, value);
-      return prev;
+      if (key === "page") {
+        prev.set(key, value);
+        return prev;
+      } else {
+        prev.delete("page");
+        if (value.trim().length < 1) {
+          prev.delete(key);
+          return prev;
+        } else {
+          prev.set(key, value);
+          return prev;
+        }
+      }
     });
   };
 
@@ -19,7 +30,7 @@ const SearchPage = () => {
 
   useEffect(() => {
     dispatch(fetchAllNews(searchParams.toString()));
-  }, [searchParams]);
+  }, [searchParams, dispatch]);
 
   return (
     <div className="container">

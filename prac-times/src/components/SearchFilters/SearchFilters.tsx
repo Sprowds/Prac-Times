@@ -15,7 +15,9 @@ const SearchFilters = ({ searchParams, addSearchParams }: IProps) => {
   const handleSubmit = (event: React.SubmitEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    if (searchString.trim().length > 0) addSearchParams("string", searchString);
+    if (searchParams.get(`string`) !== null || searchString.trim().length > 0) {
+      addSearchParams("string", searchString);
+    }
   };
 
   return (

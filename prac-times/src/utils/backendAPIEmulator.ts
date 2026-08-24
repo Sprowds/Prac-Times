@@ -951,19 +951,31 @@ export function getAllNewsList(params: string): Promise<IAllNews> {
     }),
   );
 
+  const copyOfNewsList: INewsItem[] =
+    "string" in paramsObj
+      ? newsList.filter((item) =>
+          item.title
+            .toUpperCase()
+            .includes(decodeURI(paramsObj[`string`]).toUpperCase()),
+        )
+      : [...newsList];
+
+  console.log(copyOfNewsList);
+
   const page = "page" in paramsObj ? Number(paramsObj.page) : 1;
+
   const result: INewsItem[] = [];
 
-  const countOfPage: number = Math.ceil(newsList.length / 10);
+  const countOfPage: number = Math.ceil(copyOfNewsList.length / 10);
 
   if (page === countOfPage) {
-    for (let i = -9 + page * 10; i < newsList.length; i++) {
-      result.push(newsList[i]);
+    for (let i = -9 + page * 10; i < copyOfNewsList.length; i++) {
+      result.push(copyOfNewsList[i]);
     }
   } else if (page > countOfPage) {
   } else {
     for (let i = -9 + page * 10; i < -9 + page * 10 + 10; i++) {
-      result.push(newsList[i]);
+      result.push(copyOfNewsList[i]);
     }
   }
 
