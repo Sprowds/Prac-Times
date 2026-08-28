@@ -15,6 +15,9 @@
   font-size: 18px;
 }
 
+.pagination__item {
+}
+
 .pagination__button {
   border: none;
   background-color: var(--activity-main-color);
@@ -53,4 +56,12 @@
 /* Firefox */
 .jump__input[type="number"] {
   -moz-appearance: textfield;
+}
+
+@media (max-width: 800px) {
+  .pagination {
+    flex-direction: column;
+    gap: 10px;
+    align-items: center;
+  }
 }

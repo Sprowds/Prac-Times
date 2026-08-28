@@ -3,3 +3,11 @@
   justify-content: space-between;
   gap: 30px;
 }
+
+@media (max-width: 1000px) {
+  .search {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+  }
+}

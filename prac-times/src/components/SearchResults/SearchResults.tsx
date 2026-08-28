@@ -38,17 +38,15 @@ const SearchResults = ({ searchParams, addSearchParams }: IProps) => {
               <li className={styles.result__item} key={item.id}>
                 <NavLink to="/" className={styles.item__link}>
                   <div className={styles.item__main}>
-                    <div className={styles.image__wrapper}>
-                      <img
-                        src={item.image}
-                        alt={item.title}
-                        className={styles.item__img}
-                      />
-                    </div>
+                    <img
+                      src={item.image}
+                      alt={item.title}
+                      className={styles.item__img}
+                    />
 
                     <NewsTitle
                       titleText={item.title}
-                      titleFontSize="clamp(14px, 2vw, 24px)"
+                      titleFontSize="clamp(18px, 4vw, 28px)"
                     />
                   </div>
                 </NavLink>

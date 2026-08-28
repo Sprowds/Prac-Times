@@ -960,8 +960,6 @@ export function getAllNewsList(params: string): Promise<IAllNews> {
         )
       : [...newsList];
 
-  console.log(copyOfNewsList);
-
   const page = "page" in paramsObj ? Number(paramsObj.page) : 1;
 
   const result: INewsItem[] = [];
@@ -969,12 +967,17 @@ export function getAllNewsList(params: string): Promise<IAllNews> {
   const countOfPage: number = Math.ceil(copyOfNewsList.length / 10);
 
   if (page === countOfPage) {
-    for (let i = -9 + page * 10; i < copyOfNewsList.length; i++) {
+    for (let i = -10 + page * 10; i < copyOfNewsList.length; i++) {
       result.push(copyOfNewsList[i]);
     }
-  } else if (page > countOfPage) {
+  } else if (
+    page > countOfPage ||
+    page < 1 ||
+    page % 1 !== 0 ||
+    typeof page !== "number"
+  ) {
   } else {
-    for (let i = -9 + page * 10; i < -9 + page * 10 + 10; i++) {
+    for (let i = -10 + page * 10; i < -9 + page * 10 + 10; i++) {
       result.push(copyOfNewsList[i]);
     }
   }

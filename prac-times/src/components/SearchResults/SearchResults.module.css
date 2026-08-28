@@ -34,22 +34,17 @@
 }
 
 .item__link:hover img {
-  transform: scale(1.1);
+  transform: scale(1.05);
 }
 
 .item__main {
-  display: grid;
-  grid-template-columns: 350px auto;
-  column-gap: 10px;
-}
-
-.image__wrapper {
-  overflow: hidden;
+  display: flex;
+  gap: 10px;
 }
 
 .item__img {
-  width: 100%;
-  height: auto;
+  max-width: clamp(150px, 100%, 350px);
+  aspect-ratio: 16/9;
 }
 
 .item__title {
@@ -69,4 +64,16 @@
 .result__nothing {
   font-family: var(--inter-font);
   font-size: 20px;
+}
+
+@media (max-width: 1000px) {
+  .result {
+    width: 100%;
+  }
+}
+
+@media (max-width: 600px) {
+  .item__main {
+    flex-direction: column;
+  }
 }

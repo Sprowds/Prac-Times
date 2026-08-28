@@ -31,3 +31,10 @@
 .search__name__btn:hover {
   background-color: var(--activity-hover-color);
 }
+
+@media (max-width: 1000px) {
+  .filter {
+    width: 100%;
+    order: -1;
+  }
+}
