@@ -31,11 +31,14 @@ const News = () => {
         <h2 className={styles.title}>Главные новости</h2>
         {mainNewsItemFetchStatus === "succeeded" ? (
           <article className={styles.main__news}>
-            <img
-              src={mainNewsItem.image}
-              alt={mainNewsItem.title}
-              className={styles.main__news__img}
-            />
+            <NavLink to="/" className={styles.main__news__img__link}>
+              <img
+                src={mainNewsItem.image}
+                alt={mainNewsItem.title}
+                className={styles.main__news__img}
+              />
+            </NavLink>
+
             <ul className={styles.main__news__tags}>
               {Object.entries(mainNewsItem.category).map(([key, value]) =>
                 value === true ? (

@@ -30,11 +30,14 @@ const Exclusives = () => {
         {exclusiveNewsFetchStatus === "succeeded"
           ? exclusivesList.map((item) => (
               <li className={styles.exclusives__item} key={item.title}>
-                <img
-                  src={item.image}
-                  alt={item.title}
-                  className={styles.item__img}
-                />
+                <NavLink to="/" className={styles.item__img__link}>
+                  <img
+                    src={item.image}
+                    alt={item.title}
+                    className={styles.item__img}
+                  />
+                </NavLink>
+
                 <div className={styles.item__text__content}>
                   <ul className={styles.item__tags}>
                     {Object.entries(item.category).map(([key, value]) =>
