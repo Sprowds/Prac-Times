@@ -1,0 +1,27 @@
+.article__link {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+
+  font-family: var(--inter-font);
+}
+
+.article__link:hover .article__title {
+  text-decoration: underline;
+}
+
+.article__tag {
+  color: var(--activity-main-color);
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.article__tag::first-letter {
+  text-transform: uppercase;
+}
+
+.article__title {
+  color: var(--secondary-text-color);
+  font-size: 16px;
+  font-weight: 700;
+}

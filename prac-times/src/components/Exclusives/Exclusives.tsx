@@ -1,13 +1,10 @@
 import { useSelector } from "react-redux";
 import styles from "./Exclusives.module.css";
 import type { RootState } from "../../store/store";
-import { NavLink } from "react-router";
-import NewsTitle from "../../ui/NewsTitle/NewsTitle";
-import NewsTag from "../../ui/NewsTag/NewsTag";
-import NewsTime from "../../ui/NewsTime/NewsTime";
 import { useAppDispatch } from "../../hooks/useAppDispatch";
 import { useEffect } from "react";
 import { fetchExclusiveNews } from "../../store/newsSlice";
+import ArticleCard from "../Article/ArticleCard/ArticleCard";
 
 const Exclusives = () => {
   const dispatch = useAppDispatch();
@@ -30,7 +27,7 @@ const Exclusives = () => {
         {exclusiveNewsFetchStatus === "succeeded"
           ? exclusivesList.map((item) => (
               <li className={styles.exclusives__item} key={item.title}>
-                <NavLink to="/" className={styles.item__img__link}>
+                {/* <NavLink to="/" className={styles.item__img__link}>
                   <img
                     src={item.image}
                     alt={item.title}
@@ -59,7 +56,8 @@ const Exclusives = () => {
                     />
                   </NavLink>
                   <NewsTime dateTime={item.time} />
-                </div>
+                </div> */}
+                <ArticleCard article={item} />
               </li>
             ))
           : ""}

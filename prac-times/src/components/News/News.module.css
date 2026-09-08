@@ -1,6 +1,6 @@
 .news {
-  display: flex;
-  justify-content: space-between;
+  display: grid;
+  grid-template-columns: 1fr clamp(278px, 25%, 297px);
   gap: 30px;
 }
 
@@ -31,7 +31,7 @@
 
 @media (max-width: 880px) {
   .news {
-    flex-direction: column;
+    grid-template-columns: 1fr;
   }
 }
 

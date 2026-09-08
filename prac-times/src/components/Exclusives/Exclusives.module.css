@@ -23,27 +23,6 @@
   gap: 16px;
 }
 
-.item__img {
-}
-
-.item__text__content {
-  height: 100%;
-
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-}
-
-.item__tags {
-  display: flex;
-  gap: 16px;
-}
-
-.item__title__link {
-  flex: 1;
-  min-height: 0;
-}
-
 @media (max-width: 600px) {
   .exclusives__grid {
     grid-template-columns: repeat(1, 1fr);
