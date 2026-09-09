@@ -1,0 +1,23 @@
+.article {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.article__info {
+  display: flex;
+  flex-direction: column;
+  align-items: end;
+}
+
+.article__tags {
+  display: flex;
+  gap: 8px;
+}
+
+.article__tags__item:hover {
+  transition: 0s;
+  border-bottom: 1px solid var(--activity-hover-color);
+}

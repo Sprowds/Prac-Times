@@ -12,19 +12,23 @@ interface IArticleCardProps {
 const ArticleCard = ({ article }: IArticleCardProps) => {
   return (
     <article className={styles.article}>
-      <NavLink to="/" className={styles.item__img__link}>
+      <NavLink to="/" className={styles.article__link}>
         <img
           src={article.image}
           alt={article.title}
-          className={styles.item__img}
+          className={styles.article__img}
+        />
+        <NewsTitle
+          titleText={article.title}
+          titleFontSize="clamp(14px, 2vw, 20px)"
         />
       </NavLink>
 
-      <div className={styles.item__text__content}>
-        <ul className={styles.item__tags}>
+      <div className={styles.article__info}>
+        <ul className={styles.article__tags}>
           {Object.entries(article.category).map(([key, value]) =>
             value === true ? (
-              <li className={styles.item__tags__item} key={key}>
+              <li className={styles.article__tags__item} key={key}>
                 <NavLink to="/" className={styles.tags__item__link}>
                   <NewsTag tagText={key} tagFontSize="16px" />
                 </NavLink>
@@ -34,12 +38,6 @@ const ArticleCard = ({ article }: IArticleCardProps) => {
             ),
           )}
         </ul>
-        <NavLink to="/" className={styles.item__title__link}>
-          <NewsTitle
-            titleText={article.title}
-            titleFontSize="clamp(16px, 2vw, 24px)"
-          />
-        </NavLink>
         <NewsTime dateTime={article.time} />
       </div>
     </article>

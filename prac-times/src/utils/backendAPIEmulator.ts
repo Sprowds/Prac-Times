@@ -975,7 +975,7 @@ export function getNewsList(param: string): Promise<INewsItem[]> {
     case "exclusive":
       timeOut = 1500;
       newsList.forEach((item) => {
-        if (result.length < 4) {
+        if (result.length < 6) {
           if (item.type.exclusive === true) {
             result.push(item);
           }

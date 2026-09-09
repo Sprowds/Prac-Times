@@ -27,36 +27,6 @@ const Exclusives = () => {
         {exclusiveNewsFetchStatus === "succeeded"
           ? exclusivesList.map((item) => (
               <li className={styles.exclusives__item} key={item.title}>
-                {/* <NavLink to="/" className={styles.item__img__link}>
-                  <img
-                    src={item.image}
-                    alt={item.title}
-                    className={styles.item__img}
-                  />
-                </NavLink>
-
-                <div className={styles.item__text__content}>
-                  <ul className={styles.item__tags}>
-                    {Object.entries(item.category).map(([key, value]) =>
-                      value === true ? (
-                        <li className={styles.item__tags__item} key={key}>
-                          <NavLink to="/" className={styles.tags__item__link}>
-                            <NewsTag tagText={key} tagFontSize="16px" />
-                          </NavLink>
-                        </li>
-                      ) : (
-                        ""
-                      ),
-                    )}
-                  </ul>
-                  <NavLink to="/" className={styles.item__title__link}>
-                    <NewsTitle
-                      titleText={item.title}
-                      titleFontSize="clamp(16px, 2vw, 24px)"
-                    />
-                  </NavLink>
-                  <NewsTime dateTime={item.time} />
-                </div> */}
                 <ArticleCard article={item} />
               </li>
             ))

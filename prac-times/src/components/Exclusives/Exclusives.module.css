@@ -13,14 +13,14 @@
 
 .exclusives__grid {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 30px;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
 }
 
 .exclusives__item {
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
+  padding: 5px;
+  border: 1px solid var(--activity-main-color);
+  border-radius: 10px;
 }
 
 @media (max-width: 600px) {
