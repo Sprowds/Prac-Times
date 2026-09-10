@@ -1,7 +1,7 @@
 export interface INewsCategory {
-  мир: boolean;
-  бизнес: boolean;
-  политика: boolean;
+  world: boolean;
+  business: boolean;
+  politic: boolean;
 }
 
 export interface INewsType {

@@ -26,7 +26,7 @@ const Exclusives = () => {
       <ul className={styles.exclusives__grid}>
         {exclusiveNewsFetchStatus === "succeeded"
           ? exclusivesList.map((item) => (
-              <li className={styles.exclusives__item} key={item.title}>
+              <li className={styles.exclusives__item} key={item.id}>
                 <ArticleCard article={item} />
               </li>
             ))

@@ -6,9 +6,22 @@ interface INewsTagProps {
 }
 
 const NewsTag = ({ tagText, tagFontSize }: INewsTagProps) => {
+  // В будущем сделать папку locales для локализации сайта
+  let translatedTagText = "";
+  switch (tagText) {
+    case "world":
+      translatedTagText = "мир";
+      break;
+    case "business":
+      translatedTagText = "бизнес";
+      break;
+    case "politic":
+      translatedTagText = "политика";
+      break;
+  }
   return (
     <p className={styles.tag} style={{ fontSize: tagFontSize }}>
-      #<span>{tagText}</span>
+      #<span>{translatedTagText}</span>
     </p>
   );
 };

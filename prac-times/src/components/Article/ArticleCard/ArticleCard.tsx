@@ -12,15 +12,18 @@ interface IArticleCardProps {
 const ArticleCard = ({ article }: IArticleCardProps) => {
   return (
     <article className={styles.article}>
-      <NavLink to="/" className={styles.article__link}>
-        <img
-          src={article.image}
-          alt={article.title}
-          className={styles.article__img}
-        />
+      <NavLink to={article.id} className={styles.article__link}>
+        <div className={styles.img__wrapper}>
+          <img
+            src={article.image}
+            alt={article.title}
+            className={styles.article__img}
+          />
+        </div>
+
         <NewsTitle
           titleText={article.title}
-          titleFontSize="clamp(14px, 2vw, 20px)"
+          titleFontSize="clamp(16px, 2vw, 20px)"
         />
       </NavLink>
 
@@ -29,7 +32,7 @@ const ArticleCard = ({ article }: IArticleCardProps) => {
           {Object.entries(article.category).map(([key, value]) =>
             value === true ? (
               <li className={styles.article__tags__item} key={key}>
-                <NavLink to="/" className={styles.tags__item__link}>
+                <NavLink to={key} className={styles.tags__item__link}>
                   <NewsTag tagText={key} tagFontSize="16px" />
                 </NavLink>
               </li>

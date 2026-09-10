@@ -1,11 +1,8 @@
 import styles from "./SearchResults.module.css";
 import { useSelector } from "react-redux";
 import type { RootState } from "../../store/store";
-import NewsTag from "../../ui/NewsTag/NewsTag";
-import NewsTime from "../../ui/NewsTime/NewsTime";
-import NewsTitle from "../../ui/NewsTitle/NewsTitle";
-import { NavLink } from "react-router";
 import Pagination from "../Pagination/Pagination";
+import ArticleCard from "../Article/ArticleCard/ArticleCard";
 
 interface IProps {
   searchParams: URLSearchParams;
@@ -36,35 +33,7 @@ const SearchResults = ({ searchParams, addSearchParams }: IProps) => {
           <ul className={styles.result__list}>
             {newsList.news.map((item) => (
               <li className={styles.result__item} key={item.id}>
-                <NavLink to="/" className={styles.item__link}>
-                  <div className={styles.item__main}>
-                    <img
-                      src={item.image}
-                      alt={item.title}
-                      className={styles.item__img}
-                    />
-
-                    <NewsTitle
-                      titleText={item.title}
-                      titleFontSize="clamp(18px, 4vw, 28px)"
-                    />
-                  </div>
-                </NavLink>
-
-                <div className={styles.item__additional}>
-                  <ul className={styles.item__tags}>
-                    {Object.entries(item.category).map(([key, value]) =>
-                      value === true ? (
-                        <li className={styles.main__news__tags__item} key={key}>
-                          <NewsTag tagText={key} tagFontSize="14px" />
-                        </li>
-                      ) : (
-                        ""
-                      ),
-                    )}
-                  </ul>
-                  <NewsTime dateTime={item.time} />
-                </div>
+                <ArticleCard article={item} />
               </li>
             ))}
           </ul>

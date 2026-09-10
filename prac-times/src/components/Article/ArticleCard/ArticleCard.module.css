@@ -6,6 +6,22 @@
   gap: 10px;
 }
 
+.article__link:hover {
+  text-decoration: underline;
+}
+
+.article__link:hover img {
+  transform: scale(1.05);
+}
+
+.img__wrapper {
+  overflow: hidden;
+  border-radius: 10px;
+}
+
+.article__img {
+}
+
 .article__info {
   display: flex;
   flex-direction: column;
@@ -17,7 +33,31 @@
   gap: 8px;
 }
 
-.article__tags__item:hover {
+.article__tags__item {
   transition: 0s;
+}
+
+.article__tags__item:hover {
+  margin-bottom: -1px;
   border-bottom: 1px solid var(--activity-hover-color);
+}
+
+@media (max-width: 600px) {
+  .article__link {
+    display: grid;
+    grid-template-columns: 3fr 2fr;
+    gap: 10px;
+  }
+
+  .article__info {
+    flex-direction: row;
+    justify-content: space-between;
+  }
+}
+
+@media (max-width: 480px) {
+  .article__link {
+    display: flex;
+    flex-direction: column;
+  }
 }

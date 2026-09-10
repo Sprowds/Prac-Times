@@ -23,13 +23,15 @@
   border-radius: 10px;
 }
 
+@media (max-width: 880px) {
+  .exclusives__grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
 @media (max-width: 600px) {
   .exclusives__grid {
     grid-template-columns: repeat(1, 1fr);
-  }
-
-  .exclusives__item {
-    border-bottom: 3px solid var(--activity-main-color);
   }
 
   .item__img {
