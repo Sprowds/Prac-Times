@@ -38,8 +38,7 @@
 }
 
 .article__tags__item:hover {
-  margin-bottom: -1px;
-  border-bottom: 1px solid var(--activity-hover-color);
+  transform: scale(1.05);
 }
 
 @media (max-width: 600px) {

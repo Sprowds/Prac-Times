@@ -1,0 +1,36 @@
+.article {
+  display: flex;
+  flex-direction: column;
+}
+
+.img__link {
+  order: 1;
+}
+
+.img__link:hover + .title__link,
+.title__link:hover {
+  text-decoration: underline;
+}
+
+.title__link {
+  order: 3;
+}
+
+.tags {
+  order: 2;
+
+  display: flex;
+  gap: 8px;
+}
+
+.tags__item {
+  transition: 0s;
+}
+
+.tags__item:hover {
+  transform: scale(1.05);
+}
+
+.article time {
+  order: 4;
+}

@@ -10,9 +10,11 @@ interface IArticleCardProps {
 }
 
 const ArticleCard = ({ article }: IArticleCardProps) => {
+  const link = `/${article.id}`;
+
   return (
     <article className={styles.article}>
-      <NavLink to={article.id} className={styles.article__link}>
+      <NavLink to={link} className={styles.article__link}>
         <div className={styles.img__wrapper}>
           <img
             src={article.image}

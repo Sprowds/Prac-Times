@@ -14,9 +14,11 @@ const CompactArticle = ({ article }: ICompactArticleProps) => {
     (key) => article.category[key as keyof INewsCategory] === true,
   );
 
+  const link = `/${article.id}`;
+
   return (
     <article className={styles.article}>
-      <NavLink to={article.id} className={styles.article__link}>
+      <NavLink to={link} className={styles.article__link}>
         <NewsTag tagText={tag} tagFontSize="16px" />
         <p className={styles.article__title}>{article.title}</p>
         <NewsTime dateTime={article.time} />

@@ -1,75 +1,94 @@
-# React + TypeScript + Vite
+<!-- prettier-ignore -->
+# Prac-Times
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Что это
+Учебный проект новостного сайта, заточенного под политику и бизнес в мире.
 
-Currently, two official plugins are available:
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
 
-## React Compiler
+## Stack
+- React
+- TypeScript
+- CSS Modules
+- React Router
+- React Redux
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
 
-## Expanding the ESLint configuration
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+## Структура
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+src/
+  assets/
+  components/
+    AnotherNews
+    Article/
+      ArticleCard
+      CompactArticle
+    Exclusives
+    Footer
+    Header
+    Layout
+    MainArticle
+    Navigation
+    News
+    Pagination
+    SearchFilters
+    SearchResults
+  data/
+  hooks/
+  pages/
+    MainPage
+    NotFoundPage
+    SearchPage
+    WorldNewsPage
+  store/
+    store.ts
+    newsSlice.ts
+  styles/
+  types/
+  ui/
+    NewsTag
+    NewsTitle
+    NewsTime
+  utils/
+  App.tsx
+  main.tsx
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+### assets/
+Вспомогательные материалы для дизайна самого сайта.
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+### components/
+Переиспользуемые компоненты сайта.
 
-```
+### data/
+Данные, которые используются эмулятором backend.
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+### hooks/
+Кастомные хуки.
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+### pages/
+Отдельные страницы сайта.
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+### store/
+Хранилище состояний и функции React Redux.
 
-```
+### styles/
+Общие стили сайта(Шрифты, обнуление, цвета).
+
+### types/
+Общие TypeScript-типы, стоящие вынесения в отдельную папку.
+
+### ui/
+Переиспользуемые микро-компоненты(Кнопки, заголовки, тэги и т.д)
+
+### utils/
+Вспомогательные функции.
+
+
+
+## Поток данных
+
+Новости -----------------------------------------------------
+В данный момент данные новостей берутся через обращение компонентов к эмулятору backend(src/utils/backendEmulatorAPI.ts) ассинхронными thunk функциям в Redux slice. После чего они записываются в состояния. Пока без проверок на ошибки и целостность.
+
+## 
