@@ -4,21 +4,10 @@
   gap: 30px;
 }
 
-.title {
-  margin-bottom: 32px;
-
-  font-family: var(--gilroy-font);
-  font-weight: 700;
-  font-size: 32px;
-  text-transform: uppercase;
-}
-
-.main__news {
-  max-width: 906px;
-
+.news__main {
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 32px;
 }
 
 .main__news__tags {
@@ -36,7 +25,7 @@
 }
 
 @media (max-width: 600px) {
-  .title {
-    margin-bottom: 12px;
+  .news__main {
+    gap: 12px;
   }
 }

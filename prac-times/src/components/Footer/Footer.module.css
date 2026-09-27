@@ -66,29 +66,6 @@
   text-transform: uppercase;
 }
 
-.social__list {
-  display: flex;
-  gap: 22px;
-}
-
-.social__link {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  max-width: 45px;
-  aspect-ratio: 1;
-
-  background-color: var(--secondary-text-color);
-}
-
-.social__link:hover {
-  background-color: var(--activity-main-color);
-}
-
-.social__img {
-  width: 70%;
-}
-
 @media (max-width: 880px) {
   .footer__inner {
     flex-direction: column;
@@ -98,10 +75,6 @@
   .nav__list {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-  }
-
-  .social__wrapper {
-    align-items: center;
   }
 }
 

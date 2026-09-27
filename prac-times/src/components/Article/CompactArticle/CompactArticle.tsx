@@ -14,7 +14,7 @@ const CompactArticle = ({ article }: ICompactArticleProps) => {
     (key) => article.category[key as keyof INewsCategory] === true,
   );
 
-  const link = `/${article.id}`;
+  const link = `/article/${article.id}`;
 
   return (
     <article className={styles.article}>

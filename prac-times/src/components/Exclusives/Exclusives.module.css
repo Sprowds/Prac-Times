@@ -4,13 +4,6 @@
   gap: 32px;
 }
 
-.exclusives__title {
-  font-family: var(--gilroy-font);
-  font-weight: 700;
-  font-size: 32px;
-  text-transform: uppercase;
-}
-
 .exclusives__grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);

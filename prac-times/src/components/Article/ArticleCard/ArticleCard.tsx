@@ -4,13 +4,14 @@ import NewsTag from "../../../ui/NewsTag/NewsTag";
 import NewsTitle from "../../../ui/NewsTitle/NewsTitle";
 import NewsTime from "../../../ui/NewsTime/NewsTime";
 import type INewsItem from "../../../types/newsItem";
+import tagsMap from "../../../utils/tagsMap";
 
 interface IArticleCardProps {
   article: INewsItem;
 }
 
 const ArticleCard = ({ article }: IArticleCardProps) => {
-  const link = `/${article.id}`;
+  const link = `/article/${article.id}`;
 
   return (
     <article className={styles.article}>
@@ -31,17 +32,13 @@ const ArticleCard = ({ article }: IArticleCardProps) => {
 
       <div className={styles.article__info}>
         <ul className={styles.article__tags}>
-          {Object.entries(article.category).map(([key, value]) =>
-            value === true ? (
-              <li className={styles.article__tags__item} key={key}>
-                <NavLink to={key} className={styles.tags__item__link}>
-                  <NewsTag tagText={key} tagFontSize="16px" />
-                </NavLink>
-              </li>
-            ) : (
-              ""
-            ),
-          )}
+          {tagsMap(article.category).map((tag) => (
+            <li className={styles.article__tags__item} key={tag}>
+              <NavLink to={tag} className={styles.tags__item__link}>
+                <NewsTag tagText={tag} tagFontSize="16px" />
+              </NavLink>
+            </li>
+          ))}
         </ul>
         <NewsTime dateTime={article.time} />
       </div>

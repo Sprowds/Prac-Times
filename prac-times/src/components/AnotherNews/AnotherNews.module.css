@@ -1,13 +1,7 @@
-.title {
-  margin-bottom: 32px;
-
-  font-family: var(--gilroy-font);
-  font-weight: 700;
-  font-size: 32px;
-  text-transform: uppercase;
-}
-
 .news__another {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
 }
 
 .another__content {
@@ -24,7 +18,7 @@
 }
 
 @media (max-width: 600px) {
-  .title {
-    margin-bottom: 12px;
+  .news__another {
+    gap: 12px;
   }
 }

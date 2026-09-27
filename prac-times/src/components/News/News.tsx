@@ -7,6 +7,7 @@ import { useAppDispatch } from "../../hooks/useAppDispatch";
 import type INewsItem from "../../types/newsItem";
 import AnotherNews from "../AnotherNews/AnotherNews";
 import MainArticle from "../Article/MainArticle/MainArticle";
+import PageTitle from "../../ui/PageTitle/PageTitle";
 
 const News = () => {
   const dispatch = useAppDispatch();
@@ -25,7 +26,7 @@ const News = () => {
   return (
     <section className={styles.news}>
       <div className={styles.news__main}>
-        <h2 className={styles.title}>Главные новости</h2>
+        <PageTitle titleText="Главные новости" />
         {mainNewsItemFetchStatus === "succeeded" ? (
           <MainArticle article={mainNewsItem} />
         ) : (

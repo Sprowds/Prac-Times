@@ -23,6 +23,7 @@ p,
 figure,
 picture {
   margin: 0;
+  line-height: 1;
 }
 
 img,

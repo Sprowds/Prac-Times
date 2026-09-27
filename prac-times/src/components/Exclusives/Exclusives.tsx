@@ -5,6 +5,7 @@ import { useAppDispatch } from "../../hooks/useAppDispatch";
 import { useEffect } from "react";
 import { fetchExclusiveNews } from "../../store/newsSlice";
 import ArticleCard from "../Article/ArticleCard/ArticleCard";
+import PageTitle from "../../ui/PageTitle/PageTitle";
 
 const Exclusives = () => {
   const dispatch = useAppDispatch();
@@ -22,7 +23,7 @@ const Exclusives = () => {
 
   return (
     <section className={styles.exclusives}>
-      <h2 className={styles.exclusives__title}>Эксклюзив</h2>
+      <PageTitle titleText="Эксклюзив" />
       <ul className={styles.exclusives__grid}>
         {exclusiveNewsFetchStatus === "succeeded"
           ? exclusivesList.map((item) => (

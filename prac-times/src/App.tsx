@@ -5,6 +5,7 @@ import MainPage from "./pages/MainPage/MainPage";
 import NotFoundPage from "./pages/NotFoundPage/NotFoundPage";
 import SearchPage from "./pages/SearchPage/SearchPage";
 import WorldNewsPage from "./pages/WorldNewsPage/WorldNewsPage";
+import ArticlePage from "./pages/ArticlePage/ArticlePage";
 
 function App() {
   return (
@@ -14,7 +15,7 @@ function App() {
           <Route index element={<MainPage />} />
           <Route path="/search" element={<SearchPage />} />
           <Route path="/world" element={<WorldNewsPage />} />
-          <Route path="/world/:articleId" element={<WorldNewsPage />} />
+          <Route path="/article/:articleId" element={<ArticlePage />} />
           <Route path="*" element={<NotFoundPage />} />
         </Route>
       </Routes>

@@ -3,6 +3,7 @@ import { useSelector } from "react-redux";
 import type { RootState } from "../../store/store";
 import Pagination from "../Pagination/Pagination";
 import ArticleCard from "../Article/ArticleCard/ArticleCard";
+import PageTitle from "../../ui/PageTitle/PageTitle";
 
 interface IProps {
   searchParams: URLSearchParams;
@@ -20,7 +21,7 @@ const SearchResults = ({ searchParams, addSearchParams }: IProps) => {
 
   return (
     <div className={styles.result}>
-      <h2 className={styles.result__title}>Новости</h2>
+      <PageTitle titleText="Новости" />
       {allNewsFetchStatus !== "succeeded" ? (
         ""
       ) : newsList.news.length === 0 ? (

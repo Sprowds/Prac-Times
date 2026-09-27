@@ -1,0 +1,43 @@
+import { useNavigate, useParams } from "react-router";
+import ArticleDisplay from "../../components/ArticleDisplay/ArticleDisplay";
+import styles from "./ArticlePage.module.css";
+import { useEffect, useState } from "react";
+import fetchArticleData from "../../utils/fetchArticle";
+import type INewsItem from "../../types/newsItem";
+
+const ArticlePage = () => {
+  const params = useParams();
+  const navigate = useNavigate();
+
+  const [article, setArticle]: [
+    INewsItem | undefined,
+    React.Dispatch<React.SetStateAction<INewsItem | undefined>>,
+  ] = useState();
+
+  useEffect(() => {
+    if (typeof params.articleId !== "undefined")
+      fetchArticleData(params.articleId).then((data) => {
+        if (typeof data === "undefined") navigate("/");
+        else setArticle(data);
+      });
+  }, []);
+
+  return (
+    <div className="container">
+      {typeof article === "undefined" ? (
+        <div className="loading__animation"></div>
+      ) : (
+        <div className={styles.article}>
+          <ArticleDisplay
+            articleImg={article.image}
+            articleTags={article.category}
+            articleTitle={article.title}
+            articleTime={article.time}
+          />
+        </div>
+      )}
+    </div>
+  );
+};
+
+export default ArticlePage;

@@ -6,6 +6,7 @@ import { useSelector } from "react-redux";
 import type { RootState } from "../../store/store";
 import type INewsItem from "../../types/newsItem";
 import CompactArticle from "../Article/CompactArticle/CompactArticle";
+import PageTitle from "../../ui/PageTitle/PageTitle";
 
 const AnotherNews = () => {
   const dispatch = useAppDispatch();
@@ -22,7 +23,7 @@ const AnotherNews = () => {
   );
   return (
     <aside className={styles.news__another}>
-      <h2 className={styles.title}>Другие новости</h2>
+      <PageTitle titleText="Другие новости" />
       {anotherNewsFetchStatus === "succeeded" ? (
         <ul className={styles.another__content}>
           {anotherNews.map((item) => (

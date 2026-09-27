@@ -10,7 +10,8 @@ interface IMainArticleProps {
 }
 
 const MainArticle = ({ article }: IMainArticleProps) => {
-  const link = `/${article.id}`;
+  const link = `/article/${article.id}`;
+
   return (
     <article className={styles.article}>
       <NavLink to={link} className={styles.img__link}>
