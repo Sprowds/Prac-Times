@@ -24,7 +24,7 @@
 
 .tag__link {
   display: inline-block;
-  padding: 8px 16px;
+  padding: 10px 16px;
 
   background-color: var(--main-background-color);
 }

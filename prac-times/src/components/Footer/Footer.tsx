@@ -1,7 +1,7 @@
 import styles from "./Footer.module.css";
 import Navigation from "../Navigation/Navigation";
 import { NavLink } from "react-router";
-import SocialList from "../../ui/SocialList/SocialList";
+import SocialList from "../SocialList/SocialList";
 
 const Footer = () => {
   return (

@@ -76,6 +76,10 @@
     display: grid;
     grid-template-columns: repeat(4, 1fr);
   }
+
+  .social__wrapper {
+    align-items: center;
+  }
 }
 
 @media (max-width: 600px) {
