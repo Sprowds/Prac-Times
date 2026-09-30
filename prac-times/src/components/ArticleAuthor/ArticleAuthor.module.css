@@ -1,12 +1,9 @@
 .author {
   position: relative;
-  max-width: 1100px;
+  width: 100%;
+  max-width: 1010px;
   margin: 0 auto;
   padding: 24px 0;
-
-  display: flex;
-  flex-direction: column;
-  gap: 40px;
 }
 
 .author::before {
@@ -27,6 +24,14 @@
   width: 100%;
   height: 1px;
   background-color: var(--activity-main-color);
+}
+
+.author__inner {
+  max-width: 810px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
 }
 
 .tag_list {
@@ -58,4 +63,40 @@
 
 .tag span::first-letter {
   text-transform: uppercase;
+}
+
+.author__link {
+  width: fit-content;
+
+  display: flex;
+  align-items: center;
+  gap: 30px;
+}
+
+.author__link:hover .text__name {
+  text-decoration: underline;
+}
+
+.author__link:hover img {
+  border: 1px solid var(--secondary-text-color);
+}
+
+.info__text {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+
+  font-family: var(--inter-font);
+}
+
+.text__title {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--activity-main-color);
+}
+
+.text__name {
+  font-size: 24px;
+  font-weight: 600;
+  color: var(--secondary-text-color);
 }

@@ -25,7 +25,7 @@ const ArticleDisplay = ({
       <div className={styles.text__content}>
         <ul className={styles.tag_list}>
           {tagsMap(articleTags).map((tag) => (
-            <li className={styles.tag__item}>
+            <li className={styles.tag__item} key={tag}>
               <NavLink to={`/${tag}`} className={styles.tag__link}>
                 <p className={styles.tag}>
                   #<span>{translate(tag)}</span>

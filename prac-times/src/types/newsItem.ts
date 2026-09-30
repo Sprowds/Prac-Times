@@ -20,6 +20,8 @@ export default interface INewsItem {
   type: INewsType;
   time: string;
   image: string;
+  author: string;
+  comments: string[];
 }
 
 export interface IAllNews {

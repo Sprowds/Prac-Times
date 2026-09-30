@@ -6,6 +6,7 @@ import fetchArticleData from "../../utils/fetchArticle";
 import type INewsItem from "../../types/newsItem";
 import ArticleDesc from "../../components/ArticleDesc/ArticleDesc";
 import ArticleAuthor from "../../components/ArticleAuthor/ArticleAuthor";
+import ArticleCommentSection from "../../components/ArticleCommentSection/ArticleCommentSection";
 
 const ArticlePage = () => {
   const params = useParams();
@@ -24,6 +25,7 @@ const ArticlePage = () => {
       });
   }, []);
 
+  console.log(crypto.randomUUID());
   return (
     <div className="container">
       {typeof article === "undefined" ? (
@@ -37,7 +39,11 @@ const ArticlePage = () => {
             articleTime={article.time}
           />
           <ArticleDesc articleDesc={article.text} articleId={article.id} />
-          <ArticleAuthor articleTags={article.category} />
+          <ArticleAuthor
+            articleTags={article.category}
+            articleAuthor={article.author}
+          />
+          <ArticleCommentSection articleComments={article.comments} />
         </div>
       )}
     </div>

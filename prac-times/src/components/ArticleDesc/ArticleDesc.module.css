@@ -63,3 +63,18 @@ h6 {
 .content li {
   list-style: circle;
 }
+
+@media (max-width: 660px) {
+  .desc {
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  .left {
+    flex-direction: row;
+  }
+
+  .left ul {
+    flex-direction: row;
+  }
+}
