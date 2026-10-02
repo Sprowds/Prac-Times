@@ -7,6 +7,7 @@ import type INewsItem from "../../types/newsItem";
 import ArticleDesc from "../../components/ArticleDesc/ArticleDesc";
 import ArticleAuthor from "../../components/ArticleAuthor/ArticleAuthor";
 import ArticleCommentSection from "../../components/ArticleCommentSection/ArticleCommentSection";
+import NewsletterForm from "../../components/NewsletterForm/NewsletterForm";
 
 const ArticlePage = () => {
   const params = useParams();
@@ -23,9 +24,8 @@ const ArticlePage = () => {
         if (typeof data === "undefined") navigate("/");
         else setArticle(data);
       });
-  }, []);
+  }, [navigate, params.articleId]);
 
-  console.log(crypto.randomUUID());
   return (
     <div className="container">
       {typeof article === "undefined" ? (
@@ -43,9 +43,13 @@ const ArticlePage = () => {
             articleTags={article.category}
             articleAuthor={article.author}
           />
-          <ArticleCommentSection articleComments={article.comments} />
+          <ArticleCommentSection
+            articleId={article.id}
+            articleComments={article.commentsCount}
+          />
         </div>
       )}
+      <NewsletterForm />
     </div>
   );
 };

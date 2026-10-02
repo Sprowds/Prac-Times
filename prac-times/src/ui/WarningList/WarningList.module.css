@@ -1,0 +1,12 @@
+.warning__list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.text {
+  font-family: var(--inter-font);
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--activity-main-color);
+}

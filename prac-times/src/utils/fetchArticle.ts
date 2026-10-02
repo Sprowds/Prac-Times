@@ -8,7 +8,7 @@ export default async function fetchArticleData(
     const article = await fetchArticleById(id);
 
     return article;
-  } catch (error) {
+  } catch {
     return undefined;
   }
 }

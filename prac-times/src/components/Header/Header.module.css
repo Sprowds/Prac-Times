@@ -121,6 +121,7 @@
 
 .active {
   display: flex !important;
+  z-index: 10000;
 }
 
 @keyframes navSlideRight {

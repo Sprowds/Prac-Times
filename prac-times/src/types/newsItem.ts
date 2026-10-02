@@ -21,7 +21,7 @@ export default interface INewsItem {
   time: string;
   image: string;
   author: string;
-  comments: string[];
+  commentsCount: number;
 }
 
 export interface IAllNews {

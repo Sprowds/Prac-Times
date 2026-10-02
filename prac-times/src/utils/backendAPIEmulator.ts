@@ -3,6 +3,7 @@ import type INewsItem from "../types/newsItem";
 import newsList from "../data/newsDB";
 import userInfoList from "../data/userData/userPublicDB";
 import comments from "../data/commentDB";
+import type IComment from "../types/comment";
 
 export function fetchNews(params: string): Promise<IAllNews> {
   const paramsObj = Object.fromEntries(
@@ -172,6 +173,14 @@ export function fetchUserInfoByUsername(username: string) {
   return userInfoList.find((user) => user.username === username);
 }
 
-export function fetchCommentById(id: string) {
-  return comments.find((comment) => comment.id === id);
+export function fetchCommentsByArticleId(
+  id: string,
+  count: number,
+  page: number,
+) {
+  const result: IComment[] = comments
+    .filter((comment) => comment.articleId === id)
+    .slice(page * count - count, count * page);
+
+  return result;
 }

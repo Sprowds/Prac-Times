@@ -20,10 +20,7 @@ const newsList: INewsItem[] = [
     time: "2026-08-10T13:05:00.000Z",
     image: "/src/data/newsData/img/trump.webp",
     author: "Sprow",
-    comments: [
-      "fc5fb0db-8a15-4fa5-a3e2-655d7257faf2",
-      "1200b07b-1bfa-4bf0-8f24-3cacbaf00a75",
-    ],
+    commentsCount: 2,
   },
   {
     id: "ddcba6f9-4c07-4e97-87d5-daf225a317cc",
@@ -44,11 +41,7 @@ const newsList: INewsItem[] = [
     time: "2026-08-09T07:37:00.000Z",
     image: "/src/data/newsData/img/renew-houses-almaty.webp",
     author: "Sprow",
-    comments: [
-      "3fe05ff7-3e4e-466b-a84c-6fcfe26442e1",
-      "8048de37-0dfd-42ea-9c96-b30ce2c1e333",
-      "151a499c-e58f-465f-a5e2-b35d620fdc23",
-    ],
+    commentsCount: 3,
   },
   {
     id: "f2c03cca-1056-424c-9a07-04936bc1c915",
@@ -69,7 +62,7 @@ const newsList: INewsItem[] = [
     time: "2026-08-08T08:13:00.000Z",
     image: "/src/data/newsData/img/perseida.webp",
     author: "Sprow",
-    comments: [],
+    commentsCount: 0,
   },
   {
     id: "58384439-1620-4599-9149-b018da691cc5",
@@ -90,7 +83,7 @@ const newsList: INewsItem[] = [
     time: "2026-08-07T06:15:00.000Z",
     image: "/src/data/newsData/img/get-back-assets-kazakhstan.webp",
     author: "Sprow",
-    comments: [],
+    commentsCount: 0,
   },
   {
     id: "759dc0cf-b54a-4787-9122-ca362c3d335a",
@@ -111,7 +104,7 @@ const newsList: INewsItem[] = [
     time: "2026-08-06T13:05:00.000Z",
     image: "/src/data/newsData/img/trump.webp",
     author: "ProstoGamer",
-    comments: [],
+    commentsCount: 0,
   },
   {
     id: "03e768aa-852d-442a-a87c-8e3ad3dc8c85",
@@ -132,7 +125,7 @@ const newsList: INewsItem[] = [
     time: "2026-08-05T07:37:00.000Z",
     image: "/src/data/newsData/img/renew-houses-almaty.webp",
     author: "Sprow",
-    comments: [],
+    commentsCount: 0,
   },
   {
     id: "68358e13-891a-4391-bce8-eafbd79ee022",
@@ -153,7 +146,7 @@ const newsList: INewsItem[] = [
     time: "2026-08-04T08:13:00.000Z",
     image: "/src/data/newsData/img/perseida.webp",
     author: "Sprow",
-    comments: [],
+    commentsCount: 0,
   },
   {
     id: "4b0fdc26-44e4-4c9f-b62b-37f2bb8885fb",
@@ -174,7 +167,7 @@ const newsList: INewsItem[] = [
     time: "2026-08-03T06:15:00.000Z",
     image: "/src/data/newsData/img/get-back-assets-kazakhstan.webp",
     author: "Sprow",
-    comments: [],
+    commentsCount: 0,
   },
   {
     id: "d50d3358-e310-43fd-ac94-58acdd0e70aa",
@@ -195,7 +188,7 @@ const newsList: INewsItem[] = [
     time: "2026-08-02T13:05:00.000Z",
     image: "/src/data/newsData/img/trump.webp",
     author: "ProstoGamer",
-    comments: [],
+    commentsCount: 0,
   },
   {
     id: "70530038-6600-47d4-81c5-93b823e0fca4",
@@ -216,7 +209,7 @@ const newsList: INewsItem[] = [
     time: "2026-08-01T07:37:00.000Z",
     image: "/src/data/newsData/img/renew-houses-almaty.webp",
     author: "Sprow",
-    comments: [],
+    commentsCount: 0,
   },
   {
     id: "4a047185-e93f-4ab9-9e33-559628fd0281",
@@ -237,7 +230,7 @@ const newsList: INewsItem[] = [
     time: "2026-07-31T08:13:00.000Z",
     image: "/src/data/newsData/img/perseida.webp",
     author: "Sprow",
-    comments: [],
+    commentsCount: 0,
   },
   {
     id: "de7f095d-03f4-4d64-8ea5-6b365e4a5c15",
@@ -258,7 +251,7 @@ const newsList: INewsItem[] = [
     time: "2026-07-30T06:15:00.000Z",
     image: "/src/data/newsData/img/get-back-assets-kazakhstan.webp",
     author: "Sprow",
-    comments: [],
+    commentsCount: 0,
   },
   {
     id: "98b882e3-617e-48a3-979b-f46583d14c2d",
@@ -279,7 +272,7 @@ const newsList: INewsItem[] = [
     time: "2026-08-10T13:05:00.000Z",
     image: "/src/data/newsData/img/trump.webp",
     author: "Sprow",
-    comments: [],
+    commentsCount: 0,
   },
   {
     id: "274a6884-bda2-4090-95c9-a92cb6e430bb",
@@ -300,7 +293,7 @@ const newsList: INewsItem[] = [
     time: "2026-08-09T07:37:00.000Z",
     image: "/src/data/newsData/img/renew-houses-almaty.webp",
     author: "ProstoGamer",
-    comments: [],
+    commentsCount: 0,
   },
   {
     id: "157c0eb8-de1e-4b9f-8078-c615b986506c",
@@ -321,7 +314,7 @@ const newsList: INewsItem[] = [
     time: "2026-08-08T08:13:00.000Z",
     image: "/src/data/newsData/img/perseida.webp",
     author: "ProstoGamer",
-    comments: [],
+    commentsCount: 0,
   },
   {
     id: "4a09bf92-4b62-4dec-a6ca-fab994268871",
@@ -342,7 +335,7 @@ const newsList: INewsItem[] = [
     time: "2026-08-07T06:15:00.000Z",
     image: "/src/data/newsData/img/get-back-assets-kazakhstan.webp",
     author: "Sprow",
-    comments: [],
+    commentsCount: 0,
   },
   {
     id: "a1714429-60cd-460c-b9d9-175a21f11c0b",
@@ -363,7 +356,7 @@ const newsList: INewsItem[] = [
     time: "2026-08-06T13:05:00.000Z",
     image: "/src/data/newsData/img/trump.webp",
     author: "Sprow",
-    comments: [],
+    commentsCount: 0,
   },
   {
     id: "7f8fa988-f9b7-4931-a48e-a959104850ef",
@@ -384,7 +377,7 @@ const newsList: INewsItem[] = [
     time: "2026-08-05T07:37:00.000Z",
     image: "/src/data/newsData/img/renew-houses-almaty.webp",
     author: "Sprow",
-    comments: [],
+    commentsCount: 0,
   },
   {
     id: "ff993a55-59eb-4dfc-abd4-80256df073fd",
@@ -405,7 +398,7 @@ const newsList: INewsItem[] = [
     time: "2026-08-04T08:13:00.000Z",
     image: "/src/data/newsData/img/perseida.webp",
     author: "Sprow",
-    comments: [],
+    commentsCount: 0,
   },
   {
     id: "34e3a9c7-b51c-4e1e-8db8-757490cb04e6",
@@ -426,7 +419,7 @@ const newsList: INewsItem[] = [
     time: "2026-08-03T06:15:00.000Z",
     image: "/src/data/newsData/img/get-back-assets-kazakhstan.webp",
     author: "Sprow",
-    comments: [],
+    commentsCount: 0,
   },
   {
     id: crypto.randomUUID(),
@@ -447,7 +440,7 @@ const newsList: INewsItem[] = [
     time: "2026-08-01T07:37:00.000Z",
     image: "/src/data/newsData/img/renew-houses-almaty.webp",
     author: "Sprow",
-    comments: [],
+    commentsCount: 0,
   },
   {
     id: crypto.randomUUID(),
@@ -468,7 +461,7 @@ const newsList: INewsItem[] = [
     time: "2026-07-31T08:13:00.000Z",
     image: "/src/data/newsData/img/perseida.webp",
     author: "Sprow",
-    comments: [],
+    commentsCount: 0,
   },
   {
     id: crypto.randomUUID(),
@@ -489,7 +482,7 @@ const newsList: INewsItem[] = [
     time: "2026-07-30T06:15:00.000Z",
     image: "/src/data/newsData/img/get-back-assets-kazakhstan.webp",
     author: "Sprow",
-    comments: [],
+    commentsCount: 0,
   },
   {
     id: crypto.randomUUID(),
@@ -510,7 +503,7 @@ const newsList: INewsItem[] = [
     time: "2026-08-10T13:05:00.000Z",
     image: "/src/data/newsData/img/trump.webp",
     author: "Sprow",
-    comments: [],
+    commentsCount: 0,
   },
   {
     id: crypto.randomUUID(),
@@ -531,7 +524,7 @@ const newsList: INewsItem[] = [
     time: "2026-08-09T07:37:00.000Z",
     image: "/src/data/newsData/img/renew-houses-almaty.webp",
     author: "Sprow",
-    comments: [],
+    commentsCount: 0,
   },
   {
     id: crypto.randomUUID(),
@@ -552,7 +545,7 @@ const newsList: INewsItem[] = [
     time: "2026-08-08T08:13:00.000Z",
     image: "/src/data/newsData/img/perseida.webp",
     author: "Sprow",
-    comments: [],
+    commentsCount: 0,
   },
   {
     id: crypto.randomUUID(),
@@ -573,7 +566,7 @@ const newsList: INewsItem[] = [
     time: "2026-08-07T06:15:00.000Z",
     image: "/src/data/newsData/img/get-back-assets-kazakhstan.webp",
     author: "Sprow",
-    comments: [],
+    commentsCount: 0,
   },
   {
     id: crypto.randomUUID(),
@@ -594,7 +587,7 @@ const newsList: INewsItem[] = [
     time: "2026-08-06T13:05:00.000Z",
     image: "/src/data/newsData/img/trump.webp",
     author: "Sprow",
-    comments: [],
+    commentsCount: 0,
   },
   {
     id: crypto.randomUUID(),
@@ -615,7 +608,7 @@ const newsList: INewsItem[] = [
     time: "2026-08-05T07:37:00.000Z",
     image: "/src/data/newsData/img/renew-houses-almaty.webp",
     author: "Sprow",
-    comments: [],
+    commentsCount: 0,
   },
   {
     id: crypto.randomUUID(),
@@ -636,7 +629,7 @@ const newsList: INewsItem[] = [
     time: "2026-08-04T08:13:00.000Z",
     image: "/src/data/newsData/img/perseida.webp",
     author: "ProstoGamer",
-    comments: [],
+    commentsCount: 0,
   },
   {
     id: crypto.randomUUID(),
@@ -657,7 +650,7 @@ const newsList: INewsItem[] = [
     time: "2026-08-03T06:15:00.000Z",
     image: "/src/data/newsData/img/get-back-assets-kazakhstan.webp",
     author: "Sprow",
-    comments: [],
+    commentsCount: 0,
   },
   {
     id: crypto.randomUUID(),
@@ -678,7 +671,7 @@ const newsList: INewsItem[] = [
     time: "2026-08-02T13:05:00.000Z",
     image: "/src/data/newsData/img/trump.webp",
     author: "Sprow",
-    comments: [],
+    commentsCount: 0,
   },
   {
     id: crypto.randomUUID(),
@@ -699,7 +692,7 @@ const newsList: INewsItem[] = [
     time: "2026-08-01T07:37:00.000Z",
     image: "/src/data/newsData/img/renew-houses-almaty.webp",
     author: "Sprow",
-    comments: [],
+    commentsCount: 0,
   },
   {
     id: crypto.randomUUID(),
@@ -720,7 +713,7 @@ const newsList: INewsItem[] = [
     time: "2026-07-31T08:13:00.000Z",
     image: "/src/data/newsData/img/perseida.webp",
     author: "Sprow",
-    comments: [],
+    commentsCount: 0,
   },
   {
     id: crypto.randomUUID(),
@@ -741,7 +734,7 @@ const newsList: INewsItem[] = [
     time: "2026-07-30T06:15:00.000Z",
     image: "/src/data/newsData/img/get-back-assets-kazakhstan.webp",
     author: "Sprow",
-    comments: [],
+    commentsCount: 0,
   },
   {
     id: crypto.randomUUID(),
@@ -762,7 +755,7 @@ const newsList: INewsItem[] = [
     time: "2026-08-10T13:05:00.000Z",
     image: "/src/data/newsData/img/trump.webp",
     author: "Sprow",
-    comments: [],
+    commentsCount: 0,
   },
   {
     id: crypto.randomUUID(),
@@ -783,7 +776,7 @@ const newsList: INewsItem[] = [
     time: "2026-08-09T07:37:00.000Z",
     image: "/src/data/newsData/img/renew-houses-almaty.webp",
     author: "Sprow",
-    comments: [],
+    commentsCount: 0,
   },
   {
     id: crypto.randomUUID(),
@@ -804,7 +797,7 @@ const newsList: INewsItem[] = [
     time: "2026-08-08T08:13:00.000Z",
     image: "/src/data/newsData/img/perseida.webp",
     author: "Sprow",
-    comments: [],
+    commentsCount: 0,
   },
   {
     id: crypto.randomUUID(),
@@ -825,7 +818,7 @@ const newsList: INewsItem[] = [
     time: "2026-08-07T06:15:00.000Z",
     image: "/src/data/newsData/img/get-back-assets-kazakhstan.webp",
     author: "Sprow",
-    comments: [],
+    commentsCount: 0,
   },
   {
     id: crypto.randomUUID(),
@@ -846,7 +839,7 @@ const newsList: INewsItem[] = [
     time: "2026-08-06T13:05:00.000Z",
     image: "/src/data/newsData/img/trump.webp",
     author: "Sprow",
-    comments: [],
+    commentsCount: 0,
   },
   {
     id: crypto.randomUUID(),
@@ -867,7 +860,7 @@ const newsList: INewsItem[] = [
     time: "2026-08-05T07:37:00.000Z",
     image: "/src/data/newsData/img/renew-houses-almaty.webp",
     author: "Sprow",
-    comments: [],
+    commentsCount: 0,
   },
   {
     id: crypto.randomUUID(),
@@ -888,7 +881,7 @@ const newsList: INewsItem[] = [
     time: "2026-08-04T08:13:00.000Z",
     image: "/src/data/newsData/img/perseida.webp",
     author: "Sprow",
-    comments: [],
+    commentsCount: 0,
   },
   {
     id: crypto.randomUUID(),
@@ -909,7 +902,7 @@ const newsList: INewsItem[] = [
     time: "2026-08-03T06:15:00.000Z",
     image: "/src/data/newsData/img/get-back-assets-kazakhstan.webp",
     author: "Sprow",
-    comments: [],
+    commentsCount: 0,
   },
   {
     id: crypto.randomUUID(),
@@ -930,7 +923,7 @@ const newsList: INewsItem[] = [
     time: "2026-08-02T13:05:00.000Z",
     image: "/src/data/newsData/img/trump.webp",
     author: "Sprow",
-    comments: [],
+    commentsCount: 0,
   },
   {
     id: crypto.randomUUID(),
@@ -951,7 +944,7 @@ const newsList: INewsItem[] = [
     time: "2026-08-01T07:37:00.000Z",
     image: "/src/data/newsData/img/renew-houses-almaty.webp",
     author: "Sprow",
-    comments: [],
+    commentsCount: 0,
   },
   {
     id: crypto.randomUUID(),
@@ -972,7 +965,7 @@ const newsList: INewsItem[] = [
     time: "2026-07-31T08:13:00.000Z",
     image: "/src/data/newsData/img/perseida.webp",
     author: "Sprow",
-    comments: [],
+    commentsCount: 0,
   },
   {
     id: crypto.randomUUID(),
@@ -993,7 +986,7 @@ const newsList: INewsItem[] = [
     time: "2026-07-30T06:15:00.000Z",
     image: "/src/data/newsData/img/get-back-assets-kazakhstan.webp",
     author: "Sprow",
-    comments: [],
+    commentsCount: 0,
   },
 ];
 

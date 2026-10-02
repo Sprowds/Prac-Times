@@ -1,0 +1,40 @@
+.comment {
+  display: flex;
+  align-items: top;
+  gap: 30px;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+
+  font-family: var(--inter-font);
+}
+
+.avatar__link {
+  flex-shrink: 0;
+}
+
+.avatar__link:hover img {
+  border: 1px solid var(--secondary-text-color);
+}
+
+.title {
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.title__link:hover {
+  text-decoration: underline;
+}
+
+.text {
+  font-size: clamp(14px, 2vw, 18px);
+  font-weight: 600;
+  line-height: 1.2;
+}
+
+.time__wrapper time {
+  font-family: var(--proxima-nova-font);
+}
