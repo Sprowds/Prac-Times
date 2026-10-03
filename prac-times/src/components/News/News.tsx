@@ -8,6 +8,7 @@ import type INewsItem from "../../types/newsItem";
 import AnotherNews from "../AnotherNews/AnotherNews";
 import MainArticle from "../Article/MainArticle/MainArticle";
 import PageTitle from "../../ui/PageTitle/PageTitle";
+import LoadingBlock from "../../ui/LoadingBlock/LoadingBlock";
 
 const News = () => {
   const dispatch = useAppDispatch();
@@ -30,7 +31,7 @@ const News = () => {
         {mainNewsItemFetchStatus === "succeeded" ? (
           <MainArticle article={mainNewsItem} />
         ) : (
-          ""
+          <LoadingBlock />
         )}
       </div>
       <AnotherNews />

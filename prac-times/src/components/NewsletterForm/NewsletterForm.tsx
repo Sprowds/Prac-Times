@@ -28,18 +28,7 @@ const NewsletterForm = () => {
       <PageTitle titleText="Хочешь получать рассылку?" />
 
       <div className={styles.form__wrapper}>
-        {incorrect ? (
-          <WarningList
-            warningArray={[
-              "Email is incorrect",
-              "Email is incorrect",
-              "Email is incorrect",
-              "Email is incorrect",
-            ]}
-          />
-        ) : (
-          ""
-        )}
+        {incorrect ? <WarningList warningArray={["Email is incorrect"]} /> : ""}
 
         <form className={styles.newsletter__form} onSubmit={handleSubmit}>
           <input

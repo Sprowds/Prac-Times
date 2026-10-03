@@ -8,6 +8,7 @@ import ArticleDesc from "../../components/ArticleDesc/ArticleDesc";
 import ArticleAuthor from "../../components/ArticleAuthor/ArticleAuthor";
 import ArticleCommentSection from "../../components/ArticleCommentSection/ArticleCommentSection";
 import NewsletterForm from "../../components/NewsletterForm/NewsletterForm";
+import LoadingBlock from "../../ui/LoadingBlock/LoadingBlock";
 
 const ArticlePage = () => {
   const params = useParams();
@@ -29,7 +30,7 @@ const ArticlePage = () => {
   return (
     <div className="container">
       {typeof article === "undefined" ? (
-        <div className="loading__animation"></div>
+        <LoadingBlock />
       ) : (
         <div className={styles.article__info}>
           <ArticleDisplay

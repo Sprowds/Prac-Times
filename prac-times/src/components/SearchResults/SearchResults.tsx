@@ -4,6 +4,7 @@ import type { RootState } from "../../store/store";
 import Pagination from "../Pagination/Pagination";
 import ArticleCard from "../Article/ArticleCard/ArticleCard";
 import PageTitle from "../../ui/PageTitle/PageTitle";
+import LoadingBlock from "../../ui/LoadingBlock/LoadingBlock";
 
 interface IProps {
   searchParams: URLSearchParams;
@@ -23,7 +24,7 @@ const SearchResults = ({ searchParams, addSearchParams }: IProps) => {
     <div className={styles.result}>
       <PageTitle titleText="Новости" />
       {allNewsFetchStatus !== "succeeded" ? (
-        ""
+        <LoadingBlock />
       ) : newsList.news.length === 0 ? (
         <p className={styles.result__nothing}>
           По вашему запросу ничего не найдено

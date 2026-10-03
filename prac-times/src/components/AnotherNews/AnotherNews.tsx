@@ -7,6 +7,7 @@ import type { RootState } from "../../store/store";
 import type INewsItem from "../../types/newsItem";
 import CompactArticle from "../Article/CompactArticle/CompactArticle";
 import PageTitle from "../../ui/PageTitle/PageTitle";
+import LoadingBlock from "../../ui/LoadingBlock/LoadingBlock";
 
 const AnotherNews = () => {
   const dispatch = useAppDispatch();
@@ -33,7 +34,7 @@ const AnotherNews = () => {
           ))}
         </ul>
       ) : (
-        <></>
+        <LoadingBlock />
       )}
     </aside>
   );

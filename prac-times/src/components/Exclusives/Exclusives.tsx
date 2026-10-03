@@ -6,6 +6,7 @@ import { useEffect } from "react";
 import { fetchExclusiveNews } from "../../store/newsSlice";
 import ArticleCard from "../Article/ArticleCard/ArticleCard";
 import PageTitle from "../../ui/PageTitle/PageTitle";
+import LoadingBlock from "../../ui/LoadingBlock/LoadingBlock";
 
 const Exclusives = () => {
   const dispatch = useAppDispatch();
@@ -25,13 +26,15 @@ const Exclusives = () => {
     <section className={styles.exclusives}>
       <PageTitle titleText="Эксклюзив" />
       <ul className={styles.exclusives__grid}>
-        {exclusiveNewsFetchStatus === "succeeded"
-          ? exclusivesList.map((item) => (
-              <li className={styles.exclusives__item} key={item.id}>
-                <ArticleCard article={item} />
-              </li>
-            ))
-          : ""}
+        {exclusiveNewsFetchStatus === "succeeded" ? (
+          exclusivesList.map((item) => (
+            <li className={styles.exclusives__item} key={item.id}>
+              <ArticleCard article={item} />
+            </li>
+          ))
+        ) : (
+          <LoadingBlock />
+        )}
       </ul>
     </section>
   );

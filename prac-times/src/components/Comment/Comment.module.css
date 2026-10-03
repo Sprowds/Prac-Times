@@ -23,6 +23,8 @@
 .title {
   font-size: 12px;
   font-weight: 700;
+
+  color: var(--activity-main-color);
 }
 
 .title__link:hover {
