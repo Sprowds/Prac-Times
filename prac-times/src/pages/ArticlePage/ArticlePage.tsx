@@ -39,7 +39,11 @@ const ArticlePage = () => {
             articleTitle={article.title}
             articleTime={article.time}
           />
-          <ArticleDesc articleDesc={article.text} articleId={article.id} />
+          <ArticleDesc
+            articleDesc={article.text}
+            articleId={article.id}
+            articleTitle={article.title}
+          />
           <ArticleAuthor
             articleTags={article.category}
             articleAuthor={article.author}
