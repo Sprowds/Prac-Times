@@ -26,15 +26,21 @@ const SearchResults = ({ searchParams, addSearchParams }: IProps) => {
   // );
 
   const fetchParams: GetArticleParams = {
-    title_like: "",
-    page: Number(searchParams.get("page")),
+    title_like: searchParams.has("string")
+      ? String(searchParams.get("string"))
+      : "",
+    page: searchParams.has("page") ? Number(searchParams.get("page")) : 1,
     limit: 10,
   };
 
   const newsList = useGetArticlesQuery(fetchParams);
+  console.log(newsList);
 
-  const pageCount = useGetArticlesCountQuery();
-  console.log(pageCount);
+  const countOfPages = newsList.data
+    ? Math.ceil(
+        newsList.data.pagination.totalItems / newsList.data.pagination.limit,
+      )
+    : 0;
 
   if (newsList.isLoading) return <LoadingBlock />;
 
@@ -53,18 +59,18 @@ const SearchResults = ({ searchParams, addSearchParams }: IProps) => {
       <PageTitle titleText="Новости" />
       <>
         <ul className={styles.result__list}>
-          {newsList.data?.map((item) => (
+          {newsList.data?.items.map((item) => (
             <li className={styles.result__item} key={item.id}>
               <ArticleCard article={item} />
             </li>
           ))}
         </ul>
-        {newsList.pageCount > 1 ? (
+        {countOfPages > 1 ? (
           <Pagination
-            countOfPages={newsList.pageCount}
+            countOfPages={countOfPages}
             currentPage={
               Number(searchParams.get("page")) < 1 ||
-              Number(searchParams.get("page")) > newsList.pageCount
+              Number(searchParams.get("page")) > countOfPages
                 ? 1
                 : Number(searchParams.get("page"))
             }

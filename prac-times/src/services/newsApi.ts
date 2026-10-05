@@ -2,22 +2,31 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import type INewsItem from "../types/newsItem";
 import type GetArticleParams from "../types/getArticleParams";
 
+interface IResponse {
+  items: INewsItem[];
+  pagination: {
+    page: number;
+    limit: number;
+    totalItems: number;
+  };
+}
+
 export const newsApi = createApi({
   reducerPath: `newsApi`,
 
   baseQuery: fetchBaseQuery({
     baseUrl: `http://localhost:3000/api`,
-    mode: `cors`,
-    prepareHeaders: (headers) => {
-      headers.set("Authorization", "Bearer 123");
-      headers.set("X-Total-Count", "");
+    // mode: `cors`,
+    // // prepareHeaders: (headers) => {
+    // //   headers.set("Authorization", "Bearer 123");
+    // //   headers.set("X-Total-Count", "");
 
-      return headers;
-    },
+    // //   return headers;
+    // // },
   }),
 
   endpoints: (builder) => ({
-    getArticles: builder.query<INewsItem[], GetArticleParams>({
+    getArticles: builder.query<IResponse, GetArticleParams>({
       query: (params) => ({
         url: "/articles",
         method: "GET",
