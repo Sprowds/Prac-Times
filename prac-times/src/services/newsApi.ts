@@ -16,13 +16,6 @@ export const newsApi = createApi({
 
   baseQuery: fetchBaseQuery({
     baseUrl: `http://localhost:3000/api`,
-    // mode: `cors`,
-    // // prepareHeaders: (headers) => {
-    // //   headers.set("Authorization", "Bearer 123");
-    // //   headers.set("X-Total-Count", "");
-
-    // //   return headers;
-    // // },
   }),
 
   endpoints: (builder) => ({
@@ -33,13 +26,7 @@ export const newsApi = createApi({
         params,
       }),
     }),
-    getArticlesCount: builder.query<number, void>({
-      query: () => ({
-        url: "/articles",
-        method: "GET",
-      }),
-    }),
   }),
 });
 
-export const { useGetArticlesQuery, useGetArticlesCountQuery } = newsApi;
+export const { useGetArticlesQuery } = newsApi;

@@ -361,7 +361,7 @@
       "responses": [
         {
           "uuid": "28bda5e7-6677-482b-9a71-7d70b65eac53",
-          "body": "{\n  \"items\": {{{stringify\n    (\n      slice\n      (\n        filter\n        (dataRaw 'articles')\n        (includes (object title) (queryParam 'title_like' \"\"))\n      )\n      (multiply (subtract (queryParam 'page' 1) 1) (queryParam 'limit' 10))\n      (multiply (queryParam 'page' 1) (queryParam 'limit' 10))\n    )\n  }}},\n\n  \"pagination\": {\n    \"page\": {{queryParam 'page' 1}},\n    \"limit\": {{queryParam 'limit' 10}},\n    \"totalItems\": {{len (dataRaw 'articles')}}\n  }\n}",
+          "body": "{\n  \"items\": {{{stringify\n    (\n      slice\n      (\n        dataRaw \n        'articles' \n        (concat\n        '$[?(@.title.match(/'\n        (queryParam 'title_like' \"\")\n        '/i))]')\n      )\n      (multiply (subtract (queryParam 'page' 1) 1) (queryParam 'limit' 10))\n      (multiply (queryParam 'page' 1) (queryParam 'limit' 10))\n    )\n  }}},\n\n  \"pagination\": {\n    \"page\": {{queryParam 'page' 1}},\n    \"limit\": {{queryParam 'limit' 10}},\n    \"totalItems\": {{len (\n      dataRaw \n        'articles' \n        (concat\n        '$[?(@.title.match(/'\n        (queryParam 'title_like' \"\")\n        '/i))]')\n      )}}\n  }\n}",
           "latency": 1000,
           "statusCode": 200,
           "label": "",

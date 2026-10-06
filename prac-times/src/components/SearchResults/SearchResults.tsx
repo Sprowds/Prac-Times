@@ -1,14 +1,9 @@
 import styles from "./SearchResults.module.css";
-import { useSelector } from "react-redux";
-import type { RootState } from "../../store/store";
 import Pagination from "../Pagination/Pagination";
 import ArticleCard from "../Article/ArticleCard/ArticleCard";
 import PageTitle from "../../ui/PageTitle/PageTitle";
 import LoadingBlock from "../../ui/LoadingBlock/LoadingBlock";
-import {
-  useGetArticlesCountQuery,
-  useGetArticlesQuery,
-} from "../../services/newsApi";
+import { useGetArticlesQuery } from "../../services/newsApi";
 import type GetArticleParams from "../../types/getArticleParams";
 
 interface IProps {
@@ -17,24 +12,17 @@ interface IProps {
 }
 
 const SearchResults = ({ searchParams, addSearchParams }: IProps) => {
-  // const allNewsFetchStatus = useSelector(
-  //   (state: RootState) => state.newsReducer.status.all,
-  // );
-
-  // const newsList = useSelector(
-  //   (state: RootState) => state.newsReducer.data.all,
-  // );
+  const articlesOnPage = 10; // Перевести в состояние и сделать форму для выбора количества
 
   const fetchParams: GetArticleParams = {
     title_like: searchParams.has("string")
       ? String(searchParams.get("string"))
       : "",
     page: searchParams.has("page") ? Number(searchParams.get("page")) : 1,
-    limit: 10,
+    limit: articlesOnPage,
   };
 
   const newsList = useGetArticlesQuery(fetchParams);
-  console.log(newsList);
 
   const countOfPages = newsList.data
     ? Math.ceil(
@@ -54,9 +42,17 @@ const SearchResults = ({ searchParams, addSearchParams }: IProps) => {
       </p>
     );
 
+  if (newsList.data?.items.length === 0)
+    return (
+      <p className={styles.result__nothing}>
+        По вашему запросу ничего не найдено
+      </p>
+    );
+
   return (
     <div className={styles.result}>
       <PageTitle titleText="Новости" />
+      <p>Всего: {newsList.data?.pagination.totalItems}</p>
       <>
         <ul className={styles.result__list}>
           {newsList.data?.items.map((item) => (
@@ -81,41 +77,6 @@ const SearchResults = ({ searchParams, addSearchParams }: IProps) => {
         )}
       </>
     </div>
-    // <div className={styles.result}>
-    //   <PageTitle titleText="Новости" />
-    //   {allNewsFetchStatus !== "succeeded" ? (
-    //     <LoadingBlock />
-    //   ) : newsList.news.length === 0 ? (
-    //     <p className={styles.result__nothing}>
-    //       По вашему запросу ничего не найдено
-    //     </p>
-    //   ) : (
-    //     <>
-    //       <p>Всего страниц: {newsList.pageCount}</p>
-    //       <ul className={styles.result__list}>
-    //         {newsList.news.map((item) => (
-    //           <li className={styles.result__item} key={item.id}>
-    //             <ArticleCard article={item} />
-    //           </li>
-    //         ))}
-    //       </ul>
-    //       {newsList.pageCount > 1 ? (
-    //         <Pagination
-    //           countOfPages={newsList.pageCount}
-    //           currentPage={
-    //             Number(searchParams.get("page")) < 1 ||
-    //             Number(searchParams.get("page")) > newsList.pageCount
-    //               ? 1
-    //               : Number(searchParams.get("page"))
-    //           }
-    //           addSearchParams={addSearchParams}
-    //         />
-    //       ) : (
-    //         ""
-    //       )}
-    //     </>
-    //   )}
-    // </div>
   );
 };
 
