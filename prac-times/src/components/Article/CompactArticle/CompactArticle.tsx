@@ -1,7 +1,6 @@
 import styles from "./CompactArticle.module.css";
 import { NavLink } from "react-router";
 import NewsTime from "../../../ui/NewsTime/NewsTime";
-import type { INewsCategory } from "../../../types/newsItem";
 import type INewsItem from "../../../types/newsItem";
 import NewsTag from "../../../ui/NewsTag/NewsTag";
 
@@ -10,9 +9,7 @@ interface ICompactArticleProps {
 }
 
 const CompactArticle = ({ article }: ICompactArticleProps) => {
-  const tag = Object.keys(article.category).find(
-    (key) => article.category[key as keyof INewsCategory] === true,
-  );
+  const tag = article.category[0];
 
   const link = `/article/${article.id}`;
 

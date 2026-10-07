@@ -4,7 +4,6 @@ import NewsTag from "../../../ui/NewsTag/NewsTag";
 import NewsTitle from "../../../ui/NewsTitle/NewsTitle";
 import NewsTime from "../../../ui/NewsTime/NewsTime";
 import type INewsItem from "../../../types/newsItem";
-import tagsMap from "../../../utils/tagsMap";
 
 interface IArticleCardProps {
   article: INewsItem;
@@ -32,10 +31,10 @@ const ArticleCard = ({ article }: IArticleCardProps) => {
 
       <div className={styles.article__info}>
         <ul className={styles.article__tags}>
-          {tagsMap(article.category).map((tag) => (
-            <li className={styles.article__tags__item} key={tag}>
-              <NavLink to={tag} className={styles.tags__item__link}>
-                <NewsTag tagText={tag} tagFontSize="16px" />
+          {article.category.map((category) => (
+            <li className={styles.article__tags__item} key={category}>
+              <NavLink to={category} className={styles.tags__item__link}>
+                <NewsTag tagText={category} tagFontSize="16px" />
               </NavLink>
             </li>
           ))}

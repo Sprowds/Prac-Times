@@ -64,7 +64,7 @@ export function getNewsList(param: string): Promise<INewsItem[]> {
     case "main": {
       timeOut = 500;
       const mainResult: INewsItem | undefined = newsList.find(
-        (item: INewsItem) => item.type.main === true,
+        (item: INewsItem) => item.type === "main",
       );
       result.push(typeof mainResult === "undefined" ? newsList[0] : mainResult);
       break;
@@ -74,7 +74,7 @@ export function getNewsList(param: string): Promise<INewsItem[]> {
       timeOut = 1000;
       newsList.forEach((item) => {
         if (result.length < 4) {
-          if (item.type.main === false) {
+          if (item.type !== "main") {
             result.push(item);
           }
         } else return;
@@ -85,7 +85,7 @@ export function getNewsList(param: string): Promise<INewsItem[]> {
       timeOut = 1500;
       newsList.forEach((item) => {
         if (result.length < 6) {
-          if (item.type.exclusive === true) {
+          if (item.type === "exclusive") {
             result.push(item);
           }
         } else return;

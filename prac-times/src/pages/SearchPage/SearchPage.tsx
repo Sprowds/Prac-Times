@@ -2,9 +2,6 @@ import styles from "./SearchPage.module.css";
 import SearchResults from "../../components/SearchResults/SearchResults";
 import SearchFilters from "../../components/SearchFilters/SearchFilters";
 import { useSearchParams } from "react-router";
-import { useEffect } from "react";
-import { useAppDispatch } from "../../hooks/useAppDispatch";
-import { fetchAllNews } from "../../store/newsSlice";
 
 const SearchPage = () => {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -25,12 +22,6 @@ const SearchPage = () => {
       }
     });
   };
-
-  const dispatch = useAppDispatch();
-
-  useEffect(() => {
-    dispatch(fetchAllNews(searchParams.toString()));
-  }, [searchParams, dispatch]);
 
   return (
     <div className="container">

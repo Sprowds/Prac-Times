@@ -15,12 +15,14 @@ const SearchResults = ({ searchParams, addSearchParams }: IProps) => {
   const articlesOnPage = 10; // Перевести в состояние и сделать форму для выбора количества
 
   const fetchParams: GetArticleParams = {
-    title_like: searchParams.has("string")
-      ? String(searchParams.get("string"))
-      : "",
-    page: searchParams.has("page") ? Number(searchParams.get("page")) : 1,
     limit: articlesOnPage,
   };
+
+  if (searchParams.has("string"))
+    fetchParams.title_like = String(searchParams.get("string"));
+
+  if (searchParams.has("page"))
+    fetchParams.page = Number(searchParams.get("page"));
 
   const newsList = useGetArticlesQuery(fetchParams);
 

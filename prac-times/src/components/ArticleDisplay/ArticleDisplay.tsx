@@ -1,13 +1,12 @@
 import { NavLink } from "react-router";
-import type { INewsCategory } from "../../types/newsItem";
+import type { ArticleCategory } from "../../types/newsItem";
 import NewsTime from "../../ui/NewsTime/NewsTime";
-import tagsMap from "../../utils/tagsMap";
 import styles from "./ArticleDisplay.module.css";
 import translate from "../../utils/translate";
 
 interface IProps {
   articleImg: string;
-  articleTags: INewsCategory;
+  articleTags: ArticleCategory[];
   articleTitle: string;
   articleTime: string;
 }
@@ -24,7 +23,7 @@ const ArticleDisplay = ({
 
       <div className={styles.text__content}>
         <ul className={styles.tag_list}>
-          {tagsMap(articleTags).map((tag) => (
+          {articleTags.map((tag) => (
             <li className={styles.tag__item} key={tag}>
               <NavLink to={`/${tag}`} className={styles.tag__link}>
                 <p className={styles.tag}>
