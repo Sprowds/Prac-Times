@@ -2,8 +2,10 @@ import { NavLink } from "react-router";
 import type { ArticleCategory } from "../../types/newsItem";
 import translate from "../../utils/translate";
 import styles from "./ArticleAuthor.module.css";
-import getUserInfoByUsername from "../../utils/getUserInfoByUsername";
 import Avatar from "../../ui/Avatar/Avatar";
+import { useGetUserPublicInfoByUserNameQuery } from "../../services/usersPublicApi";
+import LoadingBlock from "../../ui/LoadingBlock/LoadingBlock";
+import validateAvatarLink from "../../utils/validateAvatarLink";
 
 interface IProps {
   articleTags: ArticleCategory[];
@@ -11,7 +13,21 @@ interface IProps {
 }
 
 const ArticleAuthor = ({ articleTags, articleAuthor }: IProps) => {
-  const authorInfo = getUserInfoByUsername(articleAuthor);
+  const fetchedAuthorInfo = useGetUserPublicInfoByUserNameQuery(articleAuthor);
+
+  if (fetchedAuthorInfo.isLoading) return <LoadingBlock />;
+
+  if (
+    fetchedAuthorInfo.isError ||
+    typeof fetchedAuthorInfo.data === "undefined"
+  )
+    return (
+      <p className={styles.error__message}>
+        Не удалось загрузить данные об авторе.
+      </p>
+    );
+
+  const authorInfo = fetchedAuthorInfo.data;
 
   return (
     <section className={styles.author}>
@@ -33,7 +49,7 @@ const ArticleAuthor = ({ articleTags, articleAuthor }: IProps) => {
             className={styles.author__link}
           >
             <Avatar
-              avatar={authorInfo.avatar}
+              avatar={validateAvatarLink(authorInfo.avatar)}
               name={`${authorInfo.name} ${authorInfo.surname}`}
               size="74px"
             />

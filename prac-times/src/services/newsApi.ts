@@ -26,7 +26,14 @@ export const newsApi = createApi({
         params,
       }),
     }),
+
+    getArticleById: builder.query<INewsItem, string>({
+      query: (id) => ({
+        url: `/articles/${id}`,
+        method: "GET",
+      }),
+    }),
   }),
 });
 
-export const { useGetArticlesQuery } = newsApi;
+export const { useGetArticlesQuery, useGetArticleByIdQuery } = newsApi;

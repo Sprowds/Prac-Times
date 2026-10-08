@@ -1,40 +1,36 @@
-import { useSelector } from "react-redux";
 import styles from "./Exclusives.module.css";
-import type { RootState } from "../../store/store";
-import { useAppDispatch } from "../../hooks/useAppDispatch";
-import { useEffect } from "react";
-import { fetchExclusiveNews } from "../../store/newsSlice";
 import ArticleCard from "../Article/ArticleCard/ArticleCard";
 import PageTitle from "../../ui/PageTitle/PageTitle";
 import LoadingBlock from "../../ui/LoadingBlock/LoadingBlock";
+import { useGetArticlesQuery } from "../../services/newsApi";
+import type GetArticleParams from "../../types/getArticleParams";
 
 const Exclusives = () => {
-  const dispatch = useAppDispatch();
-  useEffect(() => {
-    dispatch(fetchExclusiveNews());
-  }, [dispatch]);
+  const fetchParams: GetArticleParams = {
+    limit: 6,
+    type: "exclusive",
+  };
 
-  const exclusiveNewsFetchStatus = useSelector(
-    (state: RootState) => state.newsReducer.status.exclusive,
-  );
+  const exclusiveArticlesList = useGetArticlesQuery(fetchParams);
 
-  const exclusivesList = useSelector(
-    (state: RootState) => state.newsReducer.data.exclusive,
-  );
+  if (exclusiveArticlesList.isLoading) return <LoadingBlock />;
+
+  if (exclusiveArticlesList.isError)
+    return (
+      <p className={styles.error__message}>
+        Не удалось получить список новостей. Попробуйте позднее.
+      </p>
+    );
 
   return (
     <section className={styles.exclusives}>
       <PageTitle titleText="Эксклюзив" />
       <ul className={styles.exclusives__grid}>
-        {exclusiveNewsFetchStatus === "succeeded" ? (
-          exclusivesList.map((item) => (
-            <li className={styles.exclusives__item} key={item.id}>
-              <ArticleCard article={item} />
-            </li>
-          ))
-        ) : (
-          <LoadingBlock />
-        )}
+        {exclusiveArticlesList.data?.items.map((article) => (
+          <li className={styles.exclusives__item} key={article.id}>
+            <ArticleCard article={article} />
+          </li>
+        ))}
       </ul>
     </section>
   );

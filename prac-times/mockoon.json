@@ -344,7 +344,7 @@
           "disableTemplating": false,
           "fallbackTo404": false,
           "default": true,
-          "crudKey": "id",
+          "crudKey": "username",
           "callbacks": []
         }
       ],
@@ -382,6 +382,37 @@
       "responseMode": null,
       "streamingMode": null,
       "streamingInterval": 0
+    },
+    {
+      "uuid": "a5e1541c-42c6-4765-8ac9-cdaca1d7efec",
+      "type": "crud",
+      "documentation": "",
+      "method": "",
+      "endpoint": "comments",
+      "responses": [
+        {
+          "uuid": "0df4d2bc-caae-4e97-963f-be08c3fad08f",
+          "body": "{}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "",
+          "headers": [],
+          "bodyType": "DATABUCKET",
+          "filePath": "",
+          "databucketID": "qi93",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": true,
+          "crudKey": "id",
+          "callbacks": []
+        }
+      ],
+      "responseMode": null,
+      "streamingMode": null,
+      "streamingInterval": 0
     }
   ],
   "rootChildren": [
@@ -396,6 +427,10 @@
     {
       "type": "route",
       "uuid": "d4a09c28-f233-46ad-a633-0f6d6c5af43f"
+    },
+    {
+      "type": "route",
+      "uuid": "a5e1541c-42c6-4765-8ac9-cdaca1d7efec"
     },
     {
       "type": "route",

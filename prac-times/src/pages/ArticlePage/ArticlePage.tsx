@@ -1,31 +1,39 @@
 import { useNavigate, useParams } from "react-router";
 import ArticleDisplay from "../../components/ArticleDisplay/ArticleDisplay";
 import styles from "./ArticlePage.module.css";
-import { useEffect, useState } from "react";
-import fetchArticleData from "../../utils/fetchArticle";
-import type INewsItem from "../../types/newsItem";
 import ArticleDesc from "../../components/ArticleDesc/ArticleDesc";
 import ArticleAuthor from "../../components/ArticleAuthor/ArticleAuthor";
 import ArticleCommentSection from "../../components/ArticleCommentSection/ArticleCommentSection";
 import NewsletterForm from "../../components/NewsletterForm/NewsletterForm";
 import LoadingBlock from "../../ui/LoadingBlock/LoadingBlock";
+import { useGetArticleByIdQuery } from "../../services/newsApi";
 
 const ArticlePage = () => {
   const params = useParams();
   const navigate = useNavigate();
 
-  const [article, setArticle]: [
-    INewsItem | undefined,
-    React.Dispatch<React.SetStateAction<INewsItem | undefined>>,
-  ] = useState();
+  // const [article, setArticle]: [
+  //   INewsItem | undefined,
+  //   React.Dispatch<React.SetStateAction<INewsItem | undefined>>,
+  // ] = useState();
 
-  useEffect(() => {
-    if (typeof params.articleId !== "undefined")
-      fetchArticleData(params.articleId).then((data) => {
-        if (typeof data === "undefined") navigate("/");
-        else setArticle(data);
-      });
-  }, [navigate, params.articleId]);
+  // useEffect(() => {
+  //   if (typeof params.articleId !== "undefined")
+  //     fetchArticleData(params.articleId).then((data) => {
+  //       if (typeof data === "undefined") navigate("/");
+  //       else setArticle(data);
+  //     });
+  // }, [navigate, params.articleId]);
+
+  const fetchedArticle = useGetArticleByIdQuery(
+    typeof params.articleId !== "undefined" ? params.articleId : "",
+  );
+
+  if (fetchedArticle.isLoading) return <LoadingBlock />;
+
+  if (fetchedArticle.isError) navigate("/");
+
+  const article = fetchedArticle.data;
 
   return (
     <div className="container">

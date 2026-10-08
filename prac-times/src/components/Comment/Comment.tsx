@@ -1,8 +1,10 @@
 import { NavLink } from "react-router";
 import Avatar from "../../ui/Avatar/Avatar";
 import styles from "./Comment.module.css";
-import getUserInfoByUsername from "../../utils/getUserInfoByUsername";
 import NewsTime from "../../ui/NewsTime/NewsTime";
+import { useGetUserPublicInfoByUserNameQuery } from "../../services/usersPublicApi";
+import LoadingBlock from "../../ui/LoadingBlock/LoadingBlock";
+import validateAvatarLink from "../../utils/validateAvatarLink";
 
 interface IProps {
   author: string;
@@ -11,24 +13,43 @@ interface IProps {
 }
 
 const Comment = ({ author, text, createdAt }: IProps) => {
-  const authorInfo = getUserInfoByUsername(author);
+  const authorInfo = useGetUserPublicInfoByUserNameQuery(author);
+
+  const authorBlock = () => {
+    if (authorInfo.isLoading) return <LoadingBlock />;
+
+    if (authorInfo.isError)
+      return (
+        <p className={styles.error__message}>
+          Не удалось загрузить данные о пользователе.
+        </p>
+      );
+
+    return (
+      <NavLink to={`/profile/${author}`} className={styles.author__link}>
+        <Avatar
+          avatar={validateAvatarLink(
+            authorInfo.data?.avatar ? authorInfo.data?.avatar : "",
+          )}
+          name={author}
+          size="45px"
+        />
+        <p
+          className={styles.title}
+        >{`${authorInfo.data?.name} ${authorInfo.data?.surname}`}</p>
+      </NavLink>
+    );
+  };
 
   return (
     <article className={styles.comment}>
-      <NavLink to={`/profile/${author}`} className={styles.avatar__link}>
-        <Avatar avatar={authorInfo.avatar} name={author} size="74px" />
-      </NavLink>
-      <div className={styles.content}>
-        <NavLink to={`/profile/${author}`} className={styles.title__link}>
-          <p
-            className={styles.title}
-          >{`${authorInfo.name} ${authorInfo.surname}`}</p>
-        </NavLink>
-        <p className={styles.text}>{text}</p>
+      <div className={styles.comment__info}>
+        {authorBlock()}
         <div className={styles.time__wrapper}>
           <NewsTime dateTime={createdAt} />
         </div>
       </div>
+      <p className={styles.comment__text}>{text}</p>
     </article>
   );
 };

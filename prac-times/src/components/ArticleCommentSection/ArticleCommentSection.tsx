@@ -1,8 +1,9 @@
 import { useState } from "react";
 import PageTitle from "../../ui/PageTitle/PageTitle";
-import { fetchCommentsByArticleId } from "../../utils/backendAPIEmulator";
 import styles from "./ArticleCommentSection.module.css";
 import Comment from "../Comment/Comment";
+import { useGetCommentsByArticleIdQuery } from "../../services/commentsApi";
+import type GetCommentsByArticleIdParams from "../../types/getCommentsByArticleIdParams";
 
 interface IProps {
   articleId: string;
@@ -15,6 +16,13 @@ const ArticleCommentSection = ({ articleId, articleComments }: IProps) => {
 
   const commentsOnPageCount = 10;
 
+  const fetchParams: GetCommentsByArticleIdParams = {
+    id: articleId,
+    limit: commentsOnPageCount,
+  };
+
+  const commentList = useGetCommentsByArticleIdQuery(fetchParams);
+
   const pageCount = Math.ceil(articleComments / commentsOnPageCount);
 
   return (
@@ -23,17 +31,15 @@ const ArticleCommentSection = ({ articleId, articleComments }: IProps) => {
         <PageTitle titleText="Комментарии" />
         <p className={styles.count}>{`Всего: ${articleComments}`}</p>
         <ul className={styles.comment__list}>
-          {fetchCommentsByArticleId(articleId, commentsOnPageCount, page).map(
-            (comment) => (
-              <li className={styles.comment__item} key={comment.id}>
-                <Comment
-                  author={comment.username}
-                  text={comment.text}
-                  createdAt={comment.time}
-                />
-              </li>
-            ),
-          )}
+          {commentList.data?.map((comment) => (
+            <li className={styles.comment__item} key={comment.id}>
+              <Comment
+                author={comment.username}
+                text={comment.text}
+                createdAt={comment.time}
+              />
+            </li>
+          ))}
         </ul>
         {articleComments / commentsOnPageCount > 1 ? (
           <div className={styles.comment__pagination}>
