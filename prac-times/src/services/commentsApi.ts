@@ -1,6 +1,6 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import type GetArticleParams from "../types/getArticleParams";
 import type IComment from "../types/comment";
+import type GetCommentsParams from "../types/getCommentsParams";
 
 export const commentsApi = createApi({
   reducerPath: `commentsApi`,
@@ -10,7 +10,7 @@ export const commentsApi = createApi({
   }),
 
   endpoints: (builder) => ({
-    getCommentsByArticleId: builder.query<IComment[], GetArticleParams>({
+    getComments: builder.query<IComment[], GetCommentsParams>({
       query: (params) => ({
         url: "/comments",
         method: "GET",
@@ -20,4 +20,4 @@ export const commentsApi = createApi({
   }),
 });
 
-export const { useGetCommentsByArticleIdQuery } = commentsApi;
+export const { useGetCommentsQuery } = commentsApi;

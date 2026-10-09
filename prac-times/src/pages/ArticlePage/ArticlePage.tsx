@@ -12,19 +12,6 @@ const ArticlePage = () => {
   const params = useParams();
   const navigate = useNavigate();
 
-  // const [article, setArticle]: [
-  //   INewsItem | undefined,
-  //   React.Dispatch<React.SetStateAction<INewsItem | undefined>>,
-  // ] = useState();
-
-  // useEffect(() => {
-  //   if (typeof params.articleId !== "undefined")
-  //     fetchArticleData(params.articleId).then((data) => {
-  //       if (typeof data === "undefined") navigate("/");
-  //       else setArticle(data);
-  //     });
-  // }, [navigate, params.articleId]);
-
   const fetchedArticle = useGetArticleByIdQuery(
     typeof params.articleId !== "undefined" ? params.articleId : "",
   );
@@ -35,11 +22,10 @@ const ArticlePage = () => {
 
   const article = fetchedArticle.data;
 
-  return (
-    <div className="container">
-      {typeof article === "undefined" ? (
-        <LoadingBlock />
-      ) : (
+  if (typeof article === "undefined") navigate("/");
+  else
+    return (
+      <div className="container">
         <div className={styles.article__info}>
           <ArticleDisplay
             articleImg={article.image}
@@ -61,10 +47,9 @@ const ArticlePage = () => {
             articleComments={article.commentsCount}
           />
         </div>
-      )}
-      <NewsletterForm />
-    </div>
-  );
+        <NewsletterForm />
+      </div>
+    );
 };
 
 export default ArticlePage;

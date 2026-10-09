@@ -14,6 +14,15 @@ export const usersPublicApi = createApi({
         url: `/users/${username}`,
         method: "GET",
       }),
+      transformResponse: (response: IUser): IUser => {
+        if (response.avatar.trim().length === 0)
+          return {
+            ...response,
+            avatar: "/src/data/userData/img/default-avatar.jpg",
+          };
+
+        return response;
+      },
     }),
   }),
 });

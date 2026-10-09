@@ -4,6 +4,7 @@ import PageTitle from "../../ui/PageTitle/PageTitle";
 import { useGetArticlesQuery } from "../../services/newsApi";
 import type GetArticleParams from "../../types/getArticleParams";
 import LoadingBlock from "../../ui/LoadingBlock/LoadingBlock";
+import ErrorBlock from "../../ui/ErrorBlock/ErrorBlock";
 
 const AnotherNews = () => {
   const fetchParams: GetArticleParams = {
@@ -13,19 +14,12 @@ const AnotherNews = () => {
 
   const anotherNews = useGetArticlesQuery(fetchParams);
 
-  if (anotherNews.isLoading) return <LoadingBlock />;
+  const anotherNewsBlock = () => {
+    if (anotherNews.isLoading) return <LoadingBlock />;
 
-  if (anotherNews.isError)
+    if (anotherNews.isError) return <ErrorBlock />;
+
     return (
-      <p className={styles.error__message}>
-        Не удалось получить список новостей. Попробуйте позднее.
-      </p>
-    );
-
-  return (
-    <aside className={styles.news__another}>
-      <PageTitle titleText="Другие новости" />
-
       <ul className={styles.another__content}>
         {anotherNews.data?.items.map((item) => (
           <li className={styles.another__item} key={item.id}>
@@ -33,6 +27,13 @@ const AnotherNews = () => {
           </li>
         ))}
       </ul>
+    );
+  };
+
+  return (
+    <aside className={styles.news__another}>
+      <PageTitle titleText="Другие новости" />
+      {anotherNewsBlock()}
     </aside>
   );
 };

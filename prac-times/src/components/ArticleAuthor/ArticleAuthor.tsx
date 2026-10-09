@@ -5,7 +5,7 @@ import styles from "./ArticleAuthor.module.css";
 import Avatar from "../../ui/Avatar/Avatar";
 import { useGetUserPublicInfoByUserNameQuery } from "../../services/usersPublicApi";
 import LoadingBlock from "../../ui/LoadingBlock/LoadingBlock";
-import validateAvatarLink from "../../utils/validateAvatarLink";
+import ErrorBlock from "../../ui/ErrorBlock/ErrorBlock";
 
 interface IProps {
   articleTags: ArticleCategory[];
@@ -21,11 +21,7 @@ const ArticleAuthor = ({ articleTags, articleAuthor }: IProps) => {
     fetchedAuthorInfo.isError ||
     typeof fetchedAuthorInfo.data === "undefined"
   )
-    return (
-      <p className={styles.error__message}>
-        Не удалось загрузить данные об авторе.
-      </p>
-    );
+    return <ErrorBlock />;
 
   const authorInfo = fetchedAuthorInfo.data;
 
@@ -49,7 +45,7 @@ const ArticleAuthor = ({ articleTags, articleAuthor }: IProps) => {
             className={styles.author__link}
           >
             <Avatar
-              avatar={validateAvatarLink(authorInfo.avatar)}
+              avatar={authorInfo.avatar}
               name={`${authorInfo.name} ${authorInfo.surname}`}
               size="74px"
             />

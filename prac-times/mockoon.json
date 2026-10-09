@@ -513,7 +513,7 @@
       "id": "oe5v",
       "name": "usersPublic",
       "documentation": "",
-      "value": "[\r\n  {\r\n    \"username\": \"Sprow\",\r\n    \"name\": \"Madi\",\r\n    \"surname\": \"Kurmanov\",\r\n    \"birthDate\": \"2002-05-06T00:00:00.000Z\",\r\n    \"email\": \"saint_sprow@mail.ru\",\r\n    \"phone\": \"+77082330226\",\r\n    \"avatar\": \"\"\r\n  },\r\n  {\r\n    \"username\": \"ProstoGamer\",\r\n    \"name\": \"Alexander\",\r\n    \"surname\": \"Mogilev\",\r\n    \"birthDate\": \"2007-06-05T00:00:00.000Z\",\r\n    \"email\": \"prosto_gamer@mail.ru\",\r\n    \"phone\": \"+77077777777\",\r\n    \"avatar\": \"\"\r\n  }\r\n]"
+      "value": "[\r\n  {\r\n    \"username\": \"Sprow\",\r\n    \"name\": \"Мади\",\r\n    \"surname\": \"Курманов\",\r\n    \"birthDate\": \"2002-05-06T00:00:00.000Z\",\r\n    \"email\": \"saint_sprow@mail.ru\",\r\n    \"phone\": \"+77082330226\",\r\n    \"avatar\": \"\",\r\n    \"status\": \"Keep going\"\r\n  },\r\n  {\r\n    \"username\": \"ProstoGamer\",\r\n    \"name\": \"Александр\",\r\n    \"surname\": \"Могилёв\",\r\n    \"birthDate\": \"2007-06-05T00:00:00.000Z\",\r\n    \"email\": \"prosto_gamer@mail.ru\",\r\n    \"phone\": \"+77077777777\",\r\n    \"avatar\": \"\",\r\n    \"status\": \"\"\r\n  }\r\n]"
     },
     {
       "uuid": "981cc199-1e3d-4d64-ad66-3abc9c7f6efe",

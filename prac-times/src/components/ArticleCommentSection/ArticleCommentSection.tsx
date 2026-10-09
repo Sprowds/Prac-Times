@@ -2,8 +2,10 @@ import { useState } from "react";
 import PageTitle from "../../ui/PageTitle/PageTitle";
 import styles from "./ArticleCommentSection.module.css";
 import Comment from "../Comment/Comment";
-import { useGetCommentsByArticleIdQuery } from "../../services/commentsApi";
-import type GetCommentsByArticleIdParams from "../../types/getCommentsByArticleIdParams";
+import { useGetCommentsQuery } from "../../services/commentsApi";
+import type GetCommentsParams from "../../types/getCommentsParams";
+import ErrorBlock from "../../ui/ErrorBlock/ErrorBlock";
+import LoadingBlock from "../../ui/LoadingBlock/LoadingBlock";
 
 interface IProps {
   articleId: string;
@@ -16,12 +18,32 @@ const ArticleCommentSection = ({ articleId, articleComments }: IProps) => {
 
   const commentsOnPageCount = 10;
 
-  const fetchParams: GetCommentsByArticleIdParams = {
-    id: articleId,
+  const fetchParams: GetCommentsParams = {
+    articleId_like: articleId,
     limit: commentsOnPageCount,
   };
 
-  const commentList = useGetCommentsByArticleIdQuery(fetchParams);
+  const commentList = useGetCommentsQuery(fetchParams);
+
+  const commentListBlock = () => {
+    if (commentList.isLoading) return <LoadingBlock />;
+
+    if (commentList.isError) return <ErrorBlock />;
+
+    return (
+      <ul className={styles.comment__list}>
+        {commentList.data?.map((comment) => (
+          <li className={styles.comment__item} key={comment.id}>
+            <Comment
+              author={comment.username}
+              text={comment.text}
+              createdAt={comment.time}
+            />
+          </li>
+        ))}
+      </ul>
+    );
+  };
 
   const pageCount = Math.ceil(articleComments / commentsOnPageCount);
 
@@ -30,17 +52,7 @@ const ArticleCommentSection = ({ articleId, articleComments }: IProps) => {
       <div className={styles.comments__inner}>
         <PageTitle titleText="Комментарии" />
         <p className={styles.count}>{`Всего: ${articleComments}`}</p>
-        <ul className={styles.comment__list}>
-          {commentList.data?.map((comment) => (
-            <li className={styles.comment__item} key={comment.id}>
-              <Comment
-                author={comment.username}
-                text={comment.text}
-                createdAt={comment.time}
-              />
-            </li>
-          ))}
-        </ul>
+        {commentListBlock()}
         {articleComments / commentsOnPageCount > 1 ? (
           <div className={styles.comment__pagination}>
             <button

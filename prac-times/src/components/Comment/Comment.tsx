@@ -4,7 +4,6 @@ import styles from "./Comment.module.css";
 import NewsTime from "../../ui/NewsTime/NewsTime";
 import { useGetUserPublicInfoByUserNameQuery } from "../../services/usersPublicApi";
 import LoadingBlock from "../../ui/LoadingBlock/LoadingBlock";
-import validateAvatarLink from "../../utils/validateAvatarLink";
 
 interface IProps {
   author: string;
@@ -27,13 +26,7 @@ const Comment = ({ author, text, createdAt }: IProps) => {
 
     return (
       <NavLink to={`/profile/${author}`} className={styles.author__link}>
-        <Avatar
-          avatar={validateAvatarLink(
-            authorInfo.data?.avatar ? authorInfo.data?.avatar : "",
-          )}
-          name={author}
-          size="45px"
-        />
+        <Avatar avatar={authorInfo.data?.avatar} name={author} size="45px" />
         <p
           className={styles.title}
         >{`${authorInfo.data?.name} ${authorInfo.data?.surname}`}</p>

@@ -6,6 +6,7 @@ import NotFoundPage from "./pages/NotFoundPage/NotFoundPage";
 import SearchPage from "./pages/SearchPage/SearchPage";
 import WorldNewsPage from "./pages/WorldNewsPage/WorldNewsPage";
 import ArticlePage from "./pages/ArticlePage/ArticlePage";
+import ProfilePage from "./pages/ProfilePage/ProfilePage";
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
           <Route path="/search" element={<SearchPage />} />
           <Route path="/world" element={<WorldNewsPage />} />
           <Route path="/article/:articleId" element={<ArticlePage />} />
+          <Route path="/profile/:username" element={<ProfilePage />} />
           <Route path="*" element={<NotFoundPage />} />
         </Route>
       </Routes>

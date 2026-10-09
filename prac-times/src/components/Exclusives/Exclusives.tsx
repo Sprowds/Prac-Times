@@ -4,6 +4,7 @@ import PageTitle from "../../ui/PageTitle/PageTitle";
 import LoadingBlock from "../../ui/LoadingBlock/LoadingBlock";
 import { useGetArticlesQuery } from "../../services/newsApi";
 import type GetArticleParams from "../../types/getArticleParams";
+import ErrorBlock from "../../ui/ErrorBlock/ErrorBlock";
 
 const Exclusives = () => {
   const fetchParams: GetArticleParams = {
@@ -13,18 +14,12 @@ const Exclusives = () => {
 
   const exclusiveArticlesList = useGetArticlesQuery(fetchParams);
 
-  if (exclusiveArticlesList.isLoading) return <LoadingBlock />;
+  const exclusiveArticlesListBlock = () => {
+    if (exclusiveArticlesList.isLoading) return <LoadingBlock />;
 
-  if (exclusiveArticlesList.isError)
+    if (exclusiveArticlesList.isError) return <ErrorBlock />;
+
     return (
-      <p className={styles.error__message}>
-        Не удалось получить список новостей. Попробуйте позднее.
-      </p>
-    );
-
-  return (
-    <section className={styles.exclusives}>
-      <PageTitle titleText="Эксклюзив" />
       <ul className={styles.exclusives__grid}>
         {exclusiveArticlesList.data?.items.map((article) => (
           <li className={styles.exclusives__item} key={article.id}>
@@ -32,6 +27,13 @@ const Exclusives = () => {
           </li>
         ))}
       </ul>
+    );
+  };
+
+  return (
+    <section className={styles.exclusives}>
+      <PageTitle titleText="Эксклюзив" />
+      {exclusiveArticlesListBlock()}
     </section>
   );
 };

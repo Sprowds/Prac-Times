@@ -5,6 +5,7 @@ import PageTitle from "../../ui/PageTitle/PageTitle";
 import LoadingBlock from "../../ui/LoadingBlock/LoadingBlock";
 import { useGetArticlesQuery } from "../../services/newsApi";
 import type GetArticleParams from "../../types/getArticleParams";
+import ErrorBlock from "../../ui/ErrorBlock/ErrorBlock";
 
 const News = () => {
   const fetchParams: GetArticleParams = {
@@ -18,11 +19,7 @@ const News = () => {
     if (lastMainArticle.isLoading) return <LoadingBlock />;
 
     if (lastMainArticle.isError || !lastMainArticle.data?.items[0])
-      return (
-        <p className={styles.error__message}>
-          Не удалось получить новость. Попробуйте позднее.
-        </p>
-      );
+      return <ErrorBlock />;
 
     return <MainArticle article={lastMainArticle.data?.items[0]} />;
   };
