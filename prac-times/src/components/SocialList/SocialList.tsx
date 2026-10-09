@@ -1,37 +1,12 @@
 import styles from "./SocialList.module.css";
-import telegramIcon from "../../assets/img/social-icons/telegram-icon.svg";
-import vkontakteIcon from "../../assets/img/social-icons/vkontakte-icon.svg";
-import instagramIcon from "../../assets/img/social-icons/instagram-icon.svg";
-
-interface ISocial {
-  name: string;
-  icon: string;
-  link: string;
-}
+import type ISocial from "../../types/social";
 
 interface IProps {
   mode: string;
+  list: ISocial[];
 }
 
-const SocialList = ({ mode }: IProps) => {
-  const socialList: ISocial[] = [
-    {
-      name: "Telegram",
-      icon: telegramIcon,
-      link: "https://t.me/+4X5KG8TfJlkyMWMy",
-    },
-    {
-      name: "Vkontakte",
-      icon: vkontakteIcon,
-      link: "https://vk.ru/saint_sprow",
-    },
-    {
-      name: "Instagram",
-      icon: instagramIcon,
-      link: "https://www.instagram.com/reactjsofficial/",
-    },
-  ];
-
+const SocialList = ({ mode, list }: IProps) => {
   return (
     <ul
       className={
@@ -42,7 +17,7 @@ const SocialList = ({ mode }: IProps) => {
             : ""
       }
     >
-      {socialList.map((social) => (
+      {list.map((social) => (
         <li className={styles.list__item} key={social.name}>
           <a
             href={social.link}

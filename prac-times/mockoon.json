@@ -1,0 +1,534 @@
+{
+  "uuid": "3c80d291-d265-4839-b237-da4020c499e3",
+  "lastMigration": 33,
+  "name": "Prac-Times (copy)",
+  "endpointPrefix": "api",
+  "latency": 0,
+  "port": 3000,
+  "hostname": "",
+  "folders": [],
+  "routes": [
+    {
+      "uuid": "69ed6ea2-f9c3-457a-a5f0-e75d7bc5f431",
+      "type": "http",
+      "documentation": "Generate random body (JSON, text, CSV, etc) with templating",
+      "method": "get",
+      "endpoint": "template",
+      "responses": [
+        {
+          "uuid": "053d87f6-ffd6-4625-94cf-feca410d1121",
+          "body": "{\n  \"Templating example\": \"For more information about templating: https://mockoon.com/docs/latest/templating/overview/\",\n  \"users\": [\n    {{# repeat (queryParam 'total' '10') }}\n      {\n        \"userId\": \"{{ faker 'number.int' min=10000 max=100000 }}\",\n        \"firstname\": \"{{ faker 'person.firstName' }}\",\n        \"lastname\": \"{{ faker 'person.lastName' }}\",\n        \"friends\": [\n          {{# repeat (faker 'number.int' 5) }}\n            {\n              \"id\": \"{{ faker 'string.uuid' }}\"\n            }\n          {{/ repeat }}\n        ]\n      },\n    {{/ repeat }}\n  ],\n  \"total\": \"{{queryParam 'total' '10'}}\"\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Creates 10 random users, or the amount specified in the 'total' query param",
+          "headers": [],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false,
+          "crudKey": "id",
+          "callbacks": []
+        }
+      ],
+      "responseMode": null,
+      "streamingMode": null,
+      "streamingInterval": 0
+    },
+    {
+      "uuid": "d4a40837-d3ea-47c5-ab9d-14b7603421b0",
+      "type": "http",
+      "documentation": "Use multiple responses with rules",
+      "method": "post",
+      "endpoint": "content/:param1",
+      "responses": [
+        {
+          "uuid": "05949dd8-0510-4dcb-8d4e-0ed28f0d92be",
+          "body": "{\n  \"Rules example\": \"Default response. Served if route param 'param1' is not present.\"\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Default response",
+          "headers": [],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": true,
+          "crudKey": "id",
+          "callbacks": []
+        },
+        {
+          "uuid": "a981d4c4-762b-4d84-838c-ad67fa8d52e6",
+          "body": "{\n  \"Rules example\": \"Content XYZ. Served if route param 'param1' equals 'xyz'. (See in 'Rules' tab)\"\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Content XYZ",
+          "headers": [],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [
+            {
+              "target": "params",
+              "modifier": "param1",
+              "value": "xyz",
+              "invert": false,
+              "operator": "equals"
+            }
+          ],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false,
+          "crudKey": "id",
+          "callbacks": []
+        },
+        {
+          "uuid": "b5e929c8-0e35-4fe1-b1a3-e92c34312d97",
+          "body": "{\n  \"Rules example\": \"Content not found. Served if route param 'param1' is not equal to 'xyz'. (See in 'Rules' tab)\"\n}\n",
+          "latency": 0,
+          "statusCode": 404,
+          "label": "Content not found",
+          "headers": [],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [
+            {
+              "target": "params",
+              "modifier": "param1",
+              "value": "^(?!.*xyz).*$",
+              "invert": false,
+              "operator": "regex"
+            }
+          ],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false,
+          "crudKey": "id",
+          "callbacks": []
+        }
+      ],
+      "responseMode": null,
+      "streamingMode": null,
+      "streamingInterval": 0
+    },
+    {
+      "uuid": "585e68e9-a429-447c-a94b-3777138324ff",
+      "type": "http",
+      "documentation": "Path supports various patterns",
+      "method": "put",
+      "endpoint": "path/with/pattern(s)?/*",
+      "responses": [
+        {
+          "uuid": "f6fd8cae-7a28-4c1a-93bc-d83001e7af52",
+          "body": "The current path will match the following routes: \nhttp://localhost:3000/path/with/pattern/\nhttp://localhost:3000/path/with/patterns/\nhttp://localhost:3000/path/with/patterns/anything-else\n\nLearn more about Mockoon's routing: https://mockoon.com/docs/latest/api-endpoints/routing/",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "text/plain"
+            }
+          ],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false,
+          "crudKey": "id",
+          "callbacks": []
+        }
+      ],
+      "responseMode": null,
+      "streamingMode": null,
+      "streamingInterval": 0
+    },
+    {
+      "uuid": "29b97eed-550e-41b0-bd67-1aeecf8a6d15",
+      "type": "http",
+      "documentation": "\"Guard\" route protecting all routes starting with /protected/",
+      "method": "all",
+      "endpoint": "protected/*",
+      "responses": [
+        {
+          "uuid": "4c9b702f-c04f-4330-bd40-f8b2fe0626d6",
+          "body": "{\n  \"error\": \"Unauthorized\"\n}",
+          "latency": 0,
+          "statusCode": 401,
+          "label": "Requires the presence of an 'Authorization' header",
+          "headers": [],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [
+            {
+              "target": "header",
+              "modifier": "Authorization",
+              "operator": "null",
+              "invert": false,
+              "value": ""
+            }
+          ],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false,
+          "crudKey": "id",
+          "callbacks": []
+        }
+      ],
+      "responseMode": "FALLBACK",
+      "streamingMode": null,
+      "streamingInterval": 0
+    },
+    {
+      "uuid": "cdef79fc-ff6a-4ca1-a008-a4e508b7dad4",
+      "type": "http",
+      "documentation": "Protected route",
+      "method": "get",
+      "endpoint": "protected/path",
+      "responses": [
+        {
+          "uuid": "6bf08787-1f95-41d6-af76-fd1233dbdf8c",
+          "body": "You can serve the same responses based on the same rules for all or part of your endpoints by creating global routes using the fallback mode and a wildcard path. \nThis is useful if you want to protect all your endpoints by checking if an Authorization header is present or if you want to verify that all your requests contain a specific property in their body.\nTo learn more: https://mockoon.com/docs/latest/route-responses/global-routes-with-rules/",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "text/plain"
+            }
+          ],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false,
+          "crudKey": "id",
+          "callbacks": []
+        }
+      ],
+      "responseMode": null,
+      "streamingMode": null,
+      "streamingInterval": 0
+    },
+    {
+      "method": "get",
+      "endpoint": "forward-and-record",
+      "documentation": "Can Mockoon forward or record entering requests?",
+      "responses": [
+        {
+          "uuid": "5610e229-3607-47ae-928a-5b508dd95093",
+          "body": "Mockoon can also act as a proxy and forward all entering requests that are not caught by declared routes. \nYou can activate this option in the environment settings (\"Settings\" tab at the top). \nTo learn more: https://mockoon.com/docs/latest/server-configuration/proxy-mode/\n\nAll entering requests, and responses from the proxied server will be recorded and can be automatically mocked (\"Logs\" tab at the top).\nTo learn more: https://mockoon.com/docs/latest/logging-and-recording/requests-logging/",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "text/plain"
+            }
+          ],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false,
+          "crudKey": "id",
+          "callbacks": []
+        }
+      ],
+      "uuid": "4249fd16-20c2-47ea-ab78-c7b740e7f5b3",
+      "type": "http",
+      "responseMode": null,
+      "streamingMode": null,
+      "streamingInterval": 0
+    },
+    {
+      "uuid": "33604318-652d-41f9-9ac1-b4249e29b92a",
+      "type": "crud",
+      "documentation": "",
+      "method": "",
+      "endpoint": "articles",
+      "responses": [
+        {
+          "uuid": "86ea4659-1d43-4e06-ac8d-35b879b0e5ca",
+          "body": "{}",
+          "latency": 1000,
+          "statusCode": 200,
+          "label": "",
+          "headers": [],
+          "bodyType": "DATABUCKET",
+          "filePath": "",
+          "databucketID": "6fjf",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": true,
+          "crudKey": "id",
+          "callbacks": []
+        },
+        {
+          "uuid": "215b3377-582b-44ec-8709-a0291a16e5f8",
+          "body": "{}",
+          "latency": 5000,
+          "statusCode": 400,
+          "label": "",
+          "headers": [],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false,
+          "crudKey": "id",
+          "callbacks": []
+        }
+      ],
+      "responseMode": null,
+      "streamingMode": null,
+      "streamingInterval": 0
+    },
+    {
+      "uuid": "d4a09c28-f233-46ad-a633-0f6d6c5af43f",
+      "type": "crud",
+      "documentation": "",
+      "method": "",
+      "endpoint": "users",
+      "responses": [
+        {
+          "uuid": "9f7bb141-96a6-4351-b960-86b9d34fffd3",
+          "body": "{}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "",
+          "headers": [],
+          "bodyType": "DATABUCKET",
+          "filePath": "",
+          "databucketID": "oe5v",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": true,
+          "crudKey": "username",
+          "callbacks": []
+        }
+      ],
+      "responseMode": null,
+      "streamingMode": null,
+      "streamingInterval": 0
+    },
+    {
+      "uuid": "7592393d-ac31-4767-91b7-9fcc855fe67a",
+      "type": "http",
+      "documentation": "",
+      "method": "get",
+      "endpoint": "articles",
+      "responses": [
+        {
+          "uuid": "28bda5e7-6677-482b-9a71-7d70b65eac53",
+          "body": "{{setVar 'categoryCondition' 'true'}}\r\n\r\n{{#if (queryParamRaw 'category')}}\r\n  {{setVar 'categoryCondition'\r\n    (concat\r\n      \"@.category.indexOf('\"\r\n      (queryParam 'category')\r\n      \"') !== -1\"\r\n    )\r\n  }}\r\n{{/if}}\r\n\r\n\r\n{{setVar 'typeCondition' 'true'}}\r\n\r\n{{#if (queryParamRaw 'type')}}\r\n  {{setVar 'typeCondition'\r\n    (concat\r\n      \"@.type === '\"\r\n      (queryParam 'type')\r\n      \"'\"\r\n    )\r\n  }}\r\n{{/if}}\r\n\r\n\r\n{{setVar 'typeNotCondition' 'true'}}\r\n\r\n{{#if (queryParamRaw 'type_not')}}\r\n  {{setVar 'typeNotCondition'\r\n    (concat\r\n      \"@.type !== '\"\r\n      (queryParam 'type_not')\r\n      \"'\"\r\n    )\r\n  }}\r\n{{/if}}\r\n\r\n\r\n{{setVar 'titleCondition' 'true'}}\r\n\r\n{{#if (queryParamRaw 'title_like')}}\r\n  {{setVar 'titleCondition'\r\n    (concat\r\n      \"@.title.match(/\"\r\n      (queryParam 'title_like')\r\n      \"/i)\"\r\n    )\r\n  }}\r\n{{/if}}\r\n\r\n\r\n{{setVar 'filterPath'\r\n  (concat\r\n    \"$[?(\"\r\n    @typeNotCondition\r\n    \" && \"\r\n    @categoryCondition\r\n    \" && \"\r\n    @typeCondition\r\n    \" && \"\r\n    @titleCondition\r\n    \")]\"\r\n  )\r\n}}\r\n\r\n\r\n{{setVar 'filteredArticles'\r\n  (dataRaw 'articles' @filterPath)\r\n}}\r\n\r\n\r\n{{setVar 'page'\r\n  (parseInt (queryParam 'page' 1))\r\n}}\r\n\r\n{{setVar 'limit'\r\n  (parseInt (queryParam 'limit' 10))\r\n}}\r\n\r\n{{setVar 'start'\r\n  (multiply\r\n    (subtract @page 1)\r\n    @limit\r\n  )\r\n}}\r\n\r\n{{setVar 'end'\r\n  (multiply\r\n    @page\r\n    @limit\r\n  )\r\n}}\r\n\r\n{{setVar 'totalItems'\r\n  (len @filteredArticles)\r\n}}\r\n\r\n{{setVar 'totalPages'\r\n  (ceil\r\n    (divide @totalItems @limit)\r\n  )\r\n}}\r\n\r\n\r\n{\r\n  \"items\": {{{stringify\r\n    (slice @filteredArticles @start @end)\r\n  }}},\r\n\r\n  \"pagination\": {\r\n    \"page\": {{@page}},\r\n    \"limit\": {{@limit}},\r\n    \"totalItems\": {{@totalItems}},\r\n    \"totalPages\": {{@totalPages}}\r\n  }\r\n}",
+          "latency": 1000,
+          "statusCode": 200,
+          "label": "",
+          "headers": [],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": true,
+          "crudKey": "id",
+          "callbacks": []
+        }
+      ],
+      "responseMode": null,
+      "streamingMode": null,
+      "streamingInterval": 0
+    },
+    {
+      "uuid": "a5e1541c-42c6-4765-8ac9-cdaca1d7efec",
+      "type": "crud",
+      "documentation": "",
+      "method": "",
+      "endpoint": "comments",
+      "responses": [
+        {
+          "uuid": "0df4d2bc-caae-4e97-963f-be08c3fad08f",
+          "body": "{}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "",
+          "headers": [],
+          "bodyType": "DATABUCKET",
+          "filePath": "",
+          "databucketID": "qi93",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": true,
+          "crudKey": "id",
+          "callbacks": []
+        }
+      ],
+      "responseMode": null,
+      "streamingMode": null,
+      "streamingInterval": 0
+    }
+  ],
+  "rootChildren": [
+    {
+      "type": "route",
+      "uuid": "7592393d-ac31-4767-91b7-9fcc855fe67a"
+    },
+    {
+      "type": "route",
+      "uuid": "33604318-652d-41f9-9ac1-b4249e29b92a"
+    },
+    {
+      "type": "route",
+      "uuid": "d4a09c28-f233-46ad-a633-0f6d6c5af43f"
+    },
+    {
+      "type": "route",
+      "uuid": "a5e1541c-42c6-4765-8ac9-cdaca1d7efec"
+    },
+    {
+      "type": "route",
+      "uuid": "69ed6ea2-f9c3-457a-a5f0-e75d7bc5f431"
+    },
+    {
+      "type": "route",
+      "uuid": "d4a40837-d3ea-47c5-ab9d-14b7603421b0"
+    },
+    {
+      "type": "route",
+      "uuid": "585e68e9-a429-447c-a94b-3777138324ff"
+    },
+    {
+      "type": "route",
+      "uuid": "29b97eed-550e-41b0-bd67-1aeecf8a6d15"
+    },
+    {
+      "type": "route",
+      "uuid": "cdef79fc-ff6a-4ca1-a008-a4e508b7dad4"
+    },
+    {
+      "type": "route",
+      "uuid": "4249fd16-20c2-47ea-ab78-c7b740e7f5b3"
+    }
+  ],
+  "proxyMode": false,
+  "proxyHost": "",
+  "proxyRemovePrefix": false,
+  "tlsOptions": {
+    "enabled": false,
+    "type": "CERT",
+    "pfxPath": "",
+    "certPath": "",
+    "keyPath": "",
+    "caPath": "",
+    "passphrase": ""
+  },
+  "cors": true,
+  "headers": [
+    {
+      "key": "Content-Type",
+      "value": "application/json"
+    },
+    {
+      "key": "Access-Control-Allow-Origin",
+      "value": "*"
+    },
+    {
+      "key": "Access-Control-Allow-Methods",
+      "value": "GET,POST,PUT,PATCH,DELETE,HEAD,OPTIONS"
+    },
+    {
+      "key": "Access-Control-Allow-Headers",
+      "value": "Content-Type, Origin, Accept, Authorization, Content-Length, X-Requested-With"
+    }
+  ],
+  "proxyReqHeaders": [
+    {
+      "key": "",
+      "value": ""
+    }
+  ],
+  "proxyResHeaders": [
+    {
+      "key": "",
+      "value": ""
+    }
+  ],
+  "data": [
+    {
+      "uuid": "d29c49c7-b947-4593-a67c-a5bd52a10353",
+      "id": "6fjf",
+      "name": "articles",
+      "documentation": "",
+      "value": "[\r\n  {\r\n    \"id\": \"a89824e2-f68b-43bb-873c-eee7d957137b\",\r\n    \"title\": \"Президент США Дональд Трамп анонсировал новый этап переговоров с Ираном, которые начнутся в понедельник, 3 августа\",\r\n    \"text\": \"<p>Политик не стал уточнять, кто будет участвовать во встрече и где она пройдет. Трамп также добавил, что не намерен ставить крайний срок для заключения сделки.</p><p>Президент заявил, что Белый дом решил отказаться от новых ударов по Ирану, чтобы дать шанс дипломатическому урегулированию конфликта.</p><blockquote><p>\\\"Я бы предпочел заключить сделку. Мне не нравится убивать людей\\\", - отметил президент США.</p></blockquote>\",\r\n    \"category\": [\r\n      \"business\"\r\n    ],\r\n    \"type\": \"main\",\r\n    \"time\": \"2026-08-10T13:05:00.000Z\",\r\n    \"image\": \"/src/data/newsData/img/trump.webp\",\r\n    \"author\": \"Sprow\",\r\n    \"commentsCount\": 2\r\n  },\r\n  {\r\n    \"id\": \"ddcba6f9-4c07-4e97-87d5-daf225a317cc\",\r\n    \"title\": \"Реновация жилья в Алматы - где сносят дома и в каких районах только планируют\",\r\n    \"text\": \"<p>Проверьте свой адрес: в 2026 году по программе реновации в Алматы планируют переселить 1 132 человека, до 2029 года — ещё 3 830 жителей мегаполиса. Сейчас в городе на семи участках инвесторы ведут строительные работы.</p><p>За переселение жильцов ветхих домов в мегаполисе отвечают две организации: СПК \\\"Алматы\\\" и ТОО Almaty Renovation. По данным социально-предпринимательской корпорации \\\"Алматы\\\", в городе насчитывается 1 403 ветхих дома, требующих реновации:</p><ul><li>в Жетысуском районе — 141 дом;</li><li>в Ауэзовском районе — 65 домов;</li><li>в Турксибском районе — 585 домов;</li><li>в Медеуском районе — 82 дома;</li><li>в Алмалинском районе — 135 домов;</li></ul><p>В корпорации добавили, что в перечне нет аварийных домов. Это значит, что при реновации будут учитывать мнение всех собственников квартир. Принудительно подавать в суд о выселении не смогут, потому что жильё не признано аварийным.</p>\",\r\n    \"category\": [\r\n      \"politic\"\r\n    ],\r\n    \"type\": \"exclusive\",\r\n    \"time\": \"2026-08-09T07:37:00.000Z\",\r\n    \"image\": \"/src/data/newsData/img/renew-houses-almaty.webp\",\r\n    \"author\": \"Sprow\",\r\n    \"commentsCount\": 3\r\n  },\r\n  {\r\n    \"id\": \"f2c03cca-1056-424c-9a07-04936bc1c915\",\r\n    \"title\": \"Персеиды над Казахстаном: когда смотреть звездопад и что важно знать\",\r\n    \"text\": \"<h3>Ночь \\\"падающих звезд\\\"</h3><p>Август подарит казахстанцам возможность увидеть волшебное небесное шоу - один из самых известных метеорных потоков Персеиды. Пик активности придется на ночь с 12 на 13 августа. Для многих это может стать идеальным поводом провести необычный вечер - выбраться за город, отключиться от городской суеты и устроить свидание под звездным небом с космическими спецэффектами.</p><h3>Во сколько лучше наблюдать</h3><p>По словам Валиуллина, жителям Казахстана лучше всего смотреть на небо после полуночи и до рассвета - примерно с 03:00 до 05:00 по местному времени. В этот период созвездие Персея поднимается достаточно высоко над северо-восточным горизонтом.</p>\",\r\n    \"category\": [\r\n      \"world\"\r\n    ],\r\n    \"type\": \"main\",\r\n    \"time\": \"2026-08-08T08:13:00.000Z\",\r\n    \"image\": \"/src/data/newsData/img/perseida.webp\",\r\n    \"author\": \"Sprow\",\r\n    \"commentsCount\": 0\r\n  },\r\n  {\r\n    \"id\": \"58384439-1620-4599-9149-b018da691cc5\",\r\n    \"title\": \"Вам серебряное уведомление - деньги надо отдать. Как Казахстан возвращает выведенные активы\",\r\n    \"text\": \"<p>На эти деньги строят больницы, водопроводы и аэропорты в самых дальних районах страны. При этом рядовые казахстанцы почти не знают, как устроен процесс возврата активов, что они из себя представляют и кто за них отвечает.</p><h3>Как устроен процесс возврата активов</h3><p>Согласно ответу Генеральной прокуратуры, закон регламентирует два способа возвращения активов в страну: добровольный и принудительный.</p><ul><li><strong>Добровольный</strong> предполагает, что фигурант, попавший под действие этого закона, <i>самостоятельно</i> передаёт государству часть или все активы либо берёт на себя обязательство вложить средства в национальную экономику, построить социальный объект или иначе принять участие в развитии страны. По данным высшего надзорного органа, именно этот способ и выбирает большинство.</li><li><strong>Принудительный</strong> способ применяется исключительно по решению суда. По сути, это изъятие имущества человека в пользу государства. Примечательно, что основанием для такого решения могут служить как акты казахстанских судов, так и решения иностранных судов либо иных компетентных органов иностранных государств.</li></ul>\",\r\n    \"category\": [\r\n      \"business\",\r\n      \"politic\"\r\n    ],\r\n    \"type\": \"interview\",\r\n    \"time\": \"2026-08-07T06:15:00.000Z\",\r\n    \"image\": \"/src/data/newsData/img/get-back-assets-kazakhstan.webp\",\r\n    \"author\": \"Sprow\",\r\n    \"commentsCount\": 0\r\n  },\r\n  {\r\n    \"id\": \"759dc0cf-b54a-4787-9122-ca362c3d335a\",\r\n    \"title\": \"Президент США Дональд Трамп анонсировал новый этап переговоров с Ираном, которые начнутся в понедельник, 3 августа\",\r\n    \"text\": \"<p>Политик не стал уточнять, кто будет участвовать во встрече и где она пройдет. Трамп также добавил, что не намерен ставить крайний срок для заключения сделки.</p><p>Президент заявил, что Белый дом решил отказаться от новых ударов по Ирану, чтобы дать шанс дипломатическому урегулированию конфликта.</p><blockquote><p>\\\"Я бы предпочел заключить сделку. Мне не нравится убивать людей\\\", - отметил президент США.</p></blockquote>\",\r\n    \"category\": [\r\n      \"business\",\r\n      \"world\"\r\n    ],\r\n    \"type\": \"podcast\",\r\n    \"time\": \"2026-08-06T13:05:00.000Z\",\r\n    \"image\": \"/src/data/newsData/img/trump.webp\",\r\n    \"author\": \"ProstoGamer\",\r\n    \"commentsCount\": 0\r\n  },\r\n  {\r\n    \"id\": \"03e768aa-852d-442a-a87c-8e3ad3dc8c85\",\r\n    \"title\": \"Реновация жилья в Алматы - где сносят дома и в каких районах только планируют\",\r\n    \"text\": \"<p>Проверьте свой адрес: в 2026 году по программе реновации в Алматы планируют переселить 1 132 человека, до 2029 года — ещё 3 830 жителей мегаполиса. Сейчас в городе на семи участках инвесторы ведут строительные работы.</p><p>За переселение жильцов ветхих домов в мегаполисе отвечают две организации: СПК \\\"Алматы\\\" и ТОО Almaty Renovation. По данным социально-предпринимательской корпорации \\\"Алматы\\\", в городе насчитывается 1 403 ветхих дома, требующих реновации:</p><ul><li>в Жетысуском районе — 141 дом;</li><li>в Ауэзовском районе — 65 домов;</li><li>в Турксибском районе — 585 домов;</li><li>в Медеуском районе — 82 дома;</li><li>в Алмалинском районе — 135 домов;</li></ul><p>В корпорации добавили, что в перечне нет аварийных домов. Это значит, что при реновации будут учитывать мнение всех собственников квартир. Принудительно подавать в суд о выселении не смогут, потому что жильё не признано аварийным.</p>\",\r\n    \"category\": [\r\n      \"politic\",\r\n      \"world\"\r\n    ],\r\n    \"type\": \"story\",\r\n    \"time\": \"2026-08-05T07:37:00.000Z\",\r\n    \"image\": \"/src/data/newsData/img/renew-houses-almaty.webp\",\r\n    \"author\": \"Sprow\",\r\n    \"commentsCount\": 0\r\n  },\r\n  {\r\n    \"id\": \"68358e13-891a-4391-bce8-eafbd79ee022\",\r\n    \"title\": \"Персеиды над Казахстаном: когда смотреть звездопад и что важно знать\",\r\n    \"text\": \"<h3>Ночь \\\"падающих звезд\\\"</h3><p>Август подарит казахстанцам возможность увидеть волшебное небесное шоу - один из самых известных метеорных потоков Персеиды. Пик активности придется на ночь с 12 на 13 августа. Для многих это может стать идеальным поводом провести необычный вечер - выбраться за город, отключиться от городской суеты и устроить свидание под звездным небом с космическими спецэффектами.</p><h3>Во сколько лучше наблюдать</h3><p>По словам Валиуллина, жителям Казахстана лучше всего смотреть на небо после полуночи и до рассвета - примерно с 03:00 до 05:00 по местному времени. В этот период созвездие Персея поднимается достаточно высоко над северо-восточным горизонтом.</p>\",\r\n    \"category\": [\r\n      \"politic\",\r\n      \"business\"\r\n    ],\r\n    \"type\": \"main\",\r\n    \"time\": \"2026-08-04T08:13:00.000Z\",\r\n    \"image\": \"/src/data/newsData/img/perseida.webp\",\r\n    \"author\": \"Sprow\",\r\n    \"commentsCount\": 0\r\n  },\r\n  {\r\n    \"id\": \"4b0fdc26-44e4-4c9f-b62b-37f2bb8885fb\",\r\n    \"title\": \"Вам серебряное уведомление - деньги надо отдать. Как Казахстан возвращает выведенные активы\",\r\n    \"text\": \"<p>На эти деньги строят больницы, водопроводы и аэропорты в самых дальних районах страны. При этом рядовые казахстанцы почти не знают, как устроен процесс возврата активов, что они из себя представляют и кто за них отвечает.</p><h3>Как устроен процесс возврата активов</h3><p>Согласно ответу Генеральной прокуратуры, закон регламентирует два способа возвращения активов в страну: добровольный и принудительный.</p><ul><li><strong>Добровольный</strong> предполагает, что фигурант, попавший под действие этого закона, <i>самостоятельно</i> передаёт государству часть или все активы либо берёт на себя обязательство вложить средства в национальную экономику, построить социальный объект или иначе принять участие в развитии страны. По данным высшего надзорного органа, именно этот способ и выбирает большинство.</li><li><strong>Принудительный</strong> способ применяется исключительно по решению суда. По сути, это изъятие имущества человека в пользу государства. Примечательно, что основанием для такого решения могут служить как акты казахстанских судов, так и решения иностранных судов либо иных компетентных органов иностранных государств.</li></ul>\",\r\n    \"category\": [\r\n      \"world\",\r\n      \"business\"\r\n    ],\r\n    \"type\": \"exclusive\",\r\n    \"time\": \"2026-08-03T06:15:00.000Z\",\r\n    \"image\": \"/src/data/newsData/img/get-back-assets-kazakhstan.webp\",\r\n    \"author\": \"Sprow\",\r\n    \"commentsCount\": 0\r\n  },\r\n  {\r\n    \"id\": \"d50d3358-e310-43fd-ac94-58acdd0e70aa\",\r\n    \"title\": \"Президент США Дональд Трамп анонсировал новый этап переговоров с Ираном, которые начнутся в понедельник, 3 августа\",\r\n    \"text\": \"<p>Политик не стал уточнять, кто будет участвовать во встрече и где она пройдет. Трамп также добавил, что не намерен ставить крайний срок для заключения сделки.</p><p>Президент заявил, что Белый дом решил отказаться от новых ударов по Ирану, чтобы дать шанс дипломатическому урегулированию конфликта.</p><blockquote><p>\\\"Я бы предпочел заключить сделку. Мне не нравится убивать людей\\\", - отметил президент США.</p></blockquote>\",\r\n    \"category\": [\r\n      \"world\",\r\n      \"politic\"\r\n    ],\r\n    \"type\": \"interview\",\r\n    \"time\": \"2026-08-02T13:05:00.000Z\",\r\n    \"image\": \"/src/data/newsData/img/trump.webp\",\r\n    \"author\": \"ProstoGamer\",\r\n    \"commentsCount\": 0\r\n  },\r\n  {\r\n    \"id\": \"70530038-6600-47d4-81c5-93b823e0fca4\",\r\n    \"title\": \"Реновация жилья в Алматы - где сносят дома и в каких районах только планируют\",\r\n    \"text\": \"<p>Проверьте свой адрес: в 2026 году по программе реновации в Алматы планируют переселить 1 132 человека, до 2029 года — ещё 3 830 жителей мегаполиса. Сейчас в городе на семи участках инвесторы ведут строительные работы.</p><p>За переселение жильцов ветхих домов в мегаполисе отвечают две организации: СПК \\\"Алматы\\\" и ТОО Almaty Renovation. По данным социально-предпринимательской корпорации \\\"Алматы\\\", в городе насчитывается 1 403 ветхих дома, требующих реновации:</p><ul><li>в Жетысуском районе — 141 дом;</li><li>в Ауэзовском районе — 65 домов;</li><li>в Турксибском районе — 585 домов;</li><li>в Медеуском районе — 82 дома;</li><li>в Алмалинском районе — 135 домов;</li></ul><p>В корпорации добавили, что в перечне нет аварийных домов. Это значит, что при реновации будут учитывать мнение всех собственников квартир. Принудительно подавать в суд о выселении не смогут, потому что жильё не признано аварийным.</p>\",\r\n    \"category\": [\r\n      \"business\",\r\n      \"world\",\r\n      \"politic\"\r\n    ],\r\n    \"type\": \"podcast\",\r\n    \"time\": \"2026-08-01T07:37:00.000Z\",\r\n    \"image\": \"/src/data/newsData/img/renew-houses-almaty.webp\",\r\n    \"author\": \"Sprow\",\r\n    \"commentsCount\": 0\r\n  },\r\n  {\r\n    \"id\": \"4a047185-e93f-4ab9-9e33-559628fd0281\",\r\n    \"title\": \"Персеиды над Казахстаном: когда смотреть звездопад и что важно знать\",\r\n    \"text\": \"<h3>Ночь \\\"падающих звезд\\\"</h3><p>Август подарит казахстанцам возможность увидеть волшебное небесное шоу - один из самых известных метеорных потоков Персеиды. Пик активности придется на ночь с 12 на 13 августа. Для многих это может стать идеальным поводом провести необычный вечер - выбраться за город, отключиться от городской суеты и устроить свидание под звездным небом с космическими спецэффектами.</p><h3>Во сколько лучше наблюдать</h3><p>По словам Валиуллина, жителям Казахстана лучше всего смотреть на небо после полуночи и до рассвета - примерно с 03:00 до 05:00 по местному времени. В этот период созвездие Персея поднимается достаточно высоко над северо-восточным горизонтом.</p>\",\r\n    \"category\": [\r\n      \"business\",\r\n      \"politic\",\r\n      \"world\"\r\n    ],\r\n    \"type\": \"story\",\r\n    \"time\": \"2026-07-31T08:13:00.000Z\",\r\n    \"image\": \"/src/data/newsData/img/perseida.webp\",\r\n    \"author\": \"Sprow\",\r\n    \"commentsCount\": 0\r\n  },\r\n  {\r\n    \"id\": \"de7f095d-03f4-4d64-8ea5-6b365e4a5c15\",\r\n    \"title\": \"Вам серебряное уведомление - деньги надо отдать. Как Казахстан возвращает выведенные активы\",\r\n    \"text\": \"<p>На эти деньги строят больницы, водопроводы и аэропорты в самых дальних районах страны. При этом рядовые казахстанцы почти не знают, как устроен процесс возврата активов, что они из себя представляют и кто за них отвечает.</p><h3>Как устроен процесс возврата активов</h3><p>Согласно ответу Генеральной прокуратуры, закон регламентирует два способа возвращения активов в страну: добровольный и принудительный.</p><ul><li><strong>Добровольный</strong> предполагает, что фигурант, попавший под действие этого закона, <i>самостоятельно</i> передаёт государству часть или все активы либо берёт на себя обязательство вложить средства в национальную экономику, построить социальный объект или иначе принять участие в развитии страны. По данным высшего надзорного органа, именно этот способ и выбирает большинство.</li><li><strong>Принудительный</strong> способ применяется исключительно по решению суда. По сути, это изъятие имущества человека в пользу государства. Примечательно, что основанием для такого решения могут служить как акты казахстанских судов, так и решения иностранных судов либо иных компетентных органов иностранных государств.</li></ul>\",\r\n    \"category\": [\r\n      \"world\",\r\n      \"business\",\r\n      \"politic\"\r\n    ],\r\n    \"type\": \"main\",\r\n    \"time\": \"2026-07-30T06:15:00.000Z\",\r\n    \"image\": \"/src/data/newsData/img/get-back-assets-kazakhstan.webp\",\r\n    \"author\": \"Sprow\",\r\n    \"commentsCount\": 0\r\n  },\r\n  {\r\n    \"id\": \"98b882e3-617e-48a3-979b-f46583d14c2d\",\r\n    \"title\": \"Президент США Дональд Трамп анонсировал новый этап переговоров с Ираном, которые начнутся в понедельник, 3 августа\",\r\n    \"text\": \"<p>Политик не стал уточнять, кто будет участвовать во встрече и где она пройдет. Трамп также добавил, что не намерен ставить крайний срок для заключения сделки.</p><p>Президент заявил, что Белый дом решил отказаться от новых ударов по Ирану, чтобы дать шанс дипломатическому урегулированию конфликта.</p><blockquote><p>\\\"Я бы предпочел заключить сделку. Мне не нравится убивать людей\\\", - отметил президент США.</p></blockquote>\",\r\n    \"category\": [\r\n      \"world\",\r\n      \"politic\",\r\n      \"business\"\r\n    ],\r\n    \"type\": \"exclusive\",\r\n    \"time\": \"2026-08-10T13:05:00.000Z\",\r\n    \"image\": \"/src/data/newsData/img/trump.webp\",\r\n    \"author\": \"Sprow\",\r\n    \"commentsCount\": 0\r\n  },\r\n  {\r\n    \"id\": \"274a6884-bda2-4090-95c9-a92cb6e430bb\",\r\n    \"title\": \"Реновация жилья в Алматы - где сносят дома и в каких районах только планируют\",\r\n    \"text\": \"<p>Проверьте свой адрес: в 2026 году по программе реновации в Алматы планируют переселить 1 132 человека, до 2029 года — ещё 3 830 жителей мегаполиса. Сейчас в городе на семи участках инвесторы ведут строительные работы.</p><p>За переселение жильцов ветхих домов в мегаполисе отвечают две организации: СПК \\\"Алматы\\\" и ТОО Almaty Renovation. По данным социально-предпринимательской корпорации \\\"Алматы\\\", в городе насчитывается 1 403 ветхих дома, требующих реновации:</p><ul><li>в Жетысуском районе — 141 дом;</li><li>в Ауэзовском районе — 65 домов;</li><li>в Турксибском районе — 585 домов;</li><li>в Медеуском районе — 82 дома;</li><li>в Алмалинском районе — 135 домов;</li></ul><p>В корпорации добавили, что в перечне нет аварийных домов. Это значит, что при реновации будут учитывать мнение всех собственников квартир. Принудительно подавать в суд о выселении не смогут, потому что жильё не признано аварийным.</p>\",\r\n    \"category\": [\r\n      \"politic\",\r\n      \"business\",\r\n      \"world\"\r\n    ],\r\n    \"type\": \"interview\",\r\n    \"time\": \"2026-08-09T07:37:00.000Z\",\r\n    \"image\": \"/src/data/newsData/img/renew-houses-almaty.webp\",\r\n    \"author\": \"ProstoGamer\",\r\n    \"commentsCount\": 0\r\n  },\r\n  {\r\n    \"id\": \"157c0eb8-de1e-4b9f-8078-c615b986506c\",\r\n    \"title\": \"Персеиды над Казахстаном: когда смотреть звездопад и что важно знать\",\r\n    \"text\": \"<h3>Ночь \\\"падающих звезд\\\"</h3><p>Август подарит казахстанцам возможность увидеть волшебное небесное шоу - один из самых известных метеорных потоков Персеиды. Пик активности придется на ночь с 12 на 13 августа. Для многих это может стать идеальным поводом провести необычный вечер - выбраться за город, отключиться от городской суеты и устроить свидание под звездным небом с космическими спецэффектами.</p><h3>Во сколько лучше наблюдать</h3><p>По словам Валиуллина, жителям Казахстана лучше всего смотреть на небо после полуночи и до рассвета - примерно с 03:00 до 05:00 по местному времени. В этот период созвездие Персея поднимается достаточно высоко над северо-восточным горизонтом.</p>\",\r\n    \"category\": [\r\n      \"politic\",\r\n      \"world\",\r\n      \"business\"\r\n    ],\r\n    \"type\": \"podcast\",\r\n    \"time\": \"2026-08-08T08:13:00.000Z\",\r\n    \"image\": \"/src/data/newsData/img/perseida.webp\",\r\n    \"author\": \"ProstoGamer\",\r\n    \"commentsCount\": 0\r\n  },\r\n  {\r\n    \"id\": \"4a09bf92-4b62-4dec-a6ca-fab994268871\",\r\n    \"title\": \"Вам серебряное уведомление - деньги надо отдать. Как Казахстан возвращает выведенные активы\",\r\n    \"text\": \"<p>На эти деньги строят больницы, водопроводы и аэропорты в самых дальних районах страны. При этом рядовые казахстанцы почти не знают, как устроен процесс возврата активов, что они из себя представляют и кто за них отвечает.</p><h3>Как устроен процесс возврата активов</h3><p>Согласно ответу Генеральной прокуратуры, закон регламентирует два способа возвращения активов в страну: добровольный и принудительный.</p><ul><li><strong>Добровольный</strong> предполагает, что фигурант, попавший под действие этого закона, <i>самостоятельно</i> передаёт государству часть или все активы либо берёт на себя обязательство вложить средства в национальную экономику, построить социальный объект или иначе принять участие в развитии страны. По данным высшего надзорного органа, именно этот способ и выбирает большинство.</li><li><strong>Принудительный</strong> способ применяется исключительно по решению суда. По сути, это изъятие имущества человека в пользу государства. Примечательно, что основанием для такого решения могут служить как акты казахстанских судов, так и решения иностранных судов либо иных компетентных органов иностранных государств.</li></ul>\",\r\n    \"category\": [\r\n      \"business\"\r\n    ],\r\n    \"type\": \"story\",\r\n    \"time\": \"2026-08-07T06:15:00.000Z\",\r\n    \"image\": \"/src/data/newsData/img/get-back-assets-kazakhstan.webp\",\r\n    \"author\": \"Sprow\",\r\n    \"commentsCount\": 0\r\n  },\r\n  {\r\n    \"id\": \"a1714429-60cd-460c-b9d9-175a21f11c0b\",\r\n    \"title\": \"Президент США Дональд Трамп анонсировал новый этап переговоров с Ираном, которые начнутся в понедельник, 3 августа\",\r\n    \"text\": \"<p>Политик не стал уточнять, кто будет участвовать во встрече и где она пройдет. Трамп также добавил, что не намерен ставить крайний срок для заключения сделки.</p><p>Президент заявил, что Белый дом решил отказаться от новых ударов по Ирану, чтобы дать шанс дипломатическому урегулированию конфликта.</p><blockquote><p>\\\"Я бы предпочел заключить сделку. Мне не нравится убивать людей\\\", - отметил президент США.</p></blockquote>\",\r\n    \"category\": [\r\n      \"world\"\r\n    ],\r\n    \"type\": \"main\",\r\n    \"time\": \"2026-08-06T13:05:00.000Z\",\r\n    \"image\": \"/src/data/newsData/img/trump.webp\",\r\n    \"author\": \"Sprow\",\r\n    \"commentsCount\": 0\r\n  },\r\n  {\r\n    \"id\": \"7f8fa988-f9b7-4931-a48e-a959104850ef\",\r\n    \"title\": \"Реновация жилья в Алматы - где сносят дома и в каких районах только планируют\",\r\n    \"text\": \"<p>Проверьте свой адрес: в 2026 году по программе реновации в Алматы планируют переселить 1 132 человека, до 2029 года — ещё 3 830 жителей мегаполиса. Сейчас в городе на семи участках инвесторы ведут строительные работы.</p><p>За переселение жильцов ветхих домов в мегаполисе отвечают две организации: СПК \\\"Алматы\\\" и ТОО Almaty Renovation. По данным социально-предпринимательской корпорации \\\"Алматы\\\", в городе насчитывается 1 403 ветхих дома, требующих реновации:</p><ul><li>в Жетысуском районе — 141 дом;</li><li>в Ауэзовском районе — 65 домов;</li><li>в Турксибском районе — 585 домов;</li><li>в Медеуском районе — 82 дома;</li><li>в Алмалинском районе — 135 домов;</li></ul><p>В корпорации добавили, что в перечне нет аварийных домов. Это значит, что при реновации будут учитывать мнение всех собственников квартир. Принудительно подавать в суд о выселении не смогут, потому что жильё не признано аварийным.</p>\",\r\n    \"category\": [\r\n      \"politic\"\r\n    ],\r\n    \"type\": \"exclusive\",\r\n    \"time\": \"2026-08-05T07:37:00.000Z\",\r\n    \"image\": \"/src/data/newsData/img/renew-houses-almaty.webp\",\r\n    \"author\": \"Sprow\",\r\n    \"commentsCount\": 0\r\n  },\r\n  {\r\n    \"id\": \"ff993a55-59eb-4dfc-abd4-80256df073fd\",\r\n    \"title\": \"Персеиды над Казахстаном: когда смотреть звездопад и что важно знать\",\r\n    \"text\": \"<h3>Ночь \\\"падающих звезд\\\"</h3><p>Август подарит казахстанцам возможность увидеть волшебное небесное шоу - один из самых известных метеорных потоков Персеиды. Пик активности придется на ночь с 12 на 13 августа. Для многих это может стать идеальным поводом провести необычный вечер - выбраться за город, отключиться от городской суеты и устроить свидание под звездным небом с космическими спецэффектами.</p><h3>Во сколько лучше наблюдать</h3><p>По словам Валиуллина, жителям Казахстана лучше всего смотреть на небо после полуночи и до рассвета - примерно с 03:00 до 05:00 по местному времени. В этот период созвездие Персея поднимается достаточно высоко над северо-восточным горизонтом.</p>\",\r\n    \"category\": [\r\n      \"world\"\r\n    ],\r\n    \"type\": \"interview\",\r\n    \"time\": \"2026-08-04T08:13:00.000Z\",\r\n    \"image\": \"/src/data/newsData/img/perseida.webp\",\r\n    \"author\": \"Sprow\",\r\n    \"commentsCount\": 0\r\n  },\r\n  {\r\n    \"id\": \"34e3a9c7-b51c-4e1e-8db8-757490cb04e6\",\r\n    \"title\": \"Вам серебряное уведомление - деньги надо отдать. Как Казахстан возвращает выведенные активы\",\r\n    \"text\": \"<p>На эти деньги строят больницы, водопроводы и аэропорты в самых дальних районах страны. При этом рядовые казахстанцы почти не знают, как устроен процесс возврата активов, что они из себя представляют и кто за них отвечает.</p><h3>Как устроен процесс возврата активов</h3><p>Согласно ответу Генеральной прокуратуры, закон регламентирует два способа возвращения активов в страну: добровольный и принудительный.</p><ul><li><strong>Добровольный</strong> предполагает, что фигурант, попавший под действие этого закона, <i>самостоятельно</i> передаёт государству часть или все активы либо берёт на себя обязательство вложить средства в национальную экономику, построить социальный объект или иначе принять участие в развитии страны. По данным высшего надзорного органа, именно этот способ и выбирает большинство.</li><li><strong>Принудительный</strong> способ применяется исключительно по решению суда. По сути, это изъятие имущества человека в пользу государства. Примечательно, что основанием для такого решения могут служить как акты казахстанских судов, так и решения иностранных судов либо иных компетентных органов иностранных государств.</li></ul>\",\r\n    \"category\": [\r\n      \"business\"\r\n    ],\r\n    \"type\": \"podcast\",\r\n    \"time\": \"2026-08-03T06:15:00.000Z\",\r\n    \"image\": \"/src/data/newsData/img/get-back-assets-kazakhstan.webp\",\r\n    \"author\": \"Sprow\",\r\n    \"commentsCount\": 0\r\n  },\r\n  {\r\n    \"id\": \"a5d8b5a7-57a6-44fd-a6bc-bd6bc3baee4a\",\r\n    \"title\": \"Реновация жилья в Алматы - где сносят дома и в каких районах только планируют\",\r\n    \"text\": \"<p>Проверьте свой адрес: в 2026 году по программе реновации в Алматы планируют переселить 1 132 человека, до 2029 года — ещё 3 830 жителей мегаполиса. Сейчас в городе на семи участках инвесторы ведут строительные работы.</p><p>За переселение жильцов ветхих домов в мегаполисе отвечают две организации: СПК \\\"Алматы\\\" и ТОО Almaty Renovation. По данным социально-предпринимательской корпорации \\\"Алматы\\\", в городе насчитывается 1 403 ветхих дома, требующих реновации:</p><ul><li>в Жетысуском районе — 141 дом;</li><li>в Ауэзовском районе — 65 домов;</li><li>в Турксибском районе — 585 домов;</li><li>в Медеуском районе — 82 дома;</li><li>в Алмалинском районе — 135 домов;</li></ul><p>В корпорации добавили, что в перечне нет аварийных домов. Это значит, что при реновации будут учитывать мнение всех собственников квартир. Принудительно подавать в суд о выселении не смогут, потому что жильё не признано аварийным.</p>\",\r\n    \"category\": [\r\n      \"politic\"\r\n    ],\r\n    \"type\": \"podcast\",\r\n    \"time\": \"2026-08-01T07:37:00.000Z\",\r\n    \"image\": \"/src/data/newsData/img/renew-houses-almaty.webp\",\r\n    \"author\": \"Sprow\",\r\n    \"commentsCount\": 0\r\n  },\r\n  {\r\n    \"id\": \"8e781e01-2ba0-49ae-aba6-2a50986a2f8c\",\r\n    \"title\": \"Персеиды над Казахстаном: когда смотреть звездопад и что важно знать\",\r\n    \"text\": \"<h3>Ночь \\\"падающих звезд\\\"</h3><p>Август подарит казахстанцам возможность увидеть волшебное небесное шоу - один из самых известных метеорных потоков Персеиды. Пик активности придется на ночь с 12 на 13 августа. Для многих это может стать идеальным поводом провести необычный вечер - выбраться за город, отключиться от городской суеты и устроить свидание под звездным небом с космическими спецэффектами.</p><h3>Во сколько лучше наблюдать</h3><p>По словам Валиуллина, жителям Казахстана лучше всего смотреть на небо после полуночи и до рассвета - примерно с 03:00 до 05:00 по местному времени. В этот период созвездие Персея поднимается достаточно высоко над северо-восточным горизонтом.</p>\",\r\n    \"category\": [\r\n      \"world\"\r\n    ],\r\n    \"type\": \"story\",\r\n    \"time\": \"2026-07-31T08:13:00.000Z\",\r\n    \"image\": \"/src/data/newsData/img/perseida.webp\",\r\n    \"author\": \"Sprow\",\r\n    \"commentsCount\": 0\r\n  },\r\n  {\r\n    \"id\": \"8c910023-9e93-4ede-b3ee-f9da1078b94f\",\r\n    \"title\": \"Вам серебряное уведомление - деньги надо отдать. Как Казахстан возвращает выведенные активы\",\r\n    \"text\": \"<p>На эти деньги строят больницы, водопроводы и аэропорты в самых дальних районах страны. При этом рядовые казахстанцы почти не знают, как устроен процесс возврата активов, что они из себя представляют и кто за них отвечает.</p><h3>Как устроен процесс возврата активов</h3><p>Согласно ответу Генеральной прокуратуры, закон регламентирует два способа возвращения активов в страну: добровольный и принудительный.</p><ul><li><strong>Добровольный</strong> предполагает, что фигурант, попавший под действие этого закона, <i>самостоятельно</i> передаёт государству часть или все активы либо берёт на себя обязательство вложить средства в национальную экономику, построить социальный объект или иначе принять участие в развитии страны. По данным высшего надзорного органа, именно этот способ и выбирает большинство.</li><li><strong>Принудительный</strong> способ применяется исключительно по решению суда. По сути, это изъятие имущества человека в пользу государства. Примечательно, что основанием для такого решения могут служить как акты казахстанских судов, так и решения иностранных судов либо иных компетентных органов иностранных государств.</li></ul>\",\r\n    \"category\": [\r\n      \"business\"\r\n    ],\r\n    \"type\": \"main\",\r\n    \"time\": \"2026-07-30T06:15:00.000Z\",\r\n    \"image\": \"/src/data/newsData/img/get-back-assets-kazakhstan.webp\",\r\n    \"author\": \"Sprow\",\r\n    \"commentsCount\": 0\r\n  },\r\n  {\r\n    \"id\": \"f1153b70-4854-43c7-801a-4d9e8984e54e\",\r\n    \"title\": \"Президент США Дональд Трамп анонсировал новый этап переговоров с Ираном, которые начнутся в понедельник, 3 августа\",\r\n    \"text\": \"<p>Политик не стал уточнять, кто будет участвовать во встрече и где она пройдет. Трамп также добавил, что не намерен ставить крайний срок для заключения сделки.</p><p>Президент заявил, что Белый дом решил отказаться от новых ударов по Ирану, чтобы дать шанс дипломатическому урегулированию конфликта.</p><blockquote><p>\\\"Я бы предпочел заключить сделку. Мне не нравится убивать людей\\\", - отметил президент США.</p></blockquote>\",\r\n    \"category\": [\r\n      \"politic\"\r\n    ],\r\n    \"type\": \"main\",\r\n    \"time\": \"2026-08-10T13:05:00.000Z\",\r\n    \"image\": \"/src/data/newsData/img/trump.webp\",\r\n    \"author\": \"Sprow\",\r\n    \"commentsCount\": 0\r\n  },\r\n  {\r\n    \"id\": \"86f3f5a7-80b4-4ba6-93d0-8a642115c64a\",\r\n    \"title\": \"Реновация жилья в Алматы - где сносят дома и в каких районах только планируют\",\r\n    \"text\": \"<p>Проверьте свой адрес: в 2026 году по программе реновации в Алматы планируют переселить 1 132 человека, до 2029 года — ещё 3 830 жителей мегаполиса. Сейчас в городе на семи участках инвесторы ведут строительные работы.</p><p>За переселение жильцов ветхих домов в мегаполисе отвечают две организации: СПК \\\"Алматы\\\" и ТОО Almaty Renovation. По данным социально-предпринимательской корпорации \\\"Алматы\\\", в городе насчитывается 1 403 ветхих дома, требующих реновации:</p><ul><li>в Жетысуском районе — 141 дом;</li><li>в Ауэзовском районе — 65 домов;</li><li>в Турксибском районе — 585 домов;</li><li>в Медеуском районе — 82 дома;</li><li>в Алмалинском районе — 135 домов;</li></ul><p>В корпорации добавили, что в перечне нет аварийных домов. Это значит, что при реновации будут учитывать мнение всех собственников квартир. Принудительно подавать в суд о выселении не смогут, потому что жильё не признано аварийным.</p>\",\r\n    \"category\": [\r\n      \"world\"\r\n    ],\r\n    \"type\": \"exclusive\",\r\n    \"time\": \"2026-08-09T07:37:00.000Z\",\r\n    \"image\": \"/src/data/newsData/img/renew-houses-almaty.webp\",\r\n    \"author\": \"Sprow\",\r\n    \"commentsCount\": 0\r\n  },\r\n  {\r\n    \"id\": \"5cd30dcb-0776-4da3-88ab-2c879fda7791\",\r\n    \"title\": \"Персеиды над Казахстаном: когда смотреть звездопад и что важно знать\",\r\n    \"text\": \"<h3>Ночь \\\"падающих звезд\\\"</h3><p>Август подарит казахстанцам возможность увидеть волшебное небесное шоу - один из самых известных метеорных потоков Персеиды. Пик активности придется на ночь с 12 на 13 августа. Для многих это может стать идеальным поводом провести необычный вечер - выбраться за город, отключиться от городской суеты и устроить свидание под звездным небом с космическими спецэффектами.</p><h3>Во сколько лучше наблюдать</h3><p>По словам Валиуллина, жителям Казахстана лучше всего смотреть на небо после полуночи и до рассвета - примерно с 03:00 до 05:00 по местному времени. В этот период созвездие Персея поднимается достаточно высоко над северо-восточным горизонтом.</p>\",\r\n    \"category\": [\r\n      \"business\"\r\n    ],\r\n    \"type\": \"interview\",\r\n    \"time\": \"2026-08-08T08:13:00.000Z\",\r\n    \"image\": \"/src/data/newsData/img/perseida.webp\",\r\n    \"author\": \"Sprow\",\r\n    \"commentsCount\": 0\r\n  },\r\n  {\r\n    \"id\": \"32fd58b6-86bc-437d-b661-03d6fbd6deab\",\r\n    \"title\": \"Вам серебряное уведомление - деньги надо отдать. Как Казахстан возвращает выведенные активы\",\r\n    \"text\": \"<p>На эти деньги строят больницы, водопроводы и аэропорты в самых дальних районах страны. При этом рядовые казахстанцы почти не знают, как устроен процесс возврата активов, что они из себя представляют и кто за них отвечает.</p><h3>Как устроен процесс возврата активов</h3><p>Согласно ответу Генеральной прокуратуры, закон регламентирует два способа возвращения активов в страну: добровольный и принудительный.</p><ul><li><strong>Добровольный</strong> предполагает, что фигурант, попавший под действие этого закона, <i>самостоятельно</i> передаёт государству часть или все активы либо берёт на себя обязательство вложить средства в национальную экономику, построить социальный объект или иначе принять участие в развитии страны. По данным высшего надзорного органа, именно этот способ и выбирает большинство.</li><li><strong>Принудительный</strong> способ применяется исключительно по решению суда. По сути, это изъятие имущества человека в пользу государства. Примечательно, что основанием для такого решения могут служить как акты казахстанских судов, так и решения иностранных судов либо иных компетентных органов иностранных государств.</li></ul>\",\r\n    \"category\": [\r\n      \"politic\"\r\n    ],\r\n    \"type\": \"podcast\",\r\n    \"time\": \"2026-08-07T06:15:00.000Z\",\r\n    \"image\": \"/src/data/newsData/img/get-back-assets-kazakhstan.webp\",\r\n    \"author\": \"Sprow\",\r\n    \"commentsCount\": 0\r\n  },\r\n  {\r\n    \"id\": \"140a413c-c2be-413a-9673-949c5c8d162b\",\r\n    \"title\": \"Президент США Дональд Трамп анонсировал новый этап переговоров с Ираном, которые начнутся в понедельник, 3 августа\",\r\n    \"text\": \"<p>Политик не стал уточнять, кто будет участвовать во встрече и где она пройдет. Трамп также добавил, что не намерен ставить крайний срок для заключения сделки.</p><p>Президент заявил, что Белый дом решил отказаться от новых ударов по Ирану, чтобы дать шанс дипломатическому урегулированию конфликта.</p><blockquote><p>\\\"Я бы предпочел заключить сделку. Мне не нравится убивать людей\\\", - отметил президент США.</p></blockquote>\",\r\n    \"category\": [\r\n      \"world\"\r\n    ],\r\n    \"type\": \"story\",\r\n    \"time\": \"2026-08-06T13:05:00.000Z\",\r\n    \"image\": \"/src/data/newsData/img/trump.webp\",\r\n    \"author\": \"Sprow\",\r\n    \"commentsCount\": 0\r\n  },\r\n  {\r\n    \"id\": \"6df0328a-d156-44f8-a35d-35192046a73b\",\r\n    \"title\": \"Реновация жилья в Алматы - где сносят дома и в каких районах только планируют\",\r\n    \"text\": \"<p>Проверьте свой адрес: в 2026 году по программе реновации в Алматы планируют переселить 1 132 человека, до 2029 года — ещё 3 830 жителей мегаполиса. Сейчас в городе на семи участках инвесторы ведут строительные работы.</p><p>За переселение жильцов ветхих домов в мегаполисе отвечают две организации: СПК \\\"Алматы\\\" и ТОО Almaty Renovation. По данным социально-предпринимательской корпорации \\\"Алматы\\\", в городе насчитывается 1 403 ветхих дома, требующих реновации:</p><ul><li>в Жетысуском районе — 141 дом;</li><li>в Ауэзовском районе — 65 домов;</li><li>в Турксибском районе — 585 домов;</li><li>в Медеуском районе — 82 дома;</li><li>в Алмалинском районе — 135 домов;</li></ul><p>В корпорации добавили, что в перечне нет аварийных домов. Это значит, что при реновации будут учитывать мнение всех собственников квартир. Принудительно подавать в суд о выселении не смогут, потому что жильё не признано аварийным.</p>\",\r\n    \"category\": [\r\n      \"business\"\r\n    ],\r\n    \"type\": \"main\",\r\n    \"time\": \"2026-08-05T07:37:00.000Z\",\r\n    \"image\": \"/src/data/newsData/img/renew-houses-almaty.webp\",\r\n    \"author\": \"Sprow\",\r\n    \"commentsCount\": 0\r\n  },\r\n  {\r\n    \"id\": \"448f8b0a-e67a-4018-9eeb-bf97c05f910f\",\r\n    \"title\": \"Персеиды над Казахстаном: когда смотреть звездопад и что важно знать\",\r\n    \"text\": \"<h3>Ночь \\\"падающих звезд\\\"</h3><p>Август подарит казахстанцам возможность увидеть волшебное небесное шоу - один из самых известных метеорных потоков Персеиды. Пик активности придется на ночь с 12 на 13 августа. Для многих это может стать идеальным поводом провести необычный вечер - выбраться за город, отключиться от городской суеты и устроить свидание под звездным небом с космическими спецэффектами.</p><h3>Во сколько лучше наблюдать</h3><p>По словам Валиуллина, жителям Казахстана лучше всего смотреть на небо после полуночи и до рассвета - примерно с 03:00 до 05:00 по местному времени. В этот период созвездие Персея поднимается достаточно высоко над северо-восточным горизонтом.</p>\",\r\n    \"category\": [\r\n      \"politic\"\r\n    ],\r\n    \"type\": \"exclusive\",\r\n    \"time\": \"2026-08-04T08:13:00.000Z\",\r\n    \"image\": \"/src/data/newsData/img/perseida.webp\",\r\n    \"author\": \"ProstoGamer\",\r\n    \"commentsCount\": 0\r\n  },\r\n  {\r\n    \"id\": \"06a0772d-c3c7-48f2-9c2a-868921718993\",\r\n    \"title\": \"Вам серебряное уведомление - деньги надо отдать. Как Казахстан возвращает выведенные активы\",\r\n    \"text\": \"<p>На эти деньги строят больницы, водопроводы и аэропорты в самых дальних районах страны. При этом рядовые казахстанцы почти не знают, как устроен процесс возврата активов, что они из себя представляют и кто за них отвечает.</p><h3>Как устроен процесс возврата активов</h3><p>Согласно ответу Генеральной прокуратуры, закон регламентирует два способа возвращения активов в страну: добровольный и принудительный.</p><ul><li><strong>Добровольный</strong> предполагает, что фигурант, попавший под действие этого закона, <i>самостоятельно</i> передаёт государству часть или все активы либо берёт на себя обязательство вложить средства в национальную экономику, построить социальный объект или иначе принять участие в развитии страны. По данным высшего надзорного органа, именно этот способ и выбирает большинство.</li><li><strong>Принудительный</strong> способ применяется исключительно по решению суда. По сути, это изъятие имущества человека в пользу государства. Примечательно, что основанием для такого решения могут служить как акты казахстанских судов, так и решения иностранных судов либо иных компетентных органов иностранных государств.</li></ul>\",\r\n    \"category\": [\r\n      \"world\"\r\n    ],\r\n    \"type\": \"interview\",\r\n    \"time\": \"2026-08-03T06:15:00.000Z\",\r\n    \"image\": \"/src/data/newsData/img/get-back-assets-kazakhstan.webp\",\r\n    \"author\": \"Sprow\",\r\n    \"commentsCount\": 0\r\n  },\r\n  {\r\n    \"id\": \"5f0d634e-c02e-4572-9a55-a2dadacfd4dd\",\r\n    \"title\": \"Президент США Дональд Трамп анонсировал новый этап переговоров с Ираном, которые начнутся в понедельник, 3 августа\",\r\n    \"text\": \"<p>Политик не стал уточнять, кто будет участвовать во встрече и где она пройдет. Трамп также добавил, что не намерен ставить крайний срок для заключения сделки.</p><p>Президент заявил, что Белый дом решил отказаться от новых ударов по Ирану, чтобы дать шанс дипломатическому урегулированию конфликта.</p><blockquote><p>\\\"Я бы предпочел заключить сделку. Мне не нравится убивать людей\\\", - отметил президент США.</p></blockquote>\",\r\n    \"category\": [\r\n      \"business\"\r\n    ],\r\n    \"type\": \"podcast\",\r\n    \"time\": \"2026-08-02T13:05:00.000Z\",\r\n    \"image\": \"/src/data/newsData/img/trump.webp\",\r\n    \"author\": \"Sprow\",\r\n    \"commentsCount\": 0\r\n  },\r\n  {\r\n    \"id\": \"5f50b23d-11cc-47d8-a3b4-07f063f488e7\",\r\n    \"title\": \"Реновация жилья в Алматы - где сносят дома и в каких районах только планируют\",\r\n    \"text\": \"<p>Проверьте свой адрес: в 2026 году по программе реновации в Алматы планируют переселить 1 132 человека, до 2029 года — ещё 3 830 жителей мегаполиса. Сейчас в городе на семи участках инвесторы ведут строительные работы.</p><p>За переселение жильцов ветхих домов в мегаполисе отвечают две организации: СПК \\\"Алматы\\\" и ТОО Almaty Renovation. По данным социально-предпринимательской корпорации \\\"Алматы\\\", в городе насчитывается 1 403 ветхих дома, требующих реновации:</p><ul><li>в Жетысуском районе — 141 дом;</li><li>в Ауэзовском районе — 65 домов;</li><li>в Турксибском районе — 585 домов;</li><li>в Медеуском районе — 82 дома;</li><li>в Алмалинском районе — 135 домов;</li></ul><p>В корпорации добавили, что в перечне нет аварийных домов. Это значит, что при реновации будут учитывать мнение всех собственников квартир. Принудительно подавать в суд о выселении не смогут, потому что жильё не признано аварийным.</p>\",\r\n    \"category\": [\r\n      \"politic\"\r\n    ],\r\n    \"type\": \"story\",\r\n    \"time\": \"2026-08-01T07:37:00.000Z\",\r\n    \"image\": \"/src/data/newsData/img/renew-houses-almaty.webp\",\r\n    \"author\": \"Sprow\",\r\n    \"commentsCount\": 0\r\n  },\r\n  {\r\n    \"id\": \"2b7d44da-0a06-44c1-a942-8fecbf1da09a\",\r\n    \"title\": \"Персеиды над Казахстаном: когда смотреть звездопад и что важно знать\",\r\n    \"text\": \"<h3>Ночь \\\"падающих звезд\\\"</h3><p>Август подарит казахстанцам возможность увидеть волшебное небесное шоу - один из самых известных метеорных потоков Персеиды. Пик активности придется на ночь с 12 на 13 августа. Для многих это может стать идеальным поводом провести необычный вечер - выбраться за город, отключиться от городской суеты и устроить свидание под звездным небом с космическими спецэффектами.</p><h3>Во сколько лучше наблюдать</h3><p>По словам Валиуллина, жителям Казахстана лучше всего смотреть на небо после полуночи и до рассвета - примерно с 03:00 до 05:00 по местному времени. В этот период созвездие Персея поднимается достаточно высоко над северо-восточным горизонтом.</p>\",\r\n    \"category\": [\r\n      \"world\"\r\n    ],\r\n    \"type\": \"main\",\r\n    \"time\": \"2026-07-31T08:13:00.000Z\",\r\n    \"image\": \"/src/data/newsData/img/perseida.webp\",\r\n    \"author\": \"Sprow\",\r\n    \"commentsCount\": 0\r\n  },\r\n  {\r\n    \"id\": \"77547189-5119-4766-9ea1-61c522c096d4\",\r\n    \"title\": \"Вам серебряное уведомление - деньги надо отдать. Как Казахстан возвращает выведенные активы\",\r\n    \"text\": \"<p>На эти деньги строят больницы, водопроводы и аэропорты в самых дальних районах страны. При этом рядовые казахстанцы почти не знают, как устроен процесс возврата активов, что они из себя представляют и кто за них отвечает.</p><h3>Как устроен процесс возврата активов</h3><p>Согласно ответу Генеральной прокуратуры, закон регламентирует два способа возвращения активов в страну: добровольный и принудительный.</p><ul><li><strong>Добровольный</strong> предполагает, что фигурант, попавший под действие этого закона, <i>самостоятельно</i> передаёт государству часть или все активы либо берёт на себя обязательство вложить средства в национальную экономику, построить социальный объект или иначе принять участие в развитии страны. По данным высшего надзорного органа, именно этот способ и выбирает большинство.</li><li><strong>Принудительный</strong> способ применяется исключительно по решению суда. По сути, это изъятие имущества человека в пользу государства. Примечательно, что основанием для такого решения могут служить как акты казахстанских судов, так и решения иностранных судов либо иных компетентных органов иностранных государств.</li></ul>\",\r\n    \"category\": [\r\n      \"business\"\r\n    ],\r\n    \"type\": \"exclusive\",\r\n    \"time\": \"2026-07-30T06:15:00.000Z\",\r\n    \"image\": \"/src/data/newsData/img/get-back-assets-kazakhstan.webp\",\r\n    \"author\": \"Sprow\",\r\n    \"commentsCount\": 0\r\n  },\r\n  {\r\n    \"id\": \"94e671d6-c773-4588-8327-3f13a561ba78\",\r\n    \"title\": \"Президент США Дональд Трамп анонсировал новый этап переговоров с Ираном, которые начнутся в понедельник, 3 августа\",\r\n    \"text\": \"<p>Политик не стал уточнять, кто будет участвовать во встрече и где она пройдет. Трамп также добавил, что не намерен ставить крайний срок для заключения сделки.</p><p>Президент заявил, что Белый дом решил отказаться от новых ударов по Ирану, чтобы дать шанс дипломатическому урегулированию конфликта.</p><blockquote><p>\\\"Я бы предпочел заключить сделку. Мне не нравится убивать людей\\\", - отметил президент США.</p></blockquote>\",\r\n    \"category\": [\r\n      \"politic\"\r\n    ],\r\n    \"type\": \"interview\",\r\n    \"time\": \"2026-08-10T13:05:00.000Z\",\r\n    \"image\": \"/src/data/newsData/img/trump.webp\",\r\n    \"author\": \"Sprow\",\r\n    \"commentsCount\": 0\r\n  },\r\n  {\r\n    \"id\": \"74e4f706-23f9-4afa-abc9-b57c19bc38e6\",\r\n    \"title\": \"Реновация жилья в Алматы - где сносят дома и в каких районах только планируют\",\r\n    \"text\": \"<p>Проверьте свой адрес: в 2026 году по программе реновации в Алматы планируют переселить 1 132 человека, до 2029 года — ещё 3 830 жителей мегаполиса. Сейчас в городе на семи участках инвесторы ведут строительные работы.</p><p>За переселение жильцов ветхих домов в мегаполисе отвечают две организации: СПК \\\"Алматы\\\" и ТОО Almaty Renovation. По данным социально-предпринимательской корпорации \\\"Алматы\\\", в городе насчитывается 1 403 ветхих дома, требующих реновации:</p><ul><li>в Жетысуском районе — 141 дом;</li><li>в Ауэзовском районе — 65 домов;</li><li>в Турксибском районе — 585 домов;</li><li>в Медеуском районе — 82 дома;</li><li>в Алмалинском районе — 135 домов;</li></ul><p>В корпорации добавили, что в перечне нет аварийных домов. Это значит, что при реновации будут учитывать мнение всех собственников квартир. Принудительно подавать в суд о выселении не смогут, потому что жильё не признано аварийным.</p>\",\r\n    \"category\": [\r\n      \"world\"\r\n    ],\r\n    \"type\": \"podcast\",\r\n    \"time\": \"2026-08-09T07:37:00.000Z\",\r\n    \"image\": \"/src/data/newsData/img/renew-houses-almaty.webp\",\r\n    \"author\": \"Sprow\",\r\n    \"commentsCount\": 0\r\n  },\r\n  {\r\n    \"id\": \"be923f81-8be2-47aa-b51a-370eb799b3da\",\r\n    \"title\": \"Персеиды над Казахстаном: когда смотреть звездопад и что важно знать\",\r\n    \"text\": \"<h3>Ночь \\\"падающих звезд\\\"</h3><p>Август подарит казахстанцам возможность увидеть волшебное небесное шоу - один из самых известных метеорных потоков Персеиды. Пик активности придется на ночь с 12 на 13 августа. Для многих это может стать идеальным поводом провести необычный вечер - выбраться за город, отключиться от городской суеты и устроить свидание под звездным небом с космическими спецэффектами.</p><h3>Во сколько лучше наблюдать</h3><p>По словам Валиуллина, жителям Казахстана лучше всего смотреть на небо после полуночи и до рассвета - примерно с 03:00 до 05:00 по местному времени. В этот период созвездие Персея поднимается достаточно высоко над северо-восточным горизонтом.</p>\",\r\n    \"category\": [\r\n      \"business\"\r\n    ],\r\n    \"type\": \"story\",\r\n    \"time\": \"2026-08-08T08:13:00.000Z\",\r\n    \"image\": \"/src/data/newsData/img/perseida.webp\",\r\n    \"author\": \"Sprow\",\r\n    \"commentsCount\": 0\r\n  },\r\n  {\r\n    \"id\": \"86287808-3f8a-4b2d-bfda-de1f7245683b\",\r\n    \"title\": \"Вам серебряное уведомление - деньги надо отдать. Как Казахстан возвращает выведенные активы\",\r\n    \"text\": \"<p>На эти деньги строят больницы, водопроводы и аэропорты в самых дальних районах страны. При этом рядовые казахстанцы почти не знают, как устроен процесс возврата активов, что они из себя представляют и кто за них отвечает.</p><h3>Как устроен процесс возврата активов</h3><p>Согласно ответу Генеральной прокуратуры, закон регламентирует два способа возвращения активов в страну: добровольный и принудительный.</p><ul><li><strong>Добровольный</strong> предполагает, что фигурант, попавший под действие этого закона, <i>самостоятельно</i> передаёт государству часть или все активы либо берёт на себя обязательство вложить средства в национальную экономику, построить социальный объект или иначе принять участие в развитии страны. По данным высшего надзорного органа, именно этот способ и выбирает большинство.</li><li><strong>Принудительный</strong> способ применяется исключительно по решению суда. По сути, это изъятие имущества человека в пользу государства. Примечательно, что основанием для такого решения могут служить как акты казахстанских судов, так и решения иностранных судов либо иных компетентных органов иностранных государств.</li></ul>\",\r\n    \"category\": [\r\n      \"politic\"\r\n    ],\r\n    \"type\": \"main\",\r\n    \"time\": \"2026-08-07T06:15:00.000Z\",\r\n    \"image\": \"/src/data/newsData/img/get-back-assets-kazakhstan.webp\",\r\n    \"author\": \"Sprow\",\r\n    \"commentsCount\": 0\r\n  },\r\n  {\r\n    \"id\": \"ae7b41ce-c600-4d81-8529-27e8cab693c5\",\r\n    \"title\": \"Президент США Дональд Трамп анонсировал новый этап переговоров с Ираном, которые начнутся в понедельник, 3 августа\",\r\n    \"text\": \"<p>Политик не стал уточнять, кто будет участвовать во встрече и где она пройдет. Трамп также добавил, что не намерен ставить крайний срок для заключения сделки.</p><p>Президент заявил, что Белый дом решил отказаться от новых ударов по Ирану, чтобы дать шанс дипломатическому урегулированию конфликта.</p><blockquote><p>\\\"Я бы предпочел заключить сделку. Мне не нравится убивать людей\\\", - отметил президент США.</p></blockquote>\",\r\n    \"category\": [\r\n      \"world\"\r\n    ],\r\n    \"type\": \"exclusive\",\r\n    \"time\": \"2026-08-06T13:05:00.000Z\",\r\n    \"image\": \"/src/data/newsData/img/trump.webp\",\r\n    \"author\": \"Sprow\",\r\n    \"commentsCount\": 0\r\n  },\r\n  {\r\n    \"id\": \"ccf143ff-1ea9-4709-9213-24f38e6440a3\",\r\n    \"title\": \"Реновация жилья в Алматы - где сносят дома и в каких районах только планируют\",\r\n    \"text\": \"<p>Проверьте свой адрес: в 2026 году по программе реновации в Алматы планируют переселить 1 132 человека, до 2029 года — ещё 3 830 жителей мегаполиса. Сейчас в городе на семи участках инвесторы ведут строительные работы.</p><p>За переселение жильцов ветхих домов в мегаполисе отвечают две организации: СПК \\\"Алматы\\\" и ТОО Almaty Renovation. По данным социально-предпринимательской корпорации \\\"Алматы\\\", в городе насчитывается 1 403 ветхих дома, требующих реновации:</p><ul><li>в Жетысуском районе — 141 дом;</li><li>в Ауэзовском районе — 65 домов;</li><li>в Турксибском районе — 585 домов;</li><li>в Медеуском районе — 82 дома;</li><li>в Алмалинском районе — 135 домов;</li></ul><p>В корпорации добавили, что в перечне нет аварийных домов. Это значит, что при реновации будут учитывать мнение всех собственников квартир. Принудительно подавать в суд о выселении не смогут, потому что жильё не признано аварийным.</p>\",\r\n    \"category\": [\r\n      \"business\"\r\n    ],\r\n    \"type\": \"interview\",\r\n    \"time\": \"2026-08-05T07:37:00.000Z\",\r\n    \"image\": \"/src/data/newsData/img/renew-houses-almaty.webp\",\r\n    \"author\": \"Sprow\",\r\n    \"commentsCount\": 0\r\n  },\r\n  {\r\n    \"id\": \"3d3ddff5-db30-44de-9acb-2f288a64a526\",\r\n    \"title\": \"Персеиды над Казахстаном: когда смотреть звездопад и что важно знать\",\r\n    \"text\": \"<h3>Ночь \\\"падающих звезд\\\"</h3><p>Август подарит казахстанцам возможность увидеть волшебное небесное шоу - один из самых известных метеорных потоков Персеиды. Пик активности придется на ночь с 12 на 13 августа. Для многих это может стать идеальным поводом провести необычный вечер - выбраться за город, отключиться от городской суеты и устроить свидание под звездным небом с космическими спецэффектами.</p><h3>Во сколько лучше наблюдать</h3><p>По словам Валиуллина, жителям Казахстана лучше всего смотреть на небо после полуночи и до рассвета - примерно с 03:00 до 05:00 по местному времени. В этот период созвездие Персея поднимается достаточно высоко над северо-восточным горизонтом.</p>\",\r\n    \"category\": [\r\n      \"politic\"\r\n    ],\r\n    \"type\": \"podcast\",\r\n    \"time\": \"2026-08-04T08:13:00.000Z\",\r\n    \"image\": \"/src/data/newsData/img/perseida.webp\",\r\n    \"author\": \"Sprow\",\r\n    \"commentsCount\": 0\r\n  },\r\n  {\r\n    \"id\": \"155ffeea-eb12-410c-8a05-05368ebf95ad\",\r\n    \"title\": \"Вам серебряное уведомление - деньги надо отдать. Как Казахстан возвращает выведенные активы\",\r\n    \"text\": \"<p>На эти деньги строят больницы, водопроводы и аэропорты в самых дальних районах страны. При этом рядовые казахстанцы почти не знают, как устроен процесс возврата активов, что они из себя представляют и кто за них отвечает.</p><h3>Как устроен процесс возврата активов</h3><p>Согласно ответу Генеральной прокуратуры, закон регламентирует два способа возвращения активов в страну: добровольный и принудительный.</p><ul><li><strong>Добровольный</strong> предполагает, что фигурант, попавший под действие этого закона, <i>самостоятельно</i> передаёт государству часть или все активы либо берёт на себя обязательство вложить средства в национальную экономику, построить социальный объект или иначе принять участие в развитии страны. По данным высшего надзорного органа, именно этот способ и выбирает большинство.</li><li><strong>Принудительный</strong> способ применяется исключительно по решению суда. По сути, это изъятие имущества человека в пользу государства. Примечательно, что основанием для такого решения могут служить как акты казахстанских судов, так и решения иностранных судов либо иных компетентных органов иностранных государств.</li></ul>\",\r\n    \"category\": [\r\n      \"world\"\r\n    ],\r\n    \"type\": \"story\",\r\n    \"time\": \"2026-08-03T06:15:00.000Z\",\r\n    \"image\": \"/src/data/newsData/img/get-back-assets-kazakhstan.webp\",\r\n    \"author\": \"Sprow\",\r\n    \"commentsCount\": 0\r\n  },\r\n  {\r\n    \"id\": \"8fc4a638-3017-429e-b943-f4c5255549d7\",\r\n    \"title\": \"Президент США Дональд Трамп анонсировал новый этап переговоров с Ираном, которые начнутся в понедельник, 3 августа\",\r\n    \"text\": \"<p>Политик не стал уточнять, кто будет участвовать во встрече и где она пройдет. Трамп также добавил, что не намерен ставить крайний срок для заключения сделки.</p><p>Президент заявил, что Белый дом решил отказаться от новых ударов по Ирану, чтобы дать шанс дипломатическому урегулированию конфликта.</p><blockquote><p>\\\"Я бы предпочел заключить сделку. Мне не нравится убивать людей\\\", - отметил президент США.</p></blockquote>\",\r\n    \"category\": [\r\n      \"business\"\r\n    ],\r\n    \"type\": \"main\",\r\n    \"time\": \"2026-08-02T13:05:00.000Z\",\r\n    \"image\": \"/src/data/newsData/img/trump.webp\",\r\n    \"author\": \"Sprow\",\r\n    \"commentsCount\": 0\r\n  },\r\n  {\r\n    \"id\": \"e534aec9-eb5e-4621-8d5b-121420864d7d\",\r\n    \"title\": \"Реновация жилья в Алматы - где сносят дома и в каких районах только планируют\",\r\n    \"text\": \"<p>Проверьте свой адрес: в 2026 году по программе реновации в Алматы планируют переселить 1 132 человека, до 2029 года — ещё 3 830 жителей мегаполиса. Сейчас в городе на семи участках инвесторы ведут строительные работы.</p><p>За переселение жильцов ветхих домов в мегаполисе отвечают две организации: СПК \\\"Алматы\\\" и ТОО Almaty Renovation. По данным социально-предпринимательской корпорации \\\"Алматы\\\", в городе насчитывается 1 403 ветхих дома, требующих реновации:</p><ul><li>в Жетысуском районе — 141 дом;</li><li>в Ауэзовском районе — 65 домов;</li><li>в Турксибском районе — 585 домов;</li><li>в Медеуском районе — 82 дома;</li><li>в Алмалинском районе — 135 домов;</li></ul><p>В корпорации добавили, что в перечне нет аварийных домов. Это значит, что при реновации будут учитывать мнение всех собственников квартир. Принудительно подавать в суд о выселении не смогут, потому что жильё не признано аварийным.</p>\",\r\n    \"category\": [\r\n      \"politic\"\r\n    ],\r\n    \"type\": \"exclusive\",\r\n    \"time\": \"2026-08-01T07:37:00.000Z\",\r\n    \"image\": \"/src/data/newsData/img/renew-houses-almaty.webp\",\r\n    \"author\": \"Sprow\",\r\n    \"commentsCount\": 0\r\n  },\r\n  {\r\n    \"id\": \"27cafe7e-c266-4c46-ac4d-63f1d300bf95\",\r\n    \"title\": \"Персеиды над Казахстаном: когда смотреть звездопад и что важно знать\",\r\n    \"text\": \"<h3>Ночь \\\"падающих звезд\\\"</h3><p>Август подарит казахстанцам возможность увидеть волшебное небесное шоу - один из самых известных метеорных потоков Персеиды. Пик активности придется на ночь с 12 на 13 августа. Для многих это может стать идеальным поводом провести необычный вечер - выбраться за город, отключиться от городской суеты и устроить свидание под звездным небом с космическими спецэффектами.</p><h3>Во сколько лучше наблюдать</h3><p>По словам Валиуллина, жителям Казахстана лучше всего смотреть на небо после полуночи и до рассвета - примерно с 03:00 до 05:00 по местному времени. В этот период созвездие Персея поднимается достаточно высоко над северо-восточным горизонтом.</p>\",\r\n    \"category\": [\r\n      \"world\"\r\n    ],\r\n    \"type\": \"interview\",\r\n    \"time\": \"2026-07-31T08:13:00.000Z\",\r\n    \"image\": \"/src/data/newsData/img/perseida.webp\",\r\n    \"author\": \"Sprow\",\r\n    \"commentsCount\": 0\r\n  },\r\n  {\r\n    \"id\": \"0d7b06c8-b6d8-46ab-b65c-ac762be0fa4b\",\r\n    \"title\": \"Вам серебряное уведомление - деньги надо отдать. Как Казахстан возвращает выведенные активы\",\r\n    \"text\": \"<p>На эти деньги строят больницы, водопроводы и аэропорты в самых дальних районах страны. При этом рядовые казахстанцы почти не знают, как устроен процесс возврата активов, что они из себя представляют и кто за них отвечает.</p><h3>Как устроен процесс возврата активов</h3><p>Согласно ответу Генеральной прокуратуры, закон регламентирует два способа возвращения активов в страну: добровольный и принудительный.</p><ul><li><strong>Добровольный</strong> предполагает, что фигурант, попавший под действие этого закона, <i>самостоятельно</i> передаёт государству часть или все активы либо берёт на себя обязательство вложить средства в национальную экономику, построить социальный объект или иначе принять участие в развитии страны. По данным высшего надзорного органа, именно этот способ и выбирает большинство.</li><li><strong>Принудительный</strong> способ применяется исключительно по решению суда. По сути, это изъятие имущества человека в пользу государства. Примечательно, что основанием для такого решения могут служить как акты казахстанских судов, так и решения иностранных судов либо иных компетентных органов иностранных государств.</li></ul>\",\r\n    \"category\": [\r\n      \"business\"\r\n    ],\r\n    \"type\": \"podcast\",\r\n    \"time\": \"2026-07-30T06:15:00.000Z\",\r\n    \"image\": \"/src/data/newsData/img/get-back-assets-kazakhstan.webp\",\r\n    \"author\": \"Sprow\",\r\n    \"commentsCount\": 0\r\n  }\r\n]"
+    },
+    {
+      "uuid": "d189778d-6171-4933-88c4-42d7d82224a4",
+      "id": "oe5v",
+      "name": "usersPublic",
+      "documentation": "",
+      "value": "[\r\n  {\r\n    \"username\": \"Sprow\",\r\n    \"name\": \"Мади\",\r\n    \"surname\": \"Курманов\",\r\n    \"birthDate\": \"2002-05-06T00:00:00.000Z\",\r\n    \"email\": \"saint_sprow@mail.ru\",\r\n    \"phone\": \"+77082330226\",\r\n    \"avatar\": \"\",\r\n    \"status\": \"Keep going\"\r\n  },\r\n  {\r\n    \"username\": \"ProstoGamer\",\r\n    \"name\": \"Александр\",\r\n    \"surname\": \"Могилёв\",\r\n    \"birthDate\": \"2007-06-05T00:00:00.000Z\",\r\n    \"email\": \"prosto_gamer@mail.ru\",\r\n    \"phone\": \"+77077777777\",\r\n    \"avatar\": \"\",\r\n    \"status\": \"\"\r\n  }\r\n]"
+    },
+    {
+      "uuid": "981cc199-1e3d-4d64-ad66-3abc9c7f6efe",
+      "id": "2t8o",
+      "name": "usersAuth",
+      "documentation": "",
+      "value": "[\r\n  {\r\n    \"username\": \"Sprow\",\r\n    \"password\": \"Akimat2026@\",\r\n    \"status\": {\r\n      \"user\": true,\r\n      \"creator\": true,\r\n      \"admin\": true,\r\n      \"banned\": false\r\n    }\r\n  },\r\n  {\r\n    \"username\": \"ProstoGamer\",\r\n    \"password\": \"123456Aa\",\r\n    \"status\": {\r\n      \"user\": true,\r\n      \"creator\": true,\r\n      \"admin\": false,\r\n      \"banned\": false\r\n    }\r\n  }\r\n]"
+    },
+    {
+      "uuid": "9ba195de-da4e-4f2d-aaee-708070e76ead",
+      "id": "qi93",
+      "name": "comments",
+      "documentation": "",
+      "value": "[\r\n  {\r\n    \"id\": \"fc5fb0db-8a15-4fa5-a3e2-655d7257faf2\",\r\n    \"articleId\": \"a89824e2-f68b-43bb-873c-eee7d957137b\",\r\n    \"text\": \"Красава\",\r\n    \"username\": \"Sprow\",\r\n    \"time\": \"2026-08-11T13:05:00.000Z\"\r\n  },\r\n  {\r\n    \"id\": \"3fe05ff7-3e4e-466b-a84c-6fcfe26442e1\",\r\n    \"articleId\": \"ddcba6f9-4c07-4e97-87d5-daf225a317cc\",\r\n    \"text\": \"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin aliquam libero eget risus molestie aliquet. Vivamus luctus blandit felis eu auctor. Sed tincidunt sapien nec leo efficitur euismod. Proin sodales orci nulla. Nullam vitae enim id eros tincidunt tempus vitae ut mi. Nullam sagittis tellus at ipsum pretium varius. Aliquam semper lacinia diam, in laoreet eros feugiat et. Aenean in massa dignissim tortor dictum dictum. Mauris vestibulum libero mi, sed iaculis nisi ullamcorper a.\",\r\n    \"username\": \"Sprow\",\r\n    \"time\": \"2026-08-12T13:05:00.000Z\"\r\n  },\r\n  {\r\n    \"id\": \"8048de37-0dfd-42ea-9c96-b30ce2c1e333\",\r\n    \"articleId\": \"ddcba6f9-4c07-4e97-87d5-daf225a317cc\",\r\n    \"text\": \"Лошара\",\r\n    \"username\": \"Sprow\",\r\n    \"time\": \"2026-08-13T13:05:00.000Z\"\r\n  },\r\n  {\r\n    \"id\": \"1200b07b-1bfa-4bf0-8f24-3cacbaf00a75\",\r\n    \"articleId\": \"a89824e2-f68b-43bb-873c-eee7d957137b\",\r\n    \"text\": \"Чиназес\",\r\n    \"username\": \"ProstoGamer\",\r\n    \"time\": \"2026-08-14T13:05:00.000Z\"\r\n  },\r\n  {\r\n    \"id\": \"151a499c-e58f-465f-a5e2-b35d620fdc23\",\r\n    \"articleId\": \"ddcba6f9-4c07-4e97-87d5-daf225a317cc\",\r\n    \"text\": \"Найсикс\",\r\n    \"username\": \"ProstoGamer\",\r\n    \"time\": \"2026-08-15T13:05:00.000Z\"\r\n  }\r\n]"
+    }
+  ],
+  "callbacks": []
+}

@@ -1,24 +1,35 @@
 import { NavLink } from "react-router";
-import type { INewsCategory } from "../../types/newsItem";
-import tagsMap from "../../utils/tagsMap";
+import type { ArticleCategory } from "../../types/newsItem";
 import translate from "../../utils/translate";
 import styles from "./ArticleAuthor.module.css";
-import getUserInfoByUsername from "../../utils/getUserInfoByUsername";
 import Avatar from "../../ui/Avatar/Avatar";
+import { useGetUserPublicInfoByUserNameQuery } from "../../services/usersPublicApi";
+import LoadingBlock from "../../ui/LoadingBlock/LoadingBlock";
+import ErrorBlock from "../../ui/ErrorBlock/ErrorBlock";
 
 interface IProps {
-  articleTags: INewsCategory;
+  articleTags: ArticleCategory[];
   articleAuthor: string;
 }
 
 const ArticleAuthor = ({ articleTags, articleAuthor }: IProps) => {
-  const authorInfo = getUserInfoByUsername(articleAuthor);
+  const fetchedAuthorInfo = useGetUserPublicInfoByUserNameQuery(articleAuthor);
+
+  if (fetchedAuthorInfo.isLoading) return <LoadingBlock />;
+
+  if (
+    fetchedAuthorInfo.isError ||
+    typeof fetchedAuthorInfo.data === "undefined"
+  )
+    return <ErrorBlock />;
+
+  const authorInfo = fetchedAuthorInfo.data;
 
   return (
     <section className={styles.author}>
       <div className={styles.author__inner}>
         <ul className={styles.tag_list}>
-          {tagsMap(articleTags).map((tag) => (
+          {articleTags.map((tag) => (
             <li className={styles.tag__item} key={tag}>
               <NavLink to={`/${tag}`} className={styles.tag__link}>
                 <p className={styles.tag}>

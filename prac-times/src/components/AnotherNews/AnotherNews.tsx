@@ -1,41 +1,39 @@
 import styles from "./AnotherNews.module.css";
-import { fetchAnotherNews } from "../../store/newsSlice";
-import { useEffect } from "react";
-import { useAppDispatch } from "../../hooks/useAppDispatch";
-import { useSelector } from "react-redux";
-import type { RootState } from "../../store/store";
-import type INewsItem from "../../types/newsItem";
 import CompactArticle from "../Article/CompactArticle/CompactArticle";
 import PageTitle from "../../ui/PageTitle/PageTitle";
+import { useGetArticlesQuery } from "../../services/newsApi";
+import type GetArticleParams from "../../types/getArticleParams";
 import LoadingBlock from "../../ui/LoadingBlock/LoadingBlock";
+import ErrorBlock from "../../ui/ErrorBlock/ErrorBlock";
 
 const AnotherNews = () => {
-  const dispatch = useAppDispatch();
-  useEffect(() => {
-    dispatch(fetchAnotherNews());
-  }, [dispatch]);
+  const fetchParams: GetArticleParams = {
+    limit: 4,
+    type_not: "main",
+  };
 
-  const anotherNewsFetchStatus = useSelector(
-    (state: RootState) => state.newsReducer.status.another,
-  );
+  const anotherNews = useGetArticlesQuery(fetchParams);
 
-  const anotherNews: INewsItem[] = useSelector(
-    (state: RootState) => state.newsReducer.data.another,
-  );
+  const anotherNewsBlock = () => {
+    if (anotherNews.isLoading) return <LoadingBlock />;
+
+    if (anotherNews.isError) return <ErrorBlock />;
+
+    return (
+      <ul className={styles.another__content}>
+        {anotherNews.data?.items.map((item) => (
+          <li className={styles.another__item} key={item.id}>
+            <CompactArticle article={item} />
+          </li>
+        ))}
+      </ul>
+    );
+  };
+
   return (
     <aside className={styles.news__another}>
       <PageTitle titleText="Другие новости" />
-      {anotherNewsFetchStatus === "succeeded" ? (
-        <ul className={styles.another__content}>
-          {anotherNews.map((item) => (
-            <li className={styles.another__item} key={item.id}>
-              <CompactArticle article={item} />
-            </li>
-          ))}
-        </ul>
-      ) : (
-        <LoadingBlock />
-      )}
+      {anotherNewsBlock()}
     </aside>
   );
 };

@@ -1,37 +1,31 @@
 import { useNavigate, useParams } from "react-router";
 import ArticleDisplay from "../../components/ArticleDisplay/ArticleDisplay";
 import styles from "./ArticlePage.module.css";
-import { useEffect, useState } from "react";
-import fetchArticleData from "../../utils/fetchArticle";
-import type INewsItem from "../../types/newsItem";
 import ArticleDesc from "../../components/ArticleDesc/ArticleDesc";
 import ArticleAuthor from "../../components/ArticleAuthor/ArticleAuthor";
 import ArticleCommentSection from "../../components/ArticleCommentSection/ArticleCommentSection";
 import NewsletterForm from "../../components/NewsletterForm/NewsletterForm";
 import LoadingBlock from "../../ui/LoadingBlock/LoadingBlock";
+import { useGetArticleByIdQuery } from "../../services/newsApi";
 
 const ArticlePage = () => {
   const params = useParams();
   const navigate = useNavigate();
 
-  const [article, setArticle]: [
-    INewsItem | undefined,
-    React.Dispatch<React.SetStateAction<INewsItem | undefined>>,
-  ] = useState();
+  const fetchedArticle = useGetArticleByIdQuery(
+    typeof params.articleId !== "undefined" ? params.articleId : "",
+  );
 
-  useEffect(() => {
-    if (typeof params.articleId !== "undefined")
-      fetchArticleData(params.articleId).then((data) => {
-        if (typeof data === "undefined") navigate("/");
-        else setArticle(data);
-      });
-  }, [navigate, params.articleId]);
+  if (fetchedArticle.isLoading) return <LoadingBlock />;
 
-  return (
-    <div className="container">
-      {typeof article === "undefined" ? (
-        <LoadingBlock />
-      ) : (
+  if (fetchedArticle.isError) navigate("/");
+
+  const article = fetchedArticle.data;
+
+  if (typeof article === "undefined") navigate("/");
+  else
+    return (
+      <div className="container">
         <div className={styles.article__info}>
           <ArticleDisplay
             articleImg={article.image}
@@ -39,7 +33,11 @@ const ArticlePage = () => {
             articleTitle={article.title}
             articleTime={article.time}
           />
-          <ArticleDesc articleDesc={article.text} articleId={article.id} />
+          <ArticleDesc
+            articleDesc={article.text}
+            articleId={article.id}
+            articleTitle={article.title}
+          />
           <ArticleAuthor
             articleTags={article.category}
             articleAuthor={article.author}
@@ -49,10 +47,9 @@ const ArticlePage = () => {
             articleComments={article.commentsCount}
           />
         </div>
-      )}
-      <NewsletterForm />
-    </div>
-  );
+        <NewsletterForm />
+      </div>
+    );
 };
 
 export default ArticlePage;

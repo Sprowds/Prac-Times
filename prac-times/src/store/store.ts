@@ -1,8 +1,20 @@
 import { configureStore } from "@reduxjs/toolkit";
-import newsReducer from "./newsSlice";
+import { newsApi } from "../services/newsApi";
+import { commentsApi } from "../services/commentsApi";
+import { usersPublicApi } from "../services/usersPublicApi";
 
 export const store = configureStore({
-  reducer: { newsReducer },
+  reducer: {
+    [newsApi.reducerPath]: newsApi.reducer,
+    [commentsApi.reducerPath]: commentsApi.reducer,
+    [usersPublicApi.reducerPath]: usersPublicApi.reducer,
+  },
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware().concat(
+      newsApi.middleware,
+      commentsApi.middleware,
+      usersPublicApi.middleware,
+    ),
 });
 
 export type RootState = ReturnType<typeof store.getState>;

@@ -1,0 +1,5 @@
+.error {
+  font-family: var(--proxima-nova-font);
+  font-weight: 600;
+  color: var(--activity-main-color);
+}

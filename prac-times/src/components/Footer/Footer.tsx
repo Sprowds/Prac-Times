@@ -2,8 +2,30 @@ import styles from "./Footer.module.css";
 import Navigation from "../Navigation/Navigation";
 import { NavLink } from "react-router";
 import SocialList from "../SocialList/SocialList";
+import telegramIcon from "../../assets/img/social-icons/telegram-icon.svg";
+import vkontakteIcon from "../../assets/img/social-icons/vkontakte-icon.svg";
+import instagramIcon from "../../assets/img/social-icons/instagram-icon.svg";
+import type ISocial from "../../types/social";
 
 const Footer = () => {
+  const socialList: ISocial[] = [
+    {
+      name: "Telegram",
+      icon: telegramIcon,
+      link: "https://t.me/+4X5KG8TfJlkyMWMy",
+    },
+    {
+      name: "Vkontakte",
+      icon: vkontakteIcon,
+      link: "https://vk.ru/saint_sprow",
+    },
+    {
+      name: "Instagram",
+      icon: instagramIcon,
+      link: "https://www.instagram.com/reactjsofficial/",
+    },
+  ];
+
   return (
     <footer className={styles.footer}>
       <div className="container">
@@ -19,7 +41,7 @@ const Footer = () => {
           </NavLink>
           <div className={styles.social__wrapper}>
             <h3 className={styles.social__title}>Мы в социальных сетях</h3>
-            <SocialList mode="horizontal" />
+            <SocialList mode="horizontal" list={socialList} />
           </div>
         </div>
       </div>

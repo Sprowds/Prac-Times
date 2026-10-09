@@ -1,7 +1,7 @@
 import styles from "./Avatar.module.css";
 
 interface IProps {
-  avatar: string;
+  avatar: string | undefined;
   name: string;
   size: string;
 }
@@ -9,7 +9,7 @@ interface IProps {
 const Avatar = ({ avatar, name, size }: IProps) => {
   return (
     <img
-      src={avatar}
+      src={avatar ? avatar : "/src/data/userData/img/default-avatar.jpg"}
       alt={name}
       className={styles.avatar}
       style={{ width: size }}

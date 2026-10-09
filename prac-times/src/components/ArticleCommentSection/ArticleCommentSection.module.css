@@ -11,9 +11,11 @@
 }
 
 .comment__list {
+  position: relative;
+
   display: flex;
   flex-direction: column;
-  gap: 25px;
+  gap: 40px;
 }
 
 .comment__pagination {

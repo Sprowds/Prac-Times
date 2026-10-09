@@ -32,17 +32,13 @@ const MainArticle = ({ article }: IMainArticleProps) => {
       </NavLink>
 
       <ul className={styles.tags}>
-        {Object.entries(article.category).map(([key, value]) =>
-          value === true ? (
-            <li className={styles.tags__item} key={key}>
-              <NavLink to={key} className={styles.tags__link}>
-                <NewsTag tagText={key} tagFontSize="14px" />
-              </NavLink>
-            </li>
-          ) : (
-            ""
-          ),
-        )}
+        {article.category.map((category) => (
+          <li className={styles.tags__item} key={category}>
+            <NavLink to={category} className={styles.tags__link}>
+              <NewsTag tagText={category} tagFontSize="14px" />
+            </NavLink>
+          </li>
+        ))}
       </ul>
 
       <NewsTime dateTime={article.time} />
