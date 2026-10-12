@@ -281,7 +281,7 @@
         {
           "uuid": "86ea4659-1d43-4e06-ac8d-35b879b0e5ca",
           "body": "{}",
-          "latency": 1000,
+          "latency": 0,
           "statusCode": 200,
           "label": "",
           "headers": [],
@@ -362,7 +362,7 @@
         {
           "uuid": "28bda5e7-6677-482b-9a71-7d70b65eac53",
           "body": "{{setVar 'categoryCondition' 'true'}}\r\n\r\n{{#if (queryParamRaw 'category')}}\r\n  {{setVar 'categoryCondition'\r\n    (concat\r\n      \"@.category.indexOf('\"\r\n      (queryParam 'category')\r\n      \"') !== -1\"\r\n    )\r\n  }}\r\n{{/if}}\r\n\r\n\r\n{{setVar 'typeCondition' 'true'}}\r\n\r\n{{#if (queryParamRaw 'type')}}\r\n  {{setVar 'typeCondition'\r\n    (concat\r\n      \"@.type === '\"\r\n      (queryParam 'type')\r\n      \"'\"\r\n    )\r\n  }}\r\n{{/if}}\r\n\r\n\r\n{{setVar 'typeNotCondition' 'true'}}\r\n\r\n{{#if (queryParamRaw 'type_not')}}\r\n  {{setVar 'typeNotCondition'\r\n    (concat\r\n      \"@.type !== '\"\r\n      (queryParam 'type_not')\r\n      \"'\"\r\n    )\r\n  }}\r\n{{/if}}\r\n\r\n\r\n{{setVar 'titleCondition' 'true'}}\r\n\r\n{{#if (queryParamRaw 'title_like')}}\r\n  {{setVar 'titleCondition'\r\n    (concat\r\n      \"@.title.match(/\"\r\n      (queryParam 'title_like')\r\n      \"/i)\"\r\n    )\r\n  }}\r\n{{/if}}\r\n\r\n\r\n{{setVar 'filterPath'\r\n  (concat\r\n    \"$[?(\"\r\n    @typeNotCondition\r\n    \" && \"\r\n    @categoryCondition\r\n    \" && \"\r\n    @typeCondition\r\n    \" && \"\r\n    @titleCondition\r\n    \")]\"\r\n  )\r\n}}\r\n\r\n\r\n{{setVar 'filteredArticles'\r\n  (dataRaw 'articles' @filterPath)\r\n}}\r\n\r\n\r\n{{setVar 'page'\r\n  (parseInt (queryParam 'page' 1))\r\n}}\r\n\r\n{{setVar 'limit'\r\n  (parseInt (queryParam 'limit' 10))\r\n}}\r\n\r\n{{setVar 'start'\r\n  (multiply\r\n    (subtract @page 1)\r\n    @limit\r\n  )\r\n}}\r\n\r\n{{setVar 'end'\r\n  (multiply\r\n    @page\r\n    @limit\r\n  )\r\n}}\r\n\r\n{{setVar 'totalItems'\r\n  (len @filteredArticles)\r\n}}\r\n\r\n{{setVar 'totalPages'\r\n  (ceil\r\n    (divide @totalItems @limit)\r\n  )\r\n}}\r\n\r\n\r\n{\r\n  \"items\": {{{stringify\r\n    (slice @filteredArticles @start @end)\r\n  }}},\r\n\r\n  \"pagination\": {\r\n    \"page\": {{@page}},\r\n    \"limit\": {{@limit}},\r\n    \"totalItems\": {{@totalItems}},\r\n    \"totalPages\": {{@totalPages}}\r\n  }\r\n}",
-          "latency": 1000,
+          "latency": 0,
           "statusCode": 200,
           "label": "",
           "headers": [],
@@ -520,7 +520,7 @@
       "id": "2t8o",
       "name": "usersAuth",
       "documentation": "",
-      "value": "[\r\n  {\r\n    \"username\": \"Sprow\",\r\n    \"password\": \"Akimat2026@\",\r\n    \"status\": {\r\n      \"user\": true,\r\n      \"creator\": true,\r\n      \"admin\": true,\r\n      \"banned\": false\r\n    }\r\n  },\r\n  {\r\n    \"username\": \"ProstoGamer\",\r\n    \"password\": \"123456Aa\",\r\n    \"status\": {\r\n      \"user\": true,\r\n      \"creator\": true,\r\n      \"admin\": false,\r\n      \"banned\": false\r\n    }\r\n  }\r\n]"
+      "value": "[\r\n  {\r\n    \"username\": \"Sprow\",\r\n    \"password\": \"Akimat2026@\",\r\n    \"status\": \"creator\"\r\n  },\r\n  {\r\n    \"username\": \"ProstoGamer\",\r\n    \"password\": \"123456Aa\",\r\n    \"status\": \"user\"\r\n  }\r\n]"
     },
     {
       "uuid": "9ba195de-da4e-4f2d-aaee-708070e76ead",

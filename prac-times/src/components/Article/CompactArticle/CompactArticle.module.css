@@ -1,4 +1,5 @@
 .article__link {
+  position: relative;
   display: flex;
   flex-direction: column;
   gap: 8px;
@@ -8,6 +9,10 @@
 
 .article__link:hover .article__title {
   text-decoration: underline;
+}
+
+.article__link:hover .hover {
+  display: block;
 }
 
 .article__tag {
@@ -24,4 +29,33 @@
   color: var(--secondary-text-color);
   font-size: 16px;
   font-weight: 700;
+}
+
+.hover {
+  display: none;
+  width: 50%;
+  position: absolute;
+  top: 0;
+  right: 102%;
+
+  z-index: 100;
+}
+
+.image__wrapper {
+  overflow: hidden;
+  border-radius: 20px;
+  border: 3px solid var(--activity-main-color);
+}
+
+.hover::after {
+  content: "";
+  position: absolute;
+  display: block;
+
+  border-left: 9px solid var(--activity-main-color);
+  border-top: 4px solid transparent;
+  border-bottom: 4px solid transparent;
+  left: 100%;
+  top: 0;
+  transform: translate(0, 200%);
 }

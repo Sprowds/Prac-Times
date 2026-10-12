@@ -1,0 +1,11 @@
+.comment__list {
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+}
+
+.comment__item {
+  border: 1px solid var(--activity-main-color);
+  border-radius: 10px;
+  padding: 10px;
+}

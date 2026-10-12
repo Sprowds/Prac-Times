@@ -19,6 +19,15 @@ const CompactArticle = ({ article }: ICompactArticleProps) => {
         <NewsTag tagText={tag} tagFontSize="16px" />
         <p className={styles.article__title}>{article.title}</p>
         <NewsTime dateTime={article.time} />
+        <div className={styles.hover}>
+          <div className={styles.image__wrapper}>
+            <img
+              src={article.image}
+              alt={article.title}
+              className={styles.hover__image}
+            />
+          </div>
+        </div>
       </NavLink>
     </article>
   );

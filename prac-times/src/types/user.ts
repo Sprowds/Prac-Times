@@ -8,15 +8,10 @@ export default interface IUser {
   avatar: string;
 }
 
-export interface IStatus {
-  user: boolean;
-  creator: boolean;
-  admin: boolean;
-  banned: boolean;
-}
+export type UserStatus = "user" | "creator" | "admin" | "banned";
 
-export interface IAuth {
+export interface IUserAuth {
   username: string;
   password: string;
-  status: IStatus;
+  status: UserStatus;
 }
