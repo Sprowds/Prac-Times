@@ -59,3 +59,9 @@
   top: 0;
   transform: translate(0, 200%);
 }
+
+@media (max-width: 880px) {
+  .article__link:hover .hover {
+    display: none;
+  }
+}

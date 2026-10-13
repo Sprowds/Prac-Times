@@ -1,0 +1,14 @@
+.slider {
+  overflow: hidden;
+}
+
+.slider__list {
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 15px;
+}
+
+.list__item {
+  width: 300px;
+  flex-shrink: 0;
+}

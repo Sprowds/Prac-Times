@@ -5,6 +5,7 @@ import LoadingBlock from "../../ui/LoadingBlock/LoadingBlock";
 import { useGetArticlesQuery } from "../../services/newsApi";
 import type GetArticleParams from "../../types/getArticleParams";
 import ErrorBlock from "../../ui/ErrorBlock/ErrorBlock";
+import Slider from "../Slider/Slider";
 
 const Exclusives = () => {
   const fetchParams: GetArticleParams = {
@@ -34,6 +35,14 @@ const Exclusives = () => {
     <section className={styles.exclusives}>
       <PageTitle titleText="Эксклюзив" />
       {exclusiveArticlesListBlock()}
+
+      <Slider
+        list={
+          exclusiveArticlesList.data?.items
+            ? exclusiveArticlesList.data?.items
+            : []
+        }
+      />
     </section>
   );
 };
