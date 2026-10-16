@@ -8,41 +8,45 @@ interface IProps {
 }
 
 const Slider = ({ list }: IProps) => {
-  const [isClicked, setIsClicked] = useState(false);
-  const [moveDistance, setMoveDistance] = useState(0);
+  const [currentIndex, setCurrentIndex] = useState(0);
+
+  const handleClick = (number: number) => {
+    const result = currentIndex + number;
+    console.log(currentIndex);
+
+    if (result < 0) {
+      setCurrentIndex(0);
+      return;
+    }
+    if (result > list.length - 1) return;
+
+    setCurrentIndex(result);
+  };
 
   return (
-    <section
-      className={styles.slider}
-      onMouseDown={(event) => {
-        event.preventDefault();
-        setIsClicked(true);
-
-        document.addEventListener(
-          "mouseup",
-          (event) => {
-            event.preventDefault();
-            setIsClicked(false);
-          },
-          {
-            once: true,
-          },
-        );
-      }}
-      onMouseMove={(event) => {
-        if (isClicked) setMoveDistance((prev) => prev + event.movementX);
-      }}
-    >
-      <ul
-        className={styles.slider__list}
-        style={{ transform: `translateX(${moveDistance}px)` }}
-      >
-        {list.map((item) => (
-          <li className={styles.list__item} key={item.id}>
-            <ArticleCard article={item} />
-          </li>
-        ))}
-      </ul>
+    <section className={styles.slider}>
+      <div className={styles.slider__inner}>
+        <ul
+          className={styles.slider__list}
+          style={{ transform: `translateX(-${currentIndex * 100}%)` }}
+        >
+          {list.map((item) => (
+            <li className={styles.list__item} key={item.id}>
+              <ArticleCard article={item} />
+            </li>
+          ))}
+        </ul>
+      </div>
+      <button
+        className={styles.slider__button}
+        onClick={() => handleClick(1)}
+        disabled={currentIndex > list.length - 1}
+      >{`>`}</button>
+      <button
+        className={styles.slider__button}
+        onClick={() => handleClick(-1)}
+        disabled={currentIndex === 0}
+      >{`<`}</button>
     </section>
   );
 };
