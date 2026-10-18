@@ -34,7 +34,10 @@ const ArticleCard = ({ article }: IArticleCardProps) => {
           {article.category.map((category) => (
             <li className={styles.article__tags__item} key={category}>
               <NavLink to={category} className={styles.tags__item__link}>
-                <NewsTag tagText={category} tagFontSize="16px" />
+                <NewsTag
+                  tagText={category}
+                  tagFontSize="clamp(12px, 1.5vw, 16px)"
+                />
               </NavLink>
             </li>
           ))}

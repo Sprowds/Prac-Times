@@ -6,6 +6,7 @@ import LoadingBlock from "../../ui/LoadingBlock/LoadingBlock";
 import { useGetArticlesQuery } from "../../services/newsApi";
 import type GetArticleParams from "../../types/getArticleParams";
 import ErrorBlock from "../../ui/ErrorBlock/ErrorBlock";
+import Slider from "../Slider/Slider";
 
 interface IProps {
   searchParams: URLSearchParams;
@@ -86,6 +87,7 @@ const SearchResults = ({ searchParams, addSearchParams }: IProps) => {
       <PageTitle titleText="Новости" />
       {newsListBlock()}
       {paginationBlock()}
+      <Slider list={newsList.data?.items ? newsList.data?.items : []} />
     </div>
   );
 };
