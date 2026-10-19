@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import type INewsItem from "../../types/newsItem";
 import ArticleCard from "../Article/ArticleCard/ArticleCard";
 import styles from "./Slider.module.css";
@@ -9,16 +9,17 @@ interface IProps {
 }
 
 const Slider = ({ list }: IProps) => {
-  const [currentPage, setCurrentPage] = useState(0);
-
   const windowSize = useWindowSize();
 
-  const [itemsOnPage, setItemsOnPage] = useState(3);
+  const itemsOnPage = windowSize.width <= 600 ? 1 : 3;
 
   const pageCount = Math.ceil(list.length / itemsOnPage);
 
+  const [currentPage, setCurrentPage] = useState(0);
+  const activePage = Math.min(currentPage, Math.max(0, pageCount - 1));
+
   const handleClick = (number: number) => {
-    const result = currentPage + number;
+    const result = activePage + number;
 
     if (result < 0) {
       setCurrentPage(0);
@@ -29,21 +30,40 @@ const Slider = ({ list }: IProps) => {
     setCurrentPage(result);
   };
 
-  useEffect(() => {
-    if (windowSize.width <= 600) setItemsOnPage(1);
-    else {
-      setItemsOnPage(3);
+  const paginationBlock = () => {
+    const items = [];
 
-      if (currentPage >= pageCount) setCurrentPage(0);
+    for (let i = 0; i < pageCount; i++) {
+      items.push(
+        <li
+          className={`${styles.pagination__item} ${i === activePage ? styles.active : ""}`}
+          key={i}
+        >
+          <button
+            className={styles.pagination__btn}
+            onClick={() => {
+              setCurrentPage(i);
+            }}
+            disabled={currentPage === i}
+          ></button>
+        </li>,
+      );
     }
-  }, [windowSize]);
+
+    return (
+      <nav className={styles.slider__nav}>
+        <ul className={styles.pagination}>{items.map((item) => item)}</ul>
+      </nav>
+    );
+  };
 
   return (
     <section className={styles.slider}>
       <div className={styles.slider__inner}>
+        {paginationBlock()}
         <ul
           className={styles.slider__list}
-          style={{ transform: `translateX(-${currentPage * 100}%)` }}
+          style={{ transform: `translateX(-${activePage * 100}%)` }}
         >
           {list.map((item) => (
             <li className={styles.list__item} key={item.id}>
@@ -56,13 +76,13 @@ const Slider = ({ list }: IProps) => {
       <button
         className={styles.slider__button}
         onClick={() => handleClick(1)}
-        disabled={currentPage >= pageCount - 1}
+        disabled={activePage >= pageCount - 1}
       >{`>`}</button>
 
       <button
         className={styles.slider__button}
         onClick={() => handleClick(-1)}
-        disabled={currentPage === 0}
+        disabled={activePage === 0}
       >{`<`}</button>
     </section>
   );

@@ -4,6 +4,9 @@
 
 .slider__inner {
   overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 }
 
 .slider__list {
@@ -61,6 +64,32 @@
 
 .slider__button:disabled {
   display: none;
+}
+
+.pagination {
+  display: flex;
+  justify-content: end;
+  gap: 4px;
+}
+
+.pagination__item.active .pagination__btn {
+  background-color: var(--activity-main-color);
+
+  cursor: default;
+}
+
+.pagination__btn {
+  display: inline-block;
+  width: 10px;
+  aspect-ratio: 1;
+
+  border-radius: 50%;
+  border: 1px solid var(--activity-main-color);
+  background-color: transparent;
+
+  cursor: pointer;
+
+  transition: 0s;
 }
 
 @media (max-width: 600px) {
