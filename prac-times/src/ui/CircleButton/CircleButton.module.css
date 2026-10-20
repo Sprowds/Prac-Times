@@ -1,0 +1,22 @@
+.circle_btn {
+  cursor: pointer;
+
+  width: 70px;
+  aspect-ratio: 1;
+  background-color: var(--main-background-color);
+  border: 1px solid var(--activity-main-color);
+  border-radius: 50%;
+
+  font-size: 30px;
+  font-weight: 700;
+  color: var(--activity-main-color);
+}
+
+.circle_btn:hover {
+  background-color: var(--activity-main-color);
+  color: var(--main-background-color);
+}
+
+.circle_btn:disabled {
+  display: none;
+}

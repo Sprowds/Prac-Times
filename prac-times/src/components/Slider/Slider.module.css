@@ -37,33 +37,20 @@
   position: absolute;
   top: 50%;
   transform: translate(0, -50%);
-
-  cursor: pointer;
-
-  width: 70px;
-  aspect-ratio: 1;
-  background-color: var(--main-background-color);
-  border: 1px solid var(--activity-main-color);
-  border-radius: 50%;
-
-  font-size: 30px;
-  font-weight: 700;
-  color: var(--activity-main-color);
 }
 
-.slider__button:nth-child(2) {
+.right_arrow__btn {
+  position: absolute;
   top: 50%;
   right: 0;
   transform: translate(0, -50%);
 }
 
-.slider__button:hover {
-  background-color: var(--activity-main-color);
-  color: var(--main-background-color);
-}
-
-.slider__button:disabled {
-  display: none;
+.left_arrow__btn {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  transform: translate(0, -50%);
 }
 
 .pagination {

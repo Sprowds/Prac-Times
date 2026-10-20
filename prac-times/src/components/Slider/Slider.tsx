@@ -3,6 +3,7 @@ import type INewsItem from "../../types/newsItem";
 import ArticleCard from "../Article/ArticleCard/ArticleCard";
 import styles from "./Slider.module.css";
 import useWindowSize from "../../hooks/useWindowSize";
+import CircleButton from "../../ui/CircleButton/CircleButton";
 
 interface IProps {
   list: INewsItem[];
@@ -73,17 +74,21 @@ const Slider = ({ list }: IProps) => {
         </ul>
       </div>
 
-      <button
-        className={styles.slider__button}
-        onClick={() => handleClick(1)}
-        disabled={activePage >= pageCount - 1}
-      >{`>`}</button>
+      <div className={styles.right_arrow__btn}>
+        <CircleButton
+          inner=">"
+          handleClick={() => handleClick(1)}
+          disableState={activePage >= pageCount - 1}
+        />
+      </div>
 
-      <button
-        className={styles.slider__button}
-        onClick={() => handleClick(-1)}
-        disabled={activePage === 0}
-      >{`<`}</button>
+      <div className={styles.left_arrow__btn}>
+        <CircleButton
+          inner="<"
+          handleClick={() => handleClick(-1)}
+          disableState={activePage === 0}
+        />
+      </div>
     </section>
   );
 };
