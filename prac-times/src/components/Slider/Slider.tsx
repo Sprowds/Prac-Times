@@ -58,20 +58,56 @@ const Slider = ({ list }: IProps) => {
     );
   };
 
+  const [isMouseDown, setIsMouseDown] = useState(false);
+  const [isOnSlider, setIsOnSlider] = useState(false);
+  const [moveDistance, setMoveDistance] = useState(0);
+
+  const handleMouseMove = (event: React.MouseEvent) => {
+    if (isMouseDown && isOnSlider) {
+      setMoveDistance((prev) => prev + event.movementX);
+    }
+  };
+
   return (
-    <section className={styles.slider}>
+    <section
+      className={styles.slider}
+      onMouseDown={() => setIsMouseDown(true)}
+      onMouseUp={() => {
+        setIsMouseDown(false);
+        if (moveDistance > 0) setMoveDistance(0);
+      }}
+      onMouseOver={() => setIsOnSlider(true)}
+      onMouseLeave={() => {
+        setIsOnSlider(false);
+        setIsMouseDown(false);
+        if (moveDistance > 0) setMoveDistance(0);
+      }}
+      onMouseMove={handleMouseMove}
+    >
       <div className={styles.slider__inner}>
         {paginationBlock()}
         <ul
           className={styles.slider__list}
-          style={{ transform: `translateX(-${activePage * 100}%)` }}
+          // style={{ transform: `translateX(-${activePage * 100}%)` }}
+          style={{
+            transform:
+              isMouseDown && isOnSlider
+                ? `translateX(${moveDistance}px)`
+                : `translateX(-${activePage * 100}%)`,
+            transition: isMouseDown && isOnSlider ? "0s" : "",
+          }}
         >
           {list.map((item) => (
-            <li className={styles.list__item} key={item.id}>
+            <li
+              className={styles.list__item}
+              key={item.id}
+              onDragStart={(event) => event.preventDefault()}
+            >
               <ArticleCard article={item} />
             </li>
           ))}
         </ul>
+        {moveDistance}
       </div>
 
       <div className={styles.right_arrow__btn}>
