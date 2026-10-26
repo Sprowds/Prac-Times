@@ -10,16 +10,18 @@ interface IProps {
 }
 
 const Slider = ({ list }: IProps) => {
-  const windowSize = useWindowSize();
+  const windowWidth = useWindowSize().width;
 
-  const itemsOnPage = windowSize.width <= 600 ? 1 : 3;
+  const sliderWidth = windowWidth >= 1253 ? 1218 : windowWidth - 35;
+
+  const itemsOnPage = windowWidth <= 600 ? 1 : 3;
 
   const pageCount = Math.ceil(list.length / itemsOnPage);
 
   const [currentPage, setCurrentPage] = useState(0);
   const activePage = Math.min(currentPage, Math.max(0, pageCount - 1));
 
-  const handleClick = (number: number) => {
+  const handlePageChange = (number: number) => {
     const result = activePage + number;
 
     if (result < 0) {
@@ -29,6 +31,34 @@ const Slider = ({ list }: IProps) => {
     if (result >= pageCount) return;
 
     setCurrentPage(result);
+  };
+
+  const [isMouseDown, setIsMouseDown] = useState(false);
+  const [isOnSlider, setIsOnSlider] = useState(false);
+  const [mouseMoveDistance, setMouseMoveDistance] = useState(0);
+
+  const handleMouseMove = (event: React.PointerEvent) => {
+    if (isMouseDown && isOnSlider) {
+      setMouseMoveDistance((prev) => prev + event.movementX);
+    }
+  };
+
+  const handleMouseMoveEnd = () => {
+    if (mouseMoveDistance > sliderWidth / 2) handlePageChange(-1);
+    else if (mouseMoveDistance < -sliderWidth / 2) handlePageChange(1);
+
+    setMouseMoveDistance(0);
+  };
+
+  const [isDrag, setIsDrag] = useState(false);
+
+  const handleDragging = () => {
+    if (mouseMoveDistance > 6 || mouseMoveDistance < -6) setIsDrag(true);
+    else setIsDrag(false);
+  };
+
+  const handleClickCapture = (event: React.MouseEvent) => {
+    if (isDrag) event.preventDefault();
   };
 
   const paginationBlock = () => {
@@ -58,41 +88,33 @@ const Slider = ({ list }: IProps) => {
     );
   };
 
-  const [isMouseDown, setIsMouseDown] = useState(false);
-  const [isOnSlider, setIsOnSlider] = useState(false);
-  const [moveDistance, setMoveDistance] = useState(0);
-
-  const handleMouseMove = (event: React.MouseEvent) => {
-    if (isMouseDown && isOnSlider) {
-      setMoveDistance((prev) => prev + event.movementX);
-    }
-  };
-
   return (
     <section
       className={styles.slider}
-      onMouseDown={() => setIsMouseDown(true)}
-      onMouseUp={() => {
+      onPointerDown={() => setIsMouseDown(true)}
+      onPointerUp={() => {
         setIsMouseDown(false);
-        if (moveDistance > 0) setMoveDistance(0);
+        handleMouseMoveEnd();
+        handleDragging();
       }}
-      onMouseOver={() => setIsOnSlider(true)}
-      onMouseLeave={() => {
+      onPointerOver={() => setIsOnSlider(true)}
+      onPointerLeave={() => {
         setIsOnSlider(false);
         setIsMouseDown(false);
-        if (moveDistance > 0) setMoveDistance(0);
+        handleMouseMoveEnd();
+        handleDragging();
       }}
-      onMouseMove={handleMouseMove}
+      onPointerMove={handleMouseMove}
+      onClickCapture={handleClickCapture}
     >
       <div className={styles.slider__inner}>
         {paginationBlock()}
         <ul
           className={styles.slider__list}
-          // style={{ transform: `translateX(-${activePage * 100}%)` }}
           style={{
             transform:
               isMouseDown && isOnSlider
-                ? `translateX(${moveDistance}px)`
+                ? `translateX(calc(${-activePage * 100}% + ${mouseMoveDistance}px))`
                 : `translateX(-${activePage * 100}%)`,
             transition: isMouseDown && isOnSlider ? "0s" : "",
           }}
@@ -107,13 +129,12 @@ const Slider = ({ list }: IProps) => {
             </li>
           ))}
         </ul>
-        {moveDistance}
       </div>
 
       <div className={styles.right_arrow__btn}>
         <CircleButton
           inner=">"
-          handleClick={() => handleClick(1)}
+          handleClick={() => handlePageChange(1)}
           disableState={activePage >= pageCount - 1}
         />
       </div>
@@ -121,7 +142,7 @@ const Slider = ({ list }: IProps) => {
       <div className={styles.left_arrow__btn}>
         <CircleButton
           inner="<"
-          handleClick={() => handleClick(-1)}
+          handleClick={() => handlePageChange(-1)}
           disableState={activePage === 0}
         />
       </div>

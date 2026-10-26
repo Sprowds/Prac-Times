@@ -3,6 +3,8 @@
 
   -webkit-user-select: none;
   user-select: none;
+
+  touch-action: pan-y;
 }
 
 .slider__inner {
@@ -89,5 +91,13 @@
 
   .list__item:nth-child(3n) {
     margin-right: 1%;
+  }
+
+  .right_arrow__btn {
+    display: none;
+  }
+
+  .left_arrow__btn {
+    display: none;
   }
 }
